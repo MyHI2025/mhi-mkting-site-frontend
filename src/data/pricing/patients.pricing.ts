@@ -1,0 +1,206 @@
+import { type UserTypePricing } from "./types";
+
+export const patientPricing: UserTypePricing = {
+  title: "Patients",
+  icon: "Users",
+  description: "Affordable healthcare access for individuals and families",
+  allFeatures: [
+    "AI-powered initial diagnosis",
+    "Streamlined health service access",
+    "Access to all healthcare providers",
+    "Book appointments & pay per visit",
+    "24/7 AI health assistant",
+    "Integrated Electronic Health Records (EHR)",
+    "E-prescription services",
+    "Lab test booking & results",
+    "Pharmacy ordering & delivery",
+    "Global telemedicine access",
+    "Video consultations",
+    "Family member management",
+    "Specialist consultations",
+    "Remote monitoring & health device integration",
+    "Personalized health and wellness programs",
+    "Priority customer support",
+    "Emergency service coordination",
+    "Home sample collection",
+    "Annual health checkup",
+    "Integrated health insurance from your provider",
+    "Medical concierge services"
+  ],
+  tiers: [
+    {
+      name: "Free",
+      price: "₦0",
+      period: "/month",
+      billingType: "payg",
+      description: "No subscription + standard marketplace fees",
+      badge: "Most Popular",
+      popular: true,
+      cta: "Get Started Free",
+      link: "/contact?type=patient&plan=free",
+      features: [
+        { name: "AI-powered initial diagnosis", status: "limited", limitation: "Basic symptoms checker (5 uses/day)" },
+        { name: "Streamlined health service access", status: "included" },
+        { name: "Access to all healthcare providers", status: "included", limitation: "Browse & search providers" },
+        { name: "Book appointments & pay per visit", status: "included", limitation: "Pay ₦500-5,000 per consultation" },
+        { name: "24/7 AI health assistant", status: "limited", limitation: "5 questions per day" },
+        { name: "Integrated Electronic Health Records (EHR)", status: "limited", limitation: "5GB storage" },
+        { name: "E-prescription services", status: "excluded" },
+        { name: "Lab test booking & results", status: "excluded" },
+        { name: "Pharmacy ordering & delivery", status: "excluded" },
+        { name: "Global telemedicine access", status: "excluded" },
+        { name: "Video consultations", status: "excluded" },
+        { name: "Family member management", status: "excluded" },
+        { name: "Specialist consultations", status: "excluded" },
+        { name: "Remote monitoring & health device integration", status: "excluded" },
+        { name: "Personalized health and wellness programs", status: "excluded" },
+        { name: "Priority customer support", status: "excluded" },
+        { name: "Emergency service coordination", status: "excluded" },
+        { name: "Home sample collection", status: "excluded" },
+        { name: "Annual health checkup", status: "excluded" },
+        { name: "Integrated health insurance from your provider", status: "excluded" },
+        { name: "Medical concierge services", status: "excluded" }
+      ]
+    },
+    {
+      name: "Basic",
+      price: "₦5,000",
+      period: "/month",
+      billingType: "monthly",
+      description: "Healthcare essentials + save 5% on marketplace fees",
+      cta: "Start Basic Plan",
+      link: "/contact?type=patient&plan=basic",
+      features: [
+        // Everything from Free (upgraded)
+        { name: "AI-powered initial diagnosis", status: "included", limitation: "Unlimited symptom checking" },
+        { name: "Streamlined health service access", status: "included" },
+        { name: "Access to all healthcare providers", status: "included" },
+        { name: "Book appointments & pay per visit", status: "included", limitation: "Discounted rates" },
+        { name: "24/7 AI health assistant", status: "included", limitation: "Unlimited questions" },
+        { name: "Integrated Electronic Health Records (EHR)", status: "limited", limitation: "20GB storage" },
+        // New in Basic
+        { name: "E-prescription services", status: "included" },
+        { name: "Lab test booking & results", status: "included" },
+        { name: "Pharmacy ordering & delivery", status: "limited", limitation: "10% discount on medicines" },
+        { name: "Global telemedicine access", status: "limited", limitation: "2 consultations/month" },
+        { name: "Video consultations", status: "limited", limitation: "Audio only, 15 min limit" },
+        // Still excluded
+        { name: "Family member management", status: "excluded" },
+        { name: "Specialist consultations", status: "excluded" },
+        { name: "Remote monitoring & health device integration", status: "excluded" },
+        { name: "Personalized health and wellness programs", status: "excluded" },
+        { name: "Priority customer support", status: "excluded" },
+        { name: "Emergency service coordination", status: "excluded" },
+        { name: "Home sample collection", status: "excluded" },
+        { name: "Annual health checkup", status: "excluded" },
+        { name: "Integrated health insurance from your provider", status: "excluded" },
+        { name: "Medical concierge services", status: "excluded" }
+      ]
+    },
+    {
+      name: "Standard",
+      price: "₦8,000",
+      period: "/month",
+      billingType: "monthly",
+      description: "Family health coverage + save 7.5% on marketplace fees",
+      cta: "Protect Your Family",
+      link: "/contact?type=patient&plan=standard",
+      features: [
+        // Everything from Basic (same or upgraded)
+        { name: "AI-powered initial diagnosis", status: "included" },
+        { name: "Streamlined health service access", status: "included" },
+        { name: "Access to all healthcare providers", status: "included" },
+        { name: "Book appointments & pay per visit", status: "included", limitation: "Family discounted rates" },
+        { name: "24/7 AI health assistant", status: "included" },
+        { name: "Integrated Electronic Health Records (EHR)", status: "included", limitation: "Unlimited for family" },
+        { name: "E-prescription services", status: "included" },
+        { name: "Lab test booking & results", status: "included" },
+        { name: "Pharmacy ordering & delivery", status: "limited", limitation: "20% discount + free delivery" },
+        { name: "Global telemedicine access", status: "limited", limitation: "5 consultations/month (shared)" },
+        { name: "Video consultations", status: "included", limitation: "HD video, 30 min limit" },
+        // New in Family
+        { name: "Family member management", status: "limited", limitation: "Up to 5 members" },
+        { name: "Specialist consultations", status: "limited", limitation: "2 specialist consults/month" },
+        { name: "Remote monitoring & health device integration", status: "limited", limitation: "Basic vitals tracking" },
+        { name: "Personalized health and wellness programs", status: "limited", limitation: "Family wellness dashboard" },
+        { name: "Priority customer support", status: "included" },
+        // Still excluded
+        { name: "Emergency service coordination", status: "excluded" },
+        { name: "Home sample collection", status: "excluded" },
+        { name: "Annual health checkup", status: "excluded" },
+        { name: "Integrated health insurance from your provider", status: "excluded" },
+        { name: "Medical concierge services", status: "excluded" }
+      ]
+    },
+    {
+      name: "Premium",
+      price: "₦10,000",
+      period: "/month",
+      billingType: "monthly",
+      description: "Comprehensive management + save 10% on marketplace fees",
+      badge: "Best Value",
+      cta: "Go Premium",
+      link: "/contact?type=patient&plan=premium",
+      features: [
+        // Everything from Family (same or upgraded)
+        { name: "AI-powered initial diagnosis", status: "included" },
+        { name: "Streamlined health service access", status: "included" },
+        { name: "Access to all healthcare providers", status: "included" },
+        { name: "Book appointments & pay per visit", status: "included", limitation: "Premium discounted rates" },
+        { name: "24/7 AI health assistant", status: "included" },
+        { name: "Integrated Electronic Health Records (EHR)", status: "included" },
+        { name: "E-prescription services", status: "included" },
+        { name: "Lab test booking & results", status: "included" },
+        { name: "Pharmacy ordering & delivery", status: "included", limitation: "Free delivery + priority" },
+        { name: "Global telemedicine access", status: "included", limitation: "Unlimited consultations" },
+        { name: "Video consultations", status: "included" },
+        { name: "Family member management", status: "included", limitation: "Up to 10 members" },
+        { name: "Specialist consultations", status: "included" },
+        { name: "Remote monitoring & health device integration", status: "included" },
+        { name: "Personalized health and wellness programs", status: "included" },
+        { name: "Priority customer support", status: "included" },
+        // New in Premium
+        { name: "Emergency service coordination", status: "included" },
+        { name: "Home sample collection", status: "included" },
+        { name: "Annual health checkup", status: "included" },
+        { name: "Integrated health insurance from your provider", status: "limited", limitation: "Claim filing assistance" },
+        // Still excluded
+        { name: "Medical concierge services", status: "excluded" }
+      ]
+    },
+    {
+      name: "Enterprise",
+      price: "Custom",
+      period: "pricing",
+      billingType: "custom",
+      description: "VIP care + save 10% on marketplace fees",
+      cta: "Contact Sales",
+      link: "/contact?type=patient&plan=enterprise",
+      features: [
+        // Everything from Premium (all included or upgraded)
+        { name: "AI-powered initial diagnosis", status: "included" },
+        { name: "Streamlined health service access", status: "included" },
+        { name: "Access to all healthcare providers", status: "included" },
+        { name: "Book appointments & pay per visit", status: "included", limitation: "VIP priority booking" },
+        { name: "24/7 AI health assistant", status: "included" },
+        { name: "Integrated Electronic Health Records (EHR)", status: "included" },
+        { name: "E-prescription services", status: "included" },
+        { name: "Lab test booking & results", status: "included" },
+        { name: "Pharmacy ordering & delivery", status: "included" },
+        { name: "Global telemedicine access", status: "included", limitation: "International specialists" },
+        { name: "Video consultations", status: "included" },
+        { name: "Family member management", status: "included", limitation: "Unlimited members" },
+        { name: "Specialist consultations", status: "included" },
+        { name: "Remote monitoring & health device integration", status: "included" },
+        { name: "Personalized health and wellness programs", status: "included" },
+        { name: "Priority customer support", status: "included", limitation: "24/7 dedicated line" },
+        { name: "Emergency service coordination", status: "included", limitation: "Priority response" },
+        { name: "Home sample collection", status: "included" },
+        { name: "Annual health checkup", status: "included" },
+        { name: "Integrated health insurance from your provider", status: "included" },
+        // New in Enterprise
+        { name: "Medical concierge services", status: "included", limitation: "Dedicated medical team" }
+      ]
+    }
+  ]
+};

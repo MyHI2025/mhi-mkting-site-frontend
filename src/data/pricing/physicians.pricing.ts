@@ -1,0 +1,207 @@
+import { type UserTypePricing } from "./types";
+
+export const physicianPricing: UserTypePricing = {
+  title: "Private Physicians",
+  icon: "Stethoscope",
+  description: "Expand your practice and reach more patients",
+  allFeatures: [
+    "Private virtual practice management",
+    "Direct patient referrals & access",
+    "Efficient appointment management",
+    "Digital prescription system",
+    "Patient portal & mobile app",
+    "Enhanced telemedicine services",
+    "HD video consultation platform",
+    "Complete Electronic Medical Records (EMR)",
+    "AI diagnostic support & note taking",
+    "Patient remote health monitoring",
+    "Seamless med diagnostics & prescription integration",
+    "Integrated payment processing",
+    "Flexible scheduling & integrated billing",
+    "Practice analytics & insights",
+    "Patient acquisition & marketing tools",
+    "Multi-location practice support",
+    "Staff & role management",
+    "Insurance billing integration",
+    "Custom clinical workflows",
+    "API access & integrations",
+    "White-label solution"
+  ],
+  tiers: [
+    {
+      name: "Free",
+      price: "₦0",
+      period: "/month",
+      billingType: "payg",
+      description: "No subscription + standard marketplace fees",
+      badge: "Get Started",
+      popular: true,
+      cta: "List Your Practice",
+      link: "/contact?type=physician&plan=free",
+      features: [
+        { name: "Private virtual practice management", status: "limited", limitation: "Basic profile listing" },
+        { name: "Direct patient referrals & access", status: "included", limitation: "Standard marketplace fees apply" },
+        { name: "Efficient appointment management", status: "limited", limitation: "Basic calendar, 10 appointments/month" },
+        { name: "Digital prescription system", status: "included" },
+        { name: "Patient portal & mobile app", status: "limited", limitation: "View only" },
+        { name: "Enhanced telemedicine services", status: "excluded" },
+        { name: "HD video consultation platform", status: "excluded" },
+        { name: "Complete Electronic Medical Records (EMR)", status: "excluded" },
+        { name: "AI diagnostic support & note taking", status: "excluded" },
+        { name: "Patient remote health monitoring", status: "excluded" },
+        { name: "Seamless med diagnostics & prescription integration", status: "excluded" },
+        { name: "Integrated payment processing", status: "excluded" },
+        { name: "Flexible scheduling & integrated billing", status: "excluded" },
+        { name: "Practice analytics & insights", status: "excluded" },
+        { name: "Patient acquisition & marketing tools", status: "excluded" },
+        { name: "Multi-location practice support", status: "excluded" },
+        { name: "Staff & role management", status: "excluded" },
+        { name: "Insurance billing integration", status: "excluded" },
+        { name: "Custom clinical workflows", status: "excluded" },
+        { name: "API access & integrations", status: "excluded" },
+        { name: "White-label solution", status: "excluded" }
+      ]
+    },
+    {
+      name: "Starter",
+      price: "₦10,000",
+      period: "/month",
+      billingType: "monthly",
+      description: "Practice essentials + save 5% on marketplace fees",
+      cta: "Start Growing",
+      link: "/contact?type=physician&plan=starter",
+      features: [
+        // Everything from Free (upgraded)
+        { name: "Private virtual practice management", status: "included" },
+        { name: "Direct patient referrals & access", status: "included", limitation: "Reduced marketplace fees" },
+        { name: "Efficient appointment management", status: "included", limitation: "Up to 100 appointments/month" },
+        { name: "Digital prescription system", status: "included" },
+        { name: "Patient portal & mobile app", status: "included" },
+        // New in Starter
+        { name: "Enhanced telemedicine services", status: "included", limitation: "50 consultations/month" },
+        { name: "HD video consultation platform", status: "included" },
+        { name: "Complete Electronic Medical Records (EMR)", status: "limited", limitation: "Up to 50 patients" },
+        { name: "AI diagnostic support & note taking", status: "limited", limitation: "10 AI assists/month" },
+        { name: "Seamless med diagnostics & prescription integration", status: "included" },
+        { name: "Integrated payment processing", status: "limited", limitation: "Standard fees apply" },
+        { name: "Flexible scheduling & integrated billing", status: "limited", limitation: "Basic billing only" },
+        // Still excluded
+        { name: "Patient remote health monitoring", status: "excluded" },
+        { name: "Practice analytics & insights", status: "excluded" },
+        { name: "Patient acquisition & marketing tools", status: "excluded" },
+        { name: "Multi-location practice support", status: "excluded" },
+        { name: "Staff & role management", status: "excluded" },
+        { name: "Insurance billing integration", status: "excluded" },
+        { name: "Custom clinical workflows", status: "excluded" },
+        { name: "API access & integrations", status: "excluded" },
+        { name: "White-label solution", status: "excluded" }
+      ]
+    },
+    {
+      name: "Professional",
+      price: "₦15,000",
+      period: "/month",
+      billingType: "monthly",
+      description: "Growing practice + save 7.5% on marketplace fees",
+      badge: "Most Popular",
+      popular: true,
+      cta: "Go Professional",
+      link: "/contact?type=physician&plan=professional",
+      features: [
+        // Everything from Starter (same or upgraded)
+        { name: "Private virtual practice management", status: "included" },
+        { name: "Direct patient referrals & access", status: "included" },
+        { name: "Efficient appointment management", status: "included", limitation: "Unlimited appointments" },
+        { name: "Digital prescription system", status: "included" },
+        { name: "Patient portal & mobile app", status: "included" },
+        { name: "Enhanced telemedicine services", status: "included", limitation: "Unlimited consultations" },
+        { name: "HD video consultation platform", status: "included" },
+        { name: "Complete Electronic Medical Records (EMR)", status: "included", limitation: "Up to 500 patients" },
+        { name: "AI diagnostic support & note taking", status: "included", limitation: "Unlimited AI assists" },
+        { name: "Seamless med diagnostics & prescription integration", status: "included" },
+        { name: "Integrated payment processing", status: "included", limitation: "Reduced fees" },
+        { name: "Flexible scheduling & integrated billing", status: "included" },
+        // New in Professional
+        { name: "Patient remote health monitoring", status: "included" },
+        { name: "Practice analytics & insights", status: "included" },
+        { name: "Patient acquisition & marketing tools", status: "limited", limitation: "Basic marketing features" },
+        { name: "Staff & role management", status: "limited", limitation: "Up to 2 staff members" },
+        { name: "Insurance billing integration", status: "limited", limitation: "Basic integration" },
+        // Still excluded
+        { name: "Multi-location practice support", status: "excluded" },
+        { name: "Custom clinical workflows", status: "excluded" },
+        { name: "API access & integrations", status: "excluded" },
+        { name: "White-label solution", status: "excluded" }
+      ]
+    },
+    {
+      name: "Premium",
+      price: "₦20,000",
+      period: "/month",
+      billingType: "monthly",
+      description: "Multi-location practice + save 10% on marketplace fees",
+      cta: "Scale Your Practice",
+      link: "/contact?type=physician&plan=premium",
+      features: [
+        // Everything from Professional (same or upgraded)
+        { name: "Private virtual practice management", status: "included" },
+        { name: "Direct patient referrals & access", status: "included" },
+        { name: "Efficient appointment management", status: "included" },
+        { name: "Digital prescription system", status: "included" },
+        { name: "Patient portal & mobile app", status: "included" },
+        { name: "Enhanced telemedicine services", status: "included" },
+        { name: "HD video consultation platform", status: "included" },
+        { name: "Complete Electronic Medical Records (EMR)", status: "included", limitation: "Unlimited patients" },
+        { name: "AI diagnostic support & note taking", status: "included" },
+        { name: "Patient remote health monitoring", status: "included" },
+        { name: "Seamless med diagnostics & prescription integration", status: "included" },
+        { name: "Integrated payment processing", status: "included", limitation: "Lowest fees" },
+        { name: "Flexible scheduling & integrated billing", status: "included" },
+        { name: "Practice analytics & insights", status: "included" },
+        { name: "Patient acquisition & marketing tools", status: "included" },
+        { name: "Staff & role management", status: "included", limitation: "Up to 10 staff" },
+        { name: "Insurance billing integration", status: "included" },
+        // New in Premium
+        { name: "Multi-location practice support", status: "included", limitation: "Up to 3 locations" },
+        { name: "Custom clinical workflows", status: "included" },
+        { name: "API access & integrations", status: "limited", limitation: "Read-only API" },
+        // Still excluded
+        { name: "White-label solution", status: "excluded" }
+      ]
+    },
+    {
+      name: "Enterprise",
+      price: "Custom",
+      period: "pricing",
+      billingType: "custom",
+      description: "Large practice groups + save 10% on marketplace fees",
+      cta: "Contact Sales",
+      link: "/contact?type=physician&plan=enterprise",
+      features: [
+        // Everything from Premium (all included or upgraded)
+        { name: "Private virtual practice management", status: "included" },
+        { name: "Direct patient referrals & access", status: "included" },
+        { name: "Efficient appointment management", status: "included" },
+        { name: "Digital prescription system", status: "included" },
+        { name: "Patient portal & mobile app", status: "included" },
+        { name: "Enhanced telemedicine services", status: "included" },
+        { name: "HD video consultation platform", status: "included" },
+        { name: "Complete Electronic Medical Records (EMR)", status: "included" },
+        { name: "AI diagnostic support & note taking", status: "included" },
+        { name: "Patient remote health monitoring", status: "included" },
+        { name: "Seamless med diagnostics & prescription integration", status: "included" },
+        { name: "Integrated payment processing", status: "included", limitation: "Negotiable rates" },
+        { name: "Flexible scheduling & integrated billing", status: "included" },
+        { name: "Practice analytics & insights", status: "included" },
+        { name: "Patient acquisition & marketing tools", status: "included" },
+        { name: "Multi-location practice support", status: "included", limitation: "Unlimited locations" },
+        { name: "Staff & role management", status: "included", limitation: "Unlimited staff" },
+        { name: "Insurance billing integration", status: "included" },
+        { name: "Custom clinical workflows", status: "included" },
+        { name: "API access & integrations", status: "included", limitation: "Full API access" },
+        // New in Enterprise
+        { name: "White-label solution", status: "included", limitation: "Custom branding available" }
+      ]
+    }
+  ]
+};
