@@ -30,10 +30,9 @@ export default function BlogDetail() {
   });
 
   const article = useMemo(() => {
-    if (!Array.isArray(pages)) return null;
-    // Reconstruct full slug: blog/article-slug
-    const fullSlug = `blog/${articleSlug}`;
-    const page = pages.find((p: any) => p.slug === fullSlug && p.pageType === 'blog');
+  if (!Array.isArray(pages)) return null;
+  // Search for the slug directly
+  const page = pages.find((p: any) => p.slug === articleSlug && p.pageType === 'blog');
     if (!page) return null;
     
     return {

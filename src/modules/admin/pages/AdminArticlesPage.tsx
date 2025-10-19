@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Edit, Trash2, FileText, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Plus, Edit, Trash2, FileText, Newspaper, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -76,7 +76,7 @@ export default function AdminArticlesPage() {
     },
   });
 
-  const saveArticleMutation = useMutation({
+    const saveArticleMutation = useMutation({
     mutationFn: async (data: ArticleFormData) => {
       const slug = editingArticle?.slug || `article-${Date.now()}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
       
@@ -265,7 +265,7 @@ export default function AdminArticlesPage() {
                     <p className="text-gray-600 dark:text-gray-400 line-clamp-2">{article.description}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Link href={`/${article.slug}`} target="_blank">
+                    <Link href={`/blog/${article.slug}`} target="_blank">
                       <Button variant="ghost" size="sm" data-testid={`view-article-${article.id}`}>
                         <ExternalLink className="h-4 w-4" />
                       </Button>
@@ -477,6 +477,30 @@ export default function AdminArticlesPage() {
                   </FormItem>
                 )}
               />
+
+              {/* Rich Content Info */}
+              <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-4">
+                <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">📝 Adding Full Article Content</h4>
+                <p className="text-sm text-blue-800 dark:text-blue-200 mb-3">
+                  To add detailed article body content (rich text, images, headings, lists, etc.), first save this article, then:
+                </p>
+                <ol className="text-sm text-blue-800 dark:text-blue-200 list-decimal list-inside space-y-1">
+                  <li>Click "View Article" button from the article card</li>
+                  <li>Turn on "Edit Mode" (toggle at top of page)</li>
+                  <li>Click "+ Add Content Block" to add rich text sections</li>
+                  <li>Save each section with Ctrl+Enter</li>
+                </ol>
+                {editingArticle && (
+                  <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-800">
+                    <Link href={`/blog/${editingArticle.slug}?edit=true`} target="_blank">
+                      <Button variant="outline" size="sm" className="w-full" type="button">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Edit Full Content for This Article
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setIsFormDialogOpen(false)}>

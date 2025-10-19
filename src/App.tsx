@@ -104,6 +104,11 @@ function Router() {
             <AdminDashboardPage />
           </ProtectedRoute>
         </Route>
+        <Route path="/admin/content/new">
+          <ProtectedRoute>
+            <AdminDashboardPage />
+          </ProtectedRoute>
+        </Route>
         <Route path="/admin/users">
           <ProtectedRoute>
             <AdminDashboardPage />

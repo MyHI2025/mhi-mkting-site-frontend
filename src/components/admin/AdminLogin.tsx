@@ -131,19 +131,6 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-
-          <div className="mt-6 text-center">
-            <div className="bg-muted rounded-lg p-4 text-sm">
-              <p className="font-medium text-muted-foreground mb-2">Default Admin Account:</p>
-              <p><strong>Username:</strong> admin</p>
-              <p className="text-xs text-muted-foreground mt-2">
-                Password is set via <code className="bg-background px-1 py-0.5 rounded">ADMIN_DEFAULT_PASSWORD</code> environment variable
-              </p>
-              <p className="text-xs text-orange-600 dark:text-orange-400 mt-2">
-                ⚠️ Please change the default password after first login
-              </p>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </div>

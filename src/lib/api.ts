@@ -47,7 +47,7 @@ export const api = {
     userRoles: (id: string) => `${API_BASE}/admin/users/${id}/roles`,
     
     // Roles
-    roles: `${API_BASE}/admin/roles`,
+    roles: `${API_BASE}/admin/users/roles`,
     
     // Pages/Content
     pages: `${API_BASE}/admin/pages`,
@@ -102,7 +102,9 @@ export const api = {
     // Audit Logs
     auditLogs: `${API_BASE}/admin/audit-logs`,
     
-    // Dashboard Widgets
+    // Dashboard
+    dashboard: `${API_BASE}/admin/dashboard`,
+    dashboardStats: `${API_BASE}/admin/dashboard/stats`,
     dashboardWidgets: `${API_BASE}/admin/dashboard/widgets`,
     dashboardWidget: (id: string) => `${API_BASE}/admin/dashboard/widgets/${id}`,
     dashboardLayout: `${API_BASE}/admin/dashboard/widgets/layout`,

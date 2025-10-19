@@ -229,7 +229,7 @@ export default function AdminDashboard({ children }: AdminDashboardProps) {
             onClick={handleLogout}
             variant="outline"
             size="sm"
-            className="w-full border-[#64B2C1] text-white hover:bg-[#054854] hover:border-[#64B2C1]"
+            className="w-full bg-[#054854] border-[#64B2C1] text-white hover:bg-[#107082] hover:border-[#64B2C1]"
             data-testid="button-logout"
           >
             <LogOut className="w-4 h-4 mr-2" />
@@ -278,9 +278,12 @@ function DashboardContent() {
     return <AdminEditPageContent pageId={pageId} />;
   }
   
+  // Handle routes that start with certain paths
+  if (location.startsWith('/admin/content')) {
+    return <AdminContentPageContent />;
+  }
+  
   switch (location) {
-    case "/admin/content":
-      return <AdminContentPageContent />;
     case "/admin/users":
       return <AdminUsersPageContent />;
     case "/admin/media":
@@ -425,98 +428,124 @@ function AdminEditPageContent({ pageId }: { pageId: string }) {
 // Default dashboard home content
 function DashboardHome() {
   const { user } = useAdmin();
-  const { toast } = useToast();
   const [, navigate] = useLocation();
 
-  // Fetch user's dashboard widgets
-  const { data: widgets = [], isLoading } = useQuery<any[]>({
-    queryKey: [api.admin.dashboardWidgets],
+  // Fetch dashboard stats
+  const { data: stats, isLoading } = useQuery<{
+    pages: number;
+    articles: number;
+    videos: number;
+    jobs: number;
+    contacts: number;
+    teamMembers: number;
+    mediaPositions: number;
+    navigationItems: number;
+    totalContent: number;
+  }>({
+    queryKey: [`${api.admin.dashboard}/stats`],
   });
 
-  const handleResetLayout = async () => {
-    try {
-      const res = await fetch(api.admin.dashboardReset, {
-        method: "POST",
-        credentials: "include",
-      });
-      if (!res.ok) throw new Error("Failed to reset layout");
-      
-      toast({
-        title: "Layout Reset",
-        description: "Dashboard layout has been reset to default",
-      });
-      
-      // Refresh widgets
-      window.location.reload();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to reset dashboard layout",
-        variant: "destructive",
-      });
-    }
-  };
+  const statCards = [
+    { label: "Marketing Pages", value: stats?.pages || 0, icon: FileText, color: "bg-blue-500", href: "/admin/content" },
+    { label: "Blog Articles", value: stats?.articles || 0, icon: BookOpen, color: "bg-purple-500", href: "/admin/articles" },
+    { label: "Job Postings", value: stats?.jobs || 0, icon: Briefcase, color: "bg-green-500", href: "/admin/careers" },
+    { label: "Videos", value: stats?.videos || 0, icon: Video, color: "bg-red-500", href: "/admin/videos" },
+    { label: "Media Positions", value: stats?.mediaPositions || 0, icon: Image, color: "bg-yellow-500", href: "/admin/media-positions" },
+    { label: "Contact Submissions", value: stats?.contacts || 0, icon: Mail, color: "bg-pink-500", href: "/admin/contacts" },
+    { label: "Team Members", value: stats?.teamMembers || 0, icon: UserCog, color: "bg-indigo-500", href: "/admin/team" },
+    { label: "Navigation Items", value: stats?.navigationItems || 0, icon: Navigation, color: "bg-teal-500", href: "/admin/navigation" },
+  ];
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Welcome back, {user?.firstName || user?.username}!
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400">
-            Here's an overview of your My Health Integral admin panel.
-          </p>
-        </div>
-        <Button
-          variant="outline"
-          onClick={handleResetLayout}
-          data-testid="button-reset-layout"
-        >
-          Reset Layout
-        </Button>
+      <div>
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Welcome back, {user?.firstName || user?.username}!
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400">
+          Here's an overview of your My Health Integral admin panel.
+        </p>
       </div>
 
-      {/* Widget Grid */}
+      {/* Stats Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-64 bg-muted animate-pulse rounded-lg" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="h-32 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg" />
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {widgets.map((widget) => (
-            <div key={widget.id} data-testid={`dashboard-widget-${widget.widgetType}`}>
-              {renderWidget(widget)}
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {statCards.map((stat) => (
+            <Card
+              key={stat.label}
+              className="cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => navigate(stat.href)}
+              data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  {stat.label}
+                </CardTitle>
+                <div className={`${stat.color} p-2 rounded-md`}>
+                  <stat.icon className="h-4 w-4 text-white" />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stat.value}</div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Click to manage
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       )}
+
+      {/* Quick Actions */}
+      <div>
+        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Quick Actions
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Button
+            variant="outline"
+            className="h-auto py-4 flex flex-col items-center space-y-2"
+            onClick={() => navigate("/admin/content")}
+            data-testid="quick-action-create-page"
+          >
+            <FileText className="h-6 w-6" />
+            <span>Create New Page</span>
+          </Button>
+          <Button
+            variant="outline"
+            className="h-auto py-4 flex flex-col items-center space-y-2"
+            onClick={() => navigate("/admin/navigation")}
+            data-testid="quick-action-manage-navigation"
+          >
+            <Navigation className="h-6 w-6" />
+            <span>Manage Navigation</span>
+          </Button>
+          <Button
+            variant="outline"
+            className="h-auto py-4 flex flex-col items-center space-y-2"
+            onClick={() => navigate("/admin/media")}
+            data-testid="quick-action-upload-media"
+          >
+            <Image className="h-6 w-6" />
+            <span>Upload Media</span>
+          </Button>
+          <Button
+            variant="outline"
+            className="h-auto py-4 flex flex-col items-center space-y-2"
+            onClick={() => navigate("/admin/settings")}
+            data-testid="quick-action-settings"
+          >
+            <Settings className="h-6 w-6" />
+            <span>View Settings</span>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
-
-// Helper function to render widgets
-function renderWidget(widget: any) {
-  switch (widget.widgetType) {
-    case 'quick_stats':
-      return <QuickStatsWidget />;
-    case 'recent_pages':
-      return <RecentPagesWidget limit={widget.settings?.limit || 5} />;
-    case 'recent_contacts':
-      return <RecentContactsWidget limit={widget.settings?.limit || 5} />;
-    case 'quick_actions':
-      return <QuickActionsWidget />;
-    default:
-      return null;
-  }
-}
-
-// Import widget components
-import {
-  QuickStatsWidget,
-  RecentPagesWidget,
-  RecentContactsWidget,
-  QuickActionsWidget,
-} from "./DashboardWidgets";

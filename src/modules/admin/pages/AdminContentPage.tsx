@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Plus, Edit, Trash2, Eye, EyeOff, Globe, Layout, Image, Type, Square, Zap, ExternalLink } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import MediaLibrary from "@/components/admin/MediaLibrary";
@@ -64,8 +64,18 @@ interface SectionContentData {
 
 export default function AdminContentPage() {
   const { toast } = useToast();
+  const [location, navigate] = useLocation();
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+
+  // Auto-open create dialog when navigating to /admin/content/new
+  useEffect(() => {
+    if (location === '/admin/content/new') {
+      setIsCreateDialogOpen(true);
+      // Navigate back to /admin/content to clean URL
+      navigate('/admin/content');
+    }
+  }, [location, navigate]);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [pageToDelete, setPageToDelete] = useState<Page | null>(null);
