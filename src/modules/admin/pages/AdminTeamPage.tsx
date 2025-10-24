@@ -3,20 +3,50 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Edit, Trash2, Image as ImageIcon, Users } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { api } from "@/lib/api";
-import { insertTeamMemberSchema, type TeamMember, type MediaAsset, TITLE_OPTIONS } from "@myhealthintegral/shared";
+import {
+  insertTeamMemberSchema,
+  type TeamMember,
+  type MediaAsset,
+  TITLE_OPTIONS,
+} from "@myhi2025/shared";
 import { z } from "zod";
 import { MediaPicker } from "../components/MediaPicker";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type TeamMemberForm = z.infer<typeof insertTeamMemberSchema>;
 
@@ -68,7 +98,9 @@ export default function AdminTeamPage() {
       form.reset();
       toast({
         title: editingMember ? "Team member updated" : "Team member added",
-        description: `The team member has been ${editingMember ? "updated" : "added"} successfully.`,
+        description: `The team member has been ${
+          editingMember ? "updated" : "added"
+        } successfully.`,
       });
     },
     onError: (error: any) => {
@@ -165,7 +197,10 @@ export default function AdminTeamPage() {
               Manage your team member profiles and photos
             </p>
           </div>
-          <Button data-testid="button-add-team-member" onClick={handleNewMember}>
+          <Button
+            data-testid="button-add-team-member"
+            onClick={handleNewMember}
+          >
             <Plus className="h-4 w-4 mr-2" />
             Add Team Member
           </Button>
@@ -173,12 +208,16 @@ export default function AdminTeamPage() {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12 text-muted-foreground">Loading...</div>
+        <div className="text-center py-12 text-muted-foreground">
+          Loading...
+        </div>
       ) : teamMembers.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
             <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground">No team members yet. Add your first one!</p>
+            <p className="text-muted-foreground">
+              No team members yet. Add your first one!
+            </p>
           </CardContent>
         </Card>
       ) : (
@@ -191,7 +230,9 @@ export default function AdminTeamPage() {
                     {member.photoUrl ? (
                       <img
                         src={member.photoUrl}
-                        alt={`${member.title || ''} ${member.firstName} ${member.lastName}`.trim()}
+                        alt={`${member.title || ""} ${member.firstName} ${
+                          member.lastName
+                        }`.trim()}
                         className="w-20 h-20 rounded-full object-cover"
                       />
                     ) : (
@@ -201,10 +242,17 @@ export default function AdminTeamPage() {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold truncate" data-testid={`text-member-name-${member.id}`}>
-                      {member.title ? `${member.title} ` : ''}{member.firstName} {member.lastName}
+                    <h3
+                      className="font-semibold truncate"
+                      data-testid={`text-member-name-${member.id}`}
+                    >
+                      {member.title ? `${member.title} ` : ""}
+                      {member.firstName} {member.lastName}
                     </h3>
-                    <p className="text-sm text-muted-foreground truncate" data-testid={`text-member-role-${member.id}`}>
+                    <p
+                      className="text-sm text-muted-foreground truncate"
+                      data-testid={`text-member-role-${member.id}`}
+                    >
                       {member.role}
                     </p>
                     {member.bio && (
@@ -256,9 +304,13 @@ export default function AdminTeamPage() {
       <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingMember ? "Edit Team Member" : "Add Team Member"}</DialogTitle>
+            <DialogTitle>
+              {editingMember ? "Edit Team Member" : "Add Team Member"}
+            </DialogTitle>
             <DialogDescription>
-              {editingMember ? "Update team member details" : "Add a new team member to your website"}
+              {editingMember
+                ? "Update team member details"
+                : "Add a new team member to your website"}
             </DialogDescription>
           </DialogHeader>
 
@@ -298,7 +350,10 @@ export default function AdminTeamPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Title</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value || undefined}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value || undefined}
+                      >
                         <FormControl>
                           <SelectTrigger data-testid="select-member-title">
                             <SelectValue placeholder="Select title" />
@@ -316,7 +371,7 @@ export default function AdminTeamPage() {
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="firstName"
@@ -324,13 +379,17 @@ export default function AdminTeamPage() {
                     <FormItem>
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
-                        <Input data-testid="input-member-first-name" placeholder="First name" {...field} />
+                        <Input
+                          data-testid="input-member-first-name"
+                          placeholder="First name"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="lastName"
@@ -338,7 +397,11 @@ export default function AdminTeamPage() {
                     <FormItem>
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
-                        <Input data-testid="input-member-last-name" placeholder="Last name" {...field} />
+                        <Input
+                          data-testid="input-member-last-name"
+                          placeholder="Last name"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -353,7 +416,11 @@ export default function AdminTeamPage() {
                   <FormItem>
                     <FormLabel>Role</FormLabel>
                     <FormControl>
-                      <Input data-testid="input-member-role" placeholder="CEO & Co-Founder" {...field} />
+                      <Input
+                        data-testid="input-member-role"
+                        placeholder="CEO & Co-Founder"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -411,7 +478,9 @@ export default function AdminTeamPage() {
                         type="number"
                         {...field}
                         value={field.value || 0}
-                        onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                        onChange={(e) =>
+                          field.onChange(parseInt(e.target.value) || 0)
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -425,7 +494,9 @@ export default function AdminTeamPage() {
                 render={({ field }) => (
                   <FormItem className="flex items-center justify-between rounded-lg border p-4">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Visible on website</FormLabel>
+                      <FormLabel className="text-base">
+                        Visible on website
+                      </FormLabel>
                       <div className="text-sm text-muted-foreground">
                         Show this team member on the public website
                       </div>
@@ -460,7 +531,11 @@ export default function AdminTeamPage() {
                   type="submit"
                   disabled={saveMemberMutation.isPending}
                 >
-                  {saveMemberMutation.isPending ? "Saving..." : editingMember ? "Update" : "Add"}
+                  {saveMemberMutation.isPending
+                    ? "Saving..."
+                    : editingMember
+                    ? "Update"
+                    : "Add"}
                 </Button>
               </div>
             </form>
@@ -474,7 +549,13 @@ export default function AdminTeamPage() {
           <DialogHeader>
             <DialogTitle>Delete Team Member</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete {memberToDelete ? `${memberToDelete.title || ''} ${memberToDelete.firstName} ${memberToDelete.lastName}`.trim() : ''}? This action cannot be undone.
+              Are you sure you want to delete{" "}
+              {memberToDelete
+                ? `${memberToDelete.title || ""} ${memberToDelete.firstName} ${
+                    memberToDelete.lastName
+                  }`.trim()
+                : ""}
+              ? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end gap-2">
@@ -491,7 +572,9 @@ export default function AdminTeamPage() {
             <Button
               data-testid="button-confirm-delete"
               variant="destructive"
-              onClick={() => memberToDelete && deleteMemberMutation.mutate(memberToDelete.id)}
+              onClick={() =>
+                memberToDelete && deleteMemberMutation.mutate(memberToDelete.id)
+              }
               disabled={deleteMemberMutation.isPending}
             >
               {deleteMemberMutation.isPending ? "Deleting..." : "Delete"}

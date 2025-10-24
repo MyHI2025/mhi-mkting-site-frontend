@@ -1,12 +1,41 @@
 import { useState, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Upload, Search, Image as ImageIcon, Trash2, Edit, X, Check } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Upload,
+  Search,
+  Image as ImageIcon,
+  Trash2,
+  Edit,
+  X,
+  Check,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
@@ -15,7 +44,7 @@ import { api } from "@/lib/api";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import type { MediaAsset } from "@myhealthintegral/shared";
+import type { MediaAsset } from "@myhi2025/shared";
 
 const uploadMediaSchema = z.object({
   altText: z.string().optional(),
@@ -37,7 +66,12 @@ interface MediaLibraryProps {
   showSelectButton?: boolean;
 }
 
-export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelectButton = false }: MediaLibraryProps) {
+export default function MediaLibrary({
+  isOpen,
+  onClose,
+  onSelectImage,
+  showSelectButton = false,
+}: MediaLibraryProps) {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -72,36 +106,41 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
   });
 
   // Filter media assets based on search
-  const filteredAssets = mediaAssets.filter(asset =>
-    asset.originalName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (asset.altText ?? '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (asset.caption ?? '').toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredAssets = mediaAssets.filter(
+    (asset) =>
+      asset.originalName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (asset.altText ?? "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (asset.caption ?? "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Upload mutation
   const uploadMutation = useMutation({
-    mutationFn: async (data: { file: File; altText?: string; caption?: string }) => {
+    mutationFn: async (data: {
+      file: File;
+      altText?: string;
+      caption?: string;
+    }) => {
       const formData = new FormData();
-      formData.append('file', data.file);
-      if (data.altText) formData.append('altText', data.altText);
-      if (data.caption) formData.append('caption', data.caption);
+      formData.append("file", data.file);
+      if (data.altText) formData.append("altText", data.altText);
+      if (data.caption) formData.append("caption", data.caption);
 
       // Custom upload with proper authentication for FormData
       const accessToken = getAccessToken();
       const headers: Record<string, string> = {};
       if (accessToken) {
-        headers['Authorization'] = `Bearer ${accessToken}`;
+        headers["Authorization"] = `Bearer ${accessToken}`;
       }
 
       const response = await fetch(api.admin.media, {
-        method: 'POST',
+        method: "POST",
         headers,
         body: formData,
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Upload failed');
+        throw new Error(error.error || "Upload failed");
       }
 
       return response.json();
@@ -227,11 +266,11 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
   };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   return (
@@ -240,7 +279,8 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
         <DialogHeader>
           <DialogTitle>Media Library</DialogTitle>
           <DialogDescription>
-            Browse, upload, and manage your image assets. Click on images to view details.
+            Browse, upload, and manage your image assets. Click on images to
+            view details.
           </DialogDescription>
         </DialogHeader>
 
@@ -257,7 +297,10 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
                 data-testid="input-media-search"
               />
             </div>
-            <Button onClick={() => fileInputRef.current?.click()} data-testid="button-upload-media">
+            <Button
+              onClick={() => fileInputRef.current?.click()}
+              data-testid="button-upload-media"
+            >
               <Upload className="w-4 h-4 mr-2" />
               Upload Image
             </Button>
@@ -280,9 +323,14 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
             <div className="text-center py-8">
               <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-2" />
               <p className="text-gray-600 mb-2">
-                {searchQuery ? "No images match your search" : "No images uploaded yet"}
+                {searchQuery
+                  ? "No images match your search"
+                  : "No images uploaded yet"}
               </p>
-              <Button onClick={() => fileInputRef.current?.click()} variant="outline">
+              <Button
+                onClick={() => fileInputRef.current?.click()}
+                variant="outline"
+              >
                 <Upload className="w-4 h-4 mr-2" />
                 Upload your first image
               </Button>
@@ -290,7 +338,10 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {filteredAssets.map((asset) => (
-                <Card key={asset.id} className="group hover:shadow-md transition-shadow">
+                <Card
+                  key={asset.id}
+                  className="group hover:shadow-md transition-shadow"
+                >
                   <CardContent className="p-2">
                     <div className="aspect-square relative">
                       <img
@@ -328,7 +379,10 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
                       </div>
                     </div>
                     <div className="mt-2 space-y-1">
-                      <p className="text-xs font-medium truncate" title={asset.originalName}>
+                      <p
+                        className="text-xs font-medium truncate"
+                        title={asset.originalName}
+                      >
                         {asset.originalName}
                       </p>
                       <div className="flex items-center justify-between">
@@ -359,7 +413,8 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
             <DialogHeader>
               <DialogTitle>Upload Image</DialogTitle>
               <DialogDescription>
-                Add details for your image to improve accessibility and organization.
+                Add details for your image to improve accessibility and
+                organization.
               </DialogDescription>
             </DialogHeader>
             {uploadingFile && (
@@ -370,10 +425,15 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
                     alt="Preview"
                     className="max-h-40 mx-auto rounded"
                   />
-                  <p className="text-sm text-gray-600 mt-2">{uploadingFile.name}</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {uploadingFile.name}
+                  </p>
                 </div>
                 <Form {...uploadForm}>
-                  <form onSubmit={uploadForm.handleSubmit(handleUpload)} className="space-y-4">
+                  <form
+                    onSubmit={uploadForm.handleSubmit(handleUpload)}
+                    className="space-y-4"
+                  >
                     <FormField
                       control={uploadForm.control}
                       name="altText"
@@ -449,10 +509,15 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
                     alt={selectedImage.altText || selectedImage.originalName}
                     className="max-h-40 mx-auto rounded"
                   />
-                  <p className="text-sm text-gray-600 mt-2">{selectedImage.originalName}</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {selectedImage.originalName}
+                  </p>
                 </div>
                 <Form {...editForm}>
-                  <form onSubmit={editForm.handleSubmit(handleUpdate)} className="space-y-4">
+                  <form
+                    onSubmit={editForm.handleSubmit(handleUpdate)}
+                    className="space-y-4"
+                  >
                     <FormField
                       control={editForm.control}
                       name="altText"
@@ -517,7 +582,8 @@ export default function MediaLibrary({ isOpen, onClose, onSelectImage, showSelec
             <DialogHeader>
               <DialogTitle>Delete Image</DialogTitle>
               <DialogDescription>
-                Are you sure you want to delete "{selectedImage?.originalName}"? This action cannot be undone.
+                Are you sure you want to delete "{selectedImage?.originalName}"?
+                This action cannot be undone.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>

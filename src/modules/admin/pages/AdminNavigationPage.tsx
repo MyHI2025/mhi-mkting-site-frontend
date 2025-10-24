@@ -3,19 +3,48 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Plus, Edit, Trash2, Move, ExternalLink, Home, FileText, Menu } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Move,
+  ExternalLink,
+  Home,
+  FileText,
+  Menu,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
 import { api } from "@/lib/api";
-import { type NavigationItem } from "@myhealthintegral/shared";
+import { type NavigationItem } from "@myhi2025/shared";
 
 const createNavigationSchema = z.object({
   label: z.string().min(1, "Label is required"),
@@ -73,9 +102,13 @@ export default function AdminNavigationPage() {
 
   // Create navigation mutation
   const createNavigationMutation = useMutation({
-    mutationFn: (data: CreateNavigationForm) => apiRequest(api.admin.navigation, "POST", data),
+    mutationFn: (data: CreateNavigationForm) =>
+      apiRequest(api.admin.navigation, "POST", data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [api.admin.navigation], exact: false });
+      queryClient.invalidateQueries({
+        queryKey: [api.admin.navigation],
+        exact: false,
+      });
       setIsCreateDialogOpen(false);
       createForm.reset();
       toast({
@@ -94,10 +127,13 @@ export default function AdminNavigationPage() {
 
   // Update navigation mutation
   const updateNavigationMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: CreateNavigationForm }) => 
+    mutationFn: ({ id, data }: { id: string; data: CreateNavigationForm }) =>
       apiRequest(api.admin.navigationItem(id), "PUT", data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [api.admin.navigation], exact: false });
+      queryClient.invalidateQueries({
+        queryKey: [api.admin.navigation],
+        exact: false,
+      });
       setIsEditDialogOpen(false);
       setSelectedNav(null);
       editForm.reset();
@@ -117,9 +153,13 @@ export default function AdminNavigationPage() {
 
   // Delete navigation mutation
   const deleteNavigationMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(api.admin.navigationItem(id), "DELETE"),
+    mutationFn: (id: string) =>
+      apiRequest(api.admin.navigationItem(id), "DELETE"),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [api.admin.navigation], exact: false });
+      queryClient.invalidateQueries({
+        queryKey: [api.admin.navigation],
+        exact: false,
+      });
       setIsDeleteDialogOpen(false);
       setNavToDelete(null);
       toast({
@@ -162,7 +202,7 @@ export default function AdminNavigationPage() {
   const onCreateSubmit = (data: CreateNavigationForm) => {
     const submitData = {
       ...data,
-      parentId: data.parentId === "none" ? undefined : data.parentId
+      parentId: data.parentId === "none" ? undefined : data.parentId,
     };
     createNavigationMutation.mutate(submitData);
   };
@@ -171,7 +211,7 @@ export default function AdminNavigationPage() {
     if (selectedNav) {
       const submitData = {
         ...data,
-        parentId: data.parentId === "none" ? undefined : data.parentId
+        parentId: data.parentId === "none" ? undefined : data.parentId,
       };
       updateNavigationMutation.mutate({ id: selectedNav.id, data: submitData });
     }
@@ -179,12 +219,12 @@ export default function AdminNavigationPage() {
 
   // Helper function to organize navigation items by parent
   const organizeNavigationItems = (items: NavigationItem[]) => {
-    const topLevel = items.filter(item => !item.parentId);
-    const children = items.filter(item => item.parentId);
-    
-    return topLevel.map(parent => ({
+    const topLevel = items.filter((item) => !item.parentId);
+    const children = items.filter((item) => item.parentId);
+
+    return topLevel.map((parent) => ({
       ...parent,
-      children: children.filter(child => child.parentId === parent.id),
+      children: children.filter((child) => child.parentId === parent.id),
     }));
   };
 
@@ -199,7 +239,9 @@ export default function AdminNavigationPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Navigation Management</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Navigation Management
+        </h1>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
           Configure your website's navigation structure and menu items.
         </p>
@@ -207,8 +249,13 @@ export default function AdminNavigationPage() {
 
       {/* Create Navigation Button */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-medium text-gray-900 dark:text-white">Navigation Items</h2>
-        <Button onClick={() => setIsCreateDialogOpen(true)} data-testid="button-create-navigation">
+        <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+          Navigation Items
+        </h2>
+        <Button
+          onClick={() => setIsCreateDialogOpen(true)}
+          data-testid="button-create-navigation"
+        >
           <Plus className="w-4 h-4 mr-2" />
           Add Navigation Item
         </Button>
@@ -240,28 +287,45 @@ export default function AdminNavigationPage() {
       ) : organizedNavigation.length > 0 ? (
         <div className="space-y-4">
           {organizedNavigation.map((nav) => (
-            <Card key={nav.id} className="group hover:shadow-md transition-shadow">
+            <Card
+              key={nav.id}
+              className="group hover:shadow-md transition-shadow"
+            >
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className={`p-2 rounded-lg ${nav.isVisible ? 'bg-green-100 dark:bg-green-900' : 'bg-gray-100 dark:bg-gray-700'}`}>
+                    <div
+                      className={`p-2 rounded-lg ${
+                        nav.isVisible
+                          ? "bg-green-100 dark:bg-green-900"
+                          : "bg-gray-100 dark:bg-gray-700"
+                      }`}
+                    >
                       {getNavIcon(nav.href || "")}
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900 dark:text-white">
                         {nav.label}
-                        {!nav.isVisible && <span className="ml-2 text-xs text-gray-500">(Disabled)</span>}
+                        {!nav.isVisible && (
+                          <span className="ml-2 text-xs text-gray-500">
+                            (Disabled)
+                          </span>
+                        )}
                       </h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {nav.href} {nav.href?.startsWith("http") && "↗"}
                       </p>
                       <div className="flex items-center space-x-2 mt-1">
-                        <span className={`px-2 py-1 text-xs rounded-full ${
-                          nav.href?.startsWith("http") 
-                            ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                            : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
-                        }`}>
-                          {nav.href?.startsWith("http") ? "external" : "internal"}
+                        <span
+                          className={`px-2 py-1 text-xs rounded-full ${
+                            nav.href?.startsWith("http")
+                              ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                              : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+                          }`}
+                        >
+                          {nav.href?.startsWith("http")
+                            ? "external"
+                            : "internal"}
                         </span>
                         {nav.target === "_blank" && (
                           <span className="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
@@ -298,14 +362,23 @@ export default function AdminNavigationPage() {
                 {nav.children && nav.children.length > 0 && (
                   <div className="mt-4 ml-8 space-y-2 border-l border-gray-200 dark:border-gray-700 pl-4">
                     {nav.children.map((child) => (
-                      <div key={child.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <div
+                        key={child.id}
+                        className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                      >
                         <div className="flex items-center space-x-2">
                           {getNavIcon(child.href || "")}
                           <span className="text-sm font-medium text-gray-900 dark:text-white">
                             {child.label}
-                            {!child.isVisible && <span className="ml-2 text-xs text-gray-500">(Disabled)</span>}
+                            {!child.isVisible && (
+                              <span className="ml-2 text-xs text-gray-500">
+                                (Disabled)
+                              </span>
+                            )}
                           </span>
-                          <span className="text-sm text-gray-500 dark:text-gray-400">→ {child.href}</span>
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
+                            → {child.href}
+                          </span>
                         </div>
                         <div className="flex space-x-1">
                           <Button
@@ -348,7 +421,10 @@ export default function AdminNavigationPage() {
                   Create your first navigation item to build your website menu.
                 </p>
               </div>
-              <Button onClick={() => setIsCreateDialogOpen(true)} data-testid="button-create-first-navigation">
+              <Button
+                onClick={() => setIsCreateDialogOpen(true)}
+                data-testid="button-create-first-navigation"
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Create Your First Navigation Item
               </Button>
@@ -367,7 +443,10 @@ export default function AdminNavigationPage() {
             </DialogDescription>
           </DialogHeader>
           <Form {...createForm}>
-            <form onSubmit={createForm.handleSubmit(onCreateSubmit)} className="space-y-4">
+            <form
+              onSubmit={createForm.handleSubmit(onCreateSubmit)}
+              className="space-y-4"
+            >
               <FormField
                 control={createForm.control}
                 name="label"
@@ -375,10 +454,10 @@ export default function AdminNavigationPage() {
                   <FormItem>
                     <FormLabel>Menu Label</FormLabel>
                     <FormControl>
-                      <Input 
-                        placeholder="Home, About, Contact..." 
-                        {...field} 
-                        data-testid="input-create-label" 
+                      <Input
+                        placeholder="Home, About, Contact..."
+                        {...field}
+                        data-testid="input-create-label"
                       />
                     </FormControl>
                     <FormMessage />
@@ -392,10 +471,10 @@ export default function AdminNavigationPage() {
                   <FormItem>
                     <FormLabel>URL</FormLabel>
                     <FormControl>
-                      <Input 
-                        placeholder="/about or https://example.com" 
-                        {...field} 
-                        data-testid="input-create-href" 
+                      <Input
+                        placeholder="/about or https://example.com"
+                        {...field}
+                        data-testid="input-create-href"
                       />
                     </FormControl>
                     <FormMessage />
@@ -408,7 +487,10 @@ export default function AdminNavigationPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Open In</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger data-testid="select-create-target">
                           <SelectValue placeholder="Select target" />
@@ -429,19 +511,26 @@ export default function AdminNavigationPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Parent Menu (Optional)</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger data-testid="select-create-parent">
                           <SelectValue placeholder="None (Top-level menu)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="none">None (Top-level menu)</SelectItem>
-                        {navigationItems.filter((nav: NavigationItem) => !nav.parentId).map((nav: NavigationItem) => (
-                          <SelectItem key={nav.id} value={nav.id}>
-                            {nav.label}
-                          </SelectItem>
-                        ))}
+                        <SelectItem value="none">
+                          None (Top-level menu)
+                        </SelectItem>
+                        {navigationItems
+                          .filter((nav: NavigationItem) => !nav.parentId)
+                          .map((nav: NavigationItem) => (
+                            <SelectItem key={nav.id} value={nav.id}>
+                              {nav.label}
+                            </SelectItem>
+                          ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -470,20 +559,22 @@ export default function AdminNavigationPage() {
                 )}
               />
               <div className="flex justify-end space-x-2 pt-4">
-                <Button 
-                  type="button" 
-                  variant="outline" 
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={() => setIsCreateDialogOpen(false)}
                   data-testid="button-cancel-create"
                 >
                   Cancel
                 </Button>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={createNavigationMutation.isPending}
                   data-testid="button-submit-create"
                 >
-                  {createNavigationMutation.isPending ? "Creating..." : "Create Navigation"}
+                  {createNavigationMutation.isPending
+                    ? "Creating..."
+                    : "Create Navigation"}
                 </Button>
               </div>
             </form>
@@ -501,7 +592,10 @@ export default function AdminNavigationPage() {
             </DialogDescription>
           </DialogHeader>
           <Form {...editForm}>
-            <form onSubmit={editForm.handleSubmit(onEditSubmit)} className="space-y-4">
+            <form
+              onSubmit={editForm.handleSubmit(onEditSubmit)}
+              className="space-y-4"
+            >
               <FormField
                 control={editForm.control}
                 name="label"
@@ -509,10 +603,10 @@ export default function AdminNavigationPage() {
                   <FormItem>
                     <FormLabel>Menu Label</FormLabel>
                     <FormControl>
-                      <Input 
-                        placeholder="Home, About, Contact..." 
-                        {...field} 
-                        data-testid="input-edit-label" 
+                      <Input
+                        placeholder="Home, About, Contact..."
+                        {...field}
+                        data-testid="input-edit-label"
                       />
                     </FormControl>
                     <FormMessage />
@@ -526,10 +620,10 @@ export default function AdminNavigationPage() {
                   <FormItem>
                     <FormLabel>URL</FormLabel>
                     <FormControl>
-                      <Input 
-                        placeholder="/about or https://example.com" 
-                        {...field} 
-                        data-testid="input-edit-href" 
+                      <Input
+                        placeholder="/about or https://example.com"
+                        {...field}
+                        data-testid="input-edit-href"
                       />
                     </FormControl>
                     <FormMessage />
@@ -570,12 +664,19 @@ export default function AdminNavigationPage() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="none">None (Top-level menu)</SelectItem>
-                        {navigationItems.filter((nav: NavigationItem) => !nav.parentId && nav.id !== selectedNav?.id).map((nav: NavigationItem) => (
-                          <SelectItem key={nav.id} value={nav.id}>
-                            {nav.label}
-                          </SelectItem>
-                        ))}
+                        <SelectItem value="none">
+                          None (Top-level menu)
+                        </SelectItem>
+                        {navigationItems
+                          .filter(
+                            (nav: NavigationItem) =>
+                              !nav.parentId && nav.id !== selectedNav?.id
+                          )
+                          .map((nav: NavigationItem) => (
+                            <SelectItem key={nav.id} value={nav.id}>
+                              {nav.label}
+                            </SelectItem>
+                          ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -604,20 +705,22 @@ export default function AdminNavigationPage() {
                 )}
               />
               <div className="flex justify-end space-x-2 pt-4">
-                <Button 
-                  type="button" 
-                  variant="outline" 
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={() => setIsEditDialogOpen(false)}
                   data-testid="button-cancel-edit"
                 >
                   Cancel
                 </Button>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={updateNavigationMutation.isPending}
                   data-testid="button-submit-edit"
                 >
-                  {updateNavigationMutation.isPending ? "Updating..." : "Update Navigation"}
+                  {updateNavigationMutation.isPending
+                    ? "Updating..."
+                    : "Update Navigation"}
                 </Button>
               </div>
             </form>
@@ -631,24 +734,27 @@ export default function AdminNavigationPage() {
           <DialogHeader>
             <DialogTitle>Delete Navigation Item</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{navToDelete?.label}"? This action cannot be undone.
+              Are you sure you want to delete "{navToDelete?.label}"? This
+              action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => setIsDeleteDialogOpen(false)}
               data-testid="button-cancel-delete"
             >
               Cancel
             </Button>
-            <Button 
-              variant="destructive" 
+            <Button
+              variant="destructive"
               onClick={confirmDeleteNavigation}
               disabled={deleteNavigationMutation.isPending}
               data-testid="button-confirm-delete"
             >
-              {deleteNavigationMutation.isPending ? "Deleting..." : "Delete Navigation"}
+              {deleteNavigationMutation.isPending
+                ? "Deleting..."
+                : "Delete Navigation"}
             </Button>
           </DialogFooter>
         </DialogContent>

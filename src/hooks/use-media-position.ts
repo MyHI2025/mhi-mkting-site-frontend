@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import type { MediaPosition } from "@myhealthintegral/shared";
-import { api } from '@/lib/api';
+import type { MediaPosition } from "@myhi2025/shared";
+import { api } from "@/lib/api";
 
 export function useMediaPosition(positionKey: string) {
   return useQuery<MediaPosition | null>({

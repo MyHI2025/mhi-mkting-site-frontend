@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  FileText, 
-  Users, 
-  Mail, 
-  Plus, 
-  Video, 
+import {
+  FileText,
+  Users,
+  Mail,
+  Plus,
+  Video,
   Image,
   BarChart3,
   Clock,
-  Eye
+  Eye,
 } from "lucide-react";
 import { Link } from "wouter";
 import { api } from "@/lib/api";
-import type { Page, Contact, VideoContent } from "@myhealthintegral/shared";
+import type { Page, Contact, VideoContent } from "@myhi2025/shared";
 import { formatDistanceToNow } from "date-fns";
 
 // Quick Stats Widget
@@ -36,9 +36,11 @@ export function QuickStatsWidget() {
   });
 
   // Calculate content type counts
-  const articleCount = pages.filter(p => p.pageType === 'blog').length;
-  const jobCount = pages.filter(p => p.pageType === 'job').length;
-  const marketingPageCount = pages.filter(p => p.pageType === 'marketing').length;
+  const articleCount = pages.filter((p) => p.pageType === "blog").length;
+  const jobCount = pages.filter((p) => p.pageType === "job").length;
+  const marketingPageCount = pages.filter(
+    (p) => p.pageType === "marketing"
+  ).length;
 
   const stats = [
     {
@@ -158,12 +160,14 @@ export function RecentPagesWidget({ limit = 5 }: { limit?: number }) {
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium truncate">{page.title}</h4>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className={`text-xs px-2 py-0.5 rounded ${
-                        page.isPublished 
-                          ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                          : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400'
-                      }`}>
-                        {page.isPublished ? 'Published' : 'Draft'}
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded ${
+                          page.isPublished
+                            ? "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400"
+                            : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                        }`}
+                      >
+                        {page.isPublished ? "Published" : "Draft"}
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {page.pageType}
@@ -172,7 +176,10 @@ export function RecentPagesWidget({ limit = 5 }: { limit?: number }) {
                   </div>
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" />
-                    {page.updatedAt && formatDistanceToNow(new Date(page.updatedAt), { addSuffix: true })}
+                    {page.updatedAt &&
+                      formatDistanceToNow(new Date(page.updatedAt), {
+                        addSuffix: true,
+                      })}
                   </div>
                 </div>
               </Link>
@@ -226,16 +233,22 @@ export function RecentContactsWidget({ limit = 5 }: { limit?: number }) {
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium truncate">
-                      {contact.title ? `${contact.title} ` : ''}{contact.firstName} {contact.lastName}
+                      {contact.title ? `${contact.title} ` : ""}
+                      {contact.firstName} {contact.lastName}
                     </h4>
-                    <p className="text-sm text-muted-foreground truncate">{contact.email}</p>
+                    <p className="text-sm text-muted-foreground truncate">
+                      {contact.email}
+                    </p>
                     <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400">
                       {contact.userType}
                     </span>
                   </div>
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" />
-                    {contact.createdAt && formatDistanceToNow(new Date(contact.createdAt), { addSuffix: true })}
+                    {contact.createdAt &&
+                      formatDistanceToNow(new Date(contact.createdAt), {
+                        addSuffix: true,
+                      })}
                   </div>
                 </div>
               </div>

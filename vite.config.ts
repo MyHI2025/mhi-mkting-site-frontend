@@ -10,8 +10,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@shared": path.resolve(__dirname, "../mhi-mkting-site-shared"),
-      "@myhealthintegral/shared": path.resolve(__dirname, "../mhi-mkting-site-shared"),
       "@assets": path.resolve(__dirname, "./attached_assets"),
     },
   },
@@ -22,8 +20,8 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/api': {
-        target: 'http://localhost:5000', 
+      "/api": {
+        target: "http://localhost:5000",
         changeOrigin: true,
       },
     },

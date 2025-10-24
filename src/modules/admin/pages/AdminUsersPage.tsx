@@ -4,17 +4,37 @@ import { Plus, Shield, Users, Eye, EyeOff, Lock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { api } from "@/lib/api";
-import type { User, Role } from "@myhealthintegral/shared";
+import type { User, Role } from "@myhi2025/shared";
 
 const createUserSchema = z.object({
   username: z.string().min(3, "Username must be at least 3 characters"),
@@ -30,18 +50,24 @@ const createUserPayloadSchema = createUserSchema.omit({ roleId: true });
 type CreateUserForm = z.infer<typeof createUserSchema>;
 type CreateUserPayload = z.infer<typeof createUserPayloadSchema>;
 
-const changePasswordSchema = z.object({
-  newPassword: z.string()
-    .min(8, "Password must be at least 8 characters")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
-  confirmPassword: z.string(),
-}).refine((data) => data.newPassword === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const changePasswordSchema = z
+  .object({
+    newPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
+      .regex(
+        /[^A-Za-z0-9]/,
+        "Password must contain at least one special character"
+      ),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 type ChangePasswordForm = z.infer<typeof changePasswordSchema>;
 
@@ -78,11 +104,15 @@ export default function AdminUsersPage() {
 
   // Create user mutation
   const createUserMutation = useMutation({
-    mutationFn: (data: CreateUserPayload) => apiRequest(api.admin.users, "POST", data),
+    mutationFn: (data: CreateUserPayload) =>
+      apiRequest(api.admin.users, "POST", data),
     onSuccess: (newUser) => {
       // If there's a pending role, assign it first
       if (pendingRoleId && newUser?.id) {
-        assignRoleMutation.mutate({ userId: newUser.id, roleId: pendingRoleId });
+        assignRoleMutation.mutate({
+          userId: newUser.id,
+          roleId: pendingRoleId,
+        });
       } else {
         // No role to assign, complete the process
         queryClient.invalidateQueries({ queryKey: [api.admin.users] });
@@ -125,7 +155,8 @@ export default function AdminUsersPage() {
       setPendingRoleId(null);
       toast({
         title: "Partial success",
-        description: "User created but role assignment failed. You can assign the role manually.",
+        description:
+          "User created but role assignment failed. You can assign the role manually.",
         variant: "destructive",
       });
     },
@@ -133,10 +164,10 @@ export default function AdminUsersPage() {
 
   const onSubmit = (data: CreateUserForm) => {
     const { roleId, ...userData } = data;
-    
+
     // Store the role ID for assignment after user creation
     setPendingRoleId(roleId);
-    
+
     // Create the user
     createUserMutation.mutate(userData);
   };
@@ -152,8 +183,13 @@ export default function AdminUsersPage() {
 
   // Change password mutation
   const changePasswordMutation = useMutation({
-    mutationFn: ({ userId, newPassword }: { userId: string; newPassword: string }) =>
-      apiRequest(api.admin.userPassword(userId), "PATCH", { newPassword }),
+    mutationFn: ({
+      userId,
+      newPassword,
+    }: {
+      userId: string;
+      newPassword: string;
+    }) => apiRequest(api.admin.userPassword(userId), "PATCH", { newPassword }),
     onSuccess: () => {
       setIsPasswordDialogOpen(false);
       setSelectedUser(null);
@@ -203,15 +239,20 @@ export default function AdminUsersPage() {
 
   return (
     <>
-    <div className="space-y-6">
+      <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">User Management</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              User Management
+            </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-2">
               Manage admin users, assign roles, and control access permissions.
             </p>
           </div>
-          <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+          <Dialog
+            open={isCreateDialogOpen}
+            onOpenChange={setIsCreateDialogOpen}
+          >
             <DialogTrigger asChild>
               <Button data-testid="button-create-user">
                 <Plus className="w-4 h-4 mr-2" />
@@ -222,11 +263,15 @@ export default function AdminUsersPage() {
               <DialogHeader>
                 <DialogTitle>Create New Admin User</DialogTitle>
                 <DialogDescription>
-                  Add a new administrator to the system. They will be able to access the admin panel based on their assigned roles.
+                  Add a new administrator to the system. They will be able to
+                  access the admin panel based on their assigned roles.
                 </DialogDescription>
               </DialogHeader>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4"
+                >
                   <FormField
                     control={form.control}
                     name="username"
@@ -234,7 +279,11 @@ export default function AdminUsersPage() {
                       <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter username" {...field} data-testid="input-create-username" />
+                          <Input
+                            placeholder="Enter username"
+                            {...field}
+                            data-testid="input-create-username"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -247,7 +296,12 @@ export default function AdminUsersPage() {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="Enter email address" {...field} data-testid="input-create-email" />
+                          <Input
+                            type="email"
+                            placeholder="Enter email address"
+                            {...field}
+                            data-testid="input-create-email"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -260,7 +314,12 @@ export default function AdminUsersPage() {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" placeholder="Enter password" {...field} data-testid="input-create-password" />
+                          <Input
+                            type="password"
+                            placeholder="Enter password"
+                            {...field}
+                            data-testid="input-create-password"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -272,10 +331,20 @@ export default function AdminUsersPage() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Role</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value} disabled={rolesLoading}>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          disabled={rolesLoading}
+                        >
                           <FormControl>
                             <SelectTrigger data-testid="select-role">
-                              <SelectValue placeholder={rolesLoading ? "Loading roles..." : "Select a role"} />
+                              <SelectValue
+                                placeholder={
+                                  rolesLoading
+                                    ? "Loading roles..."
+                                    : "Select a role"
+                                }
+                              />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -291,8 +360,16 @@ export default function AdminUsersPage() {
                               roles.map((role) => (
                                 <SelectItem key={role.id} value={role.id}>
                                   <div className="flex items-center justify-between w-full">
-                                    <span className="font-medium">{role.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
-                                    <span className="text-sm text-muted-foreground ml-2">{role.description}</span>
+                                    <span className="font-medium">
+                                      {role.name
+                                        .replace(/_/g, " ")
+                                        .replace(/\b\w/g, (l) =>
+                                          l.toUpperCase()
+                                        )}
+                                    </span>
+                                    <span className="text-sm text-muted-foreground ml-2">
+                                      {role.description}
+                                    </span>
                                   </div>
                                 </SelectItem>
                               ))
@@ -311,7 +388,11 @@ export default function AdminUsersPage() {
                         <FormItem>
                           <FormLabel>First Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Optional" {...field} data-testid="input-create-firstname" />
+                            <Input
+                              placeholder="Optional"
+                              {...field}
+                              data-testid="input-create-firstname"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -324,7 +405,11 @@ export default function AdminUsersPage() {
                         <FormItem>
                           <FormLabel>Last Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Optional" {...field} data-testid="input-create-lastname" />
+                            <Input
+                              placeholder="Optional"
+                              {...field}
+                              data-testid="input-create-lastname"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -332,20 +417,24 @@ export default function AdminUsersPage() {
                     />
                   </div>
                   <div className="flex justify-end space-x-2 pt-4">
-                    <Button 
-                      type="button" 
-                      variant="outline" 
+                    <Button
+                      type="button"
+                      variant="outline"
                       onClick={() => setIsCreateDialogOpen(false)}
                       data-testid="button-cancel-create"
                     >
                       Cancel
                     </Button>
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       disabled={createUserMutation.isPending || rolesLoading}
                       data-testid="button-submit-create"
                     >
-                      {createUserMutation.isPending ? "Creating..." : rolesLoading ? "Loading..." : "Create User"}
+                      {createUserMutation.isPending
+                        ? "Creating..."
+                        : rolesLoading
+                        ? "Loading..."
+                        : "Create User"}
                     </Button>
                   </div>
                 </form>
@@ -435,18 +524,19 @@ export default function AdminUsersPage() {
                     <div className="flex items-center space-x-4">
                       <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                         <span className="text-white font-medium">
-                          {user.firstName ? user.firstName[0] : user.username[0]}
+                          {user.firstName
+                            ? user.firstName[0]
+                            : user.username[0]}
                         </span>
                       </div>
                       <div>
                         <div className="flex items-center space-x-2">
                           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                            {user.firstName && user.lastName ? 
-                              `${user.firstName} ${user.lastName}` : 
-                              user.username
-                            }
+                            {user.firstName && user.lastName
+                              ? `${user.firstName} ${user.lastName}`
+                              : user.username}
                           </h3>
-                          <Badge 
+                          <Badge
                             variant={user.isActive ? "default" : "secondary"}
                             className="text-xs"
                           >
@@ -463,8 +553,8 @@ export default function AdminUsersPage() {
                           </Badge>
                         </div>
                         <div className="text-xs text-gray-500 dark:text-gray-500 mt-2">
-                          Joined: {formatDate(user.createdAt)} • 
-                          Last login: {formatDate(user.lastLoginAt)}
+                          Joined: {formatDate(user.createdAt)} • Last login:{" "}
+                          {formatDate(user.lastLoginAt)}
                         </div>
                       </div>
                     </div>
@@ -519,19 +609,29 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Change Password Dialog */}
-      <Dialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen}>
-        <DialogContent className="sm:max-w-md" data-testid="dialog-change-password">
+      <Dialog
+        open={isPasswordDialogOpen}
+        onOpenChange={setIsPasswordDialogOpen}
+      >
+        <DialogContent
+          className="sm:max-w-md"
+          data-testid="dialog-change-password"
+        >
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Lock className="w-5 h-5 text-teal-600" />
               Change Password
             </DialogTitle>
             <DialogDescription>
-              Update password for <span className="font-semibold">{selectedUser?.username}</span>
+              Update password for{" "}
+              <span className="font-semibold">{selectedUser?.username}</span>
             </DialogDescription>
           </DialogHeader>
           <Form {...passwordForm}>
-            <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-6">
+            <form
+              onSubmit={passwordForm.handleSubmit(onPasswordSubmit)}
+              className="space-y-6"
+            >
               <FormField
                 control={passwordForm.control}
                 name="newPassword"
@@ -586,7 +686,9 @@ export default function AdminUsersPage() {
                           variant="ghost"
                           size="sm"
                           className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
                           data-testid="button-toggle-confirm-password"
                         >
                           {showConfirmPassword ? (
@@ -635,7 +737,9 @@ export default function AdminUsersPage() {
                   data-testid="button-submit-password"
                   className="bg-teal-600 hover:bg-teal-700"
                 >
-                  {changePasswordMutation.isPending ? "Updating..." : "Change Password"}
+                  {changePasswordMutation.isPending
+                    ? "Updating..."
+                    : "Change Password"}
                 </Button>
               </div>
             </form>

@@ -5,16 +5,35 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Edit, Trash2, Video, Eye, EyeOff } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { api } from "@/lib/api";
-import { insertVideoContentSchema, type VideoContent } from "@myhealthintegral/shared";
+import { insertVideoContentSchema, type VideoContent } from "@myhi2025/shared";
 import { z } from "zod";
 
 type VideoForm = z.infer<typeof insertVideoContentSchema>;
@@ -60,7 +79,9 @@ export default function AdminVideosPage() {
       form.reset();
       toast({
         title: editingVideo ? "Video updated" : "Video added",
-        description: `The video has been ${editingVideo ? "updated" : "added"} successfully.`,
+        description: `The video has been ${
+          editingVideo ? "updated" : "added"
+        } successfully.`,
       });
     },
     onError: (error: any) => {
@@ -155,12 +176,16 @@ export default function AdminVideosPage() {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12 text-muted-foreground">Loading...</div>
+        <div className="text-center py-12 text-muted-foreground">
+          Loading...
+        </div>
       ) : videos.length === 0 ? (
         <Card>
           <CardContent className="py-12 text-center">
             <Video className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground">No videos yet. Add your first one!</p>
+            <p className="text-muted-foreground">
+              No videos yet. Add your first one!
+            </p>
           </CardContent>
         </Card>
       ) : (
@@ -179,10 +204,13 @@ export default function AdminVideosPage() {
                       )}
                     </CardTitle>
                     <p className="text-sm text-muted-foreground mt-1">
-                      {video.category} • {video.duration || "Duration not set"} • {video.views} views
+                      {video.category} • {video.duration || "Duration not set"}{" "}
+                      • {video.views} views
                     </p>
                     {video.description && (
-                      <p className="text-sm text-muted-foreground mt-2">{video.description}</p>
+                      <p className="text-sm text-muted-foreground mt-2">
+                        {video.description}
+                      </p>
                     )}
                     <p className="text-xs text-muted-foreground mt-1 font-mono">
                       {video.youtubeUrl}
@@ -216,7 +244,9 @@ export default function AdminVideosPage() {
       <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingVideo ? "Edit Video" : "Add Video"}</DialogTitle>
+            <DialogTitle>
+              {editingVideo ? "Edit Video" : "Add Video"}
+            </DialogTitle>
             <DialogDescription>
               Add a YouTube video URL to embed it on your website
             </DialogDescription>
@@ -230,7 +260,11 @@ export default function AdminVideosPage() {
                   <FormItem>
                     <FormLabel>Title *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Platform Demo" {...field} data-testid="input-title" />
+                      <Input
+                        placeholder="Platform Demo"
+                        {...field}
+                        data-testid="input-title"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -284,7 +318,10 @@ export default function AdminVideosPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Category *</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger data-testid="select-category">
                             <SelectValue placeholder="Select category" />
@@ -293,8 +330,12 @@ export default function AdminVideosPage() {
                         <SelectContent>
                           <SelectItem value="Webinar">Webinar</SelectItem>
                           <SelectItem value="Tutorial">Tutorial</SelectItem>
-                          <SelectItem value="Product Demo">Product Demo</SelectItem>
-                          <SelectItem value="Success Story">Success Story</SelectItem>
+                          <SelectItem value="Product Demo">
+                            Product Demo
+                          </SelectItem>
+                          <SelectItem value="Success Story">
+                            Success Story
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -335,7 +376,9 @@ export default function AdminVideosPage() {
                           placeholder="0"
                           {...field}
                           value={field.value ?? 0}
-                          onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                          onChange={(e) =>
+                            field.onChange(parseInt(e.target.value) || 0)
+                          }
                           data-testid="input-views"
                         />
                       </FormControl>
@@ -356,7 +399,9 @@ export default function AdminVideosPage() {
                           placeholder="0"
                           {...field}
                           value={field.value ?? 0}
-                          onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                          onChange={(e) =>
+                            field.onChange(parseInt(e.target.value) || 0)
+                          }
                           data-testid="input-display-order"
                         />
                       </FormControl>
@@ -402,7 +447,11 @@ export default function AdminVideosPage() {
                   disabled={saveVideoMutation.isPending}
                   data-testid="button-save"
                 >
-                  {saveVideoMutation.isPending ? "Saving..." : editingVideo ? "Update" : "Create"}
+                  {saveVideoMutation.isPending
+                    ? "Saving..."
+                    : editingVideo
+                    ? "Update"
+                    : "Create"}
                 </Button>
               </div>
             </form>
@@ -415,7 +464,8 @@ export default function AdminVideosPage() {
           <DialogHeader>
             <DialogTitle>Delete Video</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{videoToDelete?.title}"? This action cannot be undone.
+              Are you sure you want to delete "{videoToDelete?.title}"? This
+              action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end gap-3">
@@ -428,7 +478,9 @@ export default function AdminVideosPage() {
             </Button>
             <Button
               variant="destructive"
-              onClick={() => videoToDelete && deleteVideoMutation.mutate(videoToDelete.id)}
+              onClick={() =>
+                videoToDelete && deleteVideoMutation.mutate(videoToDelete.id)
+              }
               disabled={deleteVideoMutation.isPending}
               data-testid="button-confirm-delete"
             >

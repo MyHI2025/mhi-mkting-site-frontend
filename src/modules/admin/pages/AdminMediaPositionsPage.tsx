@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { api } from "@/lib/api";
 import { MediaPicker } from "../components/MediaPicker";
-import type { MediaAsset } from "@myhealthintegral/shared";
+import type { MediaAsset } from "@myhi2025/shared";
 
 interface MediaPosition {
   id: string;
@@ -26,7 +26,8 @@ interface MediaPosition {
 export default function AdminMediaPositionsPage() {
   const { toast } = useToast();
   const [isMediaPickerOpen, setIsMediaPickerOpen] = useState(false);
-  const [selectedPosition, setSelectedPosition] = useState<MediaPosition | null>(null);
+  const [selectedPosition, setSelectedPosition] =
+    useState<MediaPosition | null>(null);
 
   // Fetch all media positions
   const { data: positions = [], isLoading } = useQuery<MediaPosition[]>({
@@ -35,26 +36,37 @@ export default function AdminMediaPositionsPage() {
 
   // Update position mutation
   const updatePositionMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: { mediaUrl?: string | null; mediaAlt?: string | null; mediaAssetId?: string | null } }) =>
-      apiRequest(api.admin.mediaPosition(id), "PUT", data),
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: {
+        mediaUrl?: string | null;
+        mediaAlt?: string | null;
+        mediaAssetId?: string | null;
+      };
+    }) => apiRequest(api.admin.mediaPosition(id), "PUT", data),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [api.admin.mediaPositions] });
       setIsMediaPickerOpen(false);
       setSelectedPosition(null);
-      
+
       const isRemove = variables.data.mediaUrl === null;
       toast({
         title: isRemove ? "Media removed" : "Media position updated",
-        description: isRemove 
+        description: isRemove
           ? "The image has been removed successfully."
           : "The image has been assigned successfully.",
       });
     },
     onError: (error: any) => {
-      const errorMessage = error.details 
-        ? `Validation error: ${error.details.map((d: any) => d.message).join(', ')}`
+      const errorMessage = error.details
+        ? `Validation error: ${error.details
+            .map((d: any) => d.message)
+            .join(", ")}`
         : error.message || "Failed to update media position";
-      
+
       toast({
         title: "Error",
         description: errorMessage,
@@ -124,86 +136,95 @@ export default function AdminMediaPositionsPage() {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-12 text-muted-foreground">Loading...</div>
+        <div className="text-center py-12 text-muted-foreground">
+          Loading...
+        </div>
       ) : (
         <div className="space-y-8">
-          {Object.entries(positionsByCategory).map(([category, categoryPositions]) => (
-            <div key={category}>
-              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                {categoryLabels[category] || category}
-                <Badge variant="secondary">{categoryPositions.length}</Badge>
-              </h2>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {categoryPositions
-                  .sort((a, b) => a.displayOrder - b.displayOrder)
-                  .map((position) => (
-                    <Card
-                      key={position.id}
-                      data-testid={`card-media-position-${position.positionKey}`}
-                    >
-                      <CardContent className="p-6">
-                        <div className="space-y-4">
-                          <div>
-                            <h3 className="font-semibold" data-testid={`text-position-label-${position.positionKey}`}>
-                              {position.label}
-                            </h3>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {position.description}
-                            </p>
-                            <code className="text-xs bg-muted px-2 py-1 rounded mt-2 inline-block">
-                              {position.positionKey}
-                            </code>
-                          </div>
+          {Object.entries(positionsByCategory).map(
+            ([category, categoryPositions]) => (
+              <div key={category}>
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  {categoryLabels[category] || category}
+                  <Badge variant="secondary">{categoryPositions.length}</Badge>
+                </h2>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {categoryPositions
+                    .sort((a, b) => a.displayOrder - b.displayOrder)
+                    .map((position) => (
+                      <Card
+                        key={position.id}
+                        data-testid={`card-media-position-${position.positionKey}`}
+                      >
+                        <CardContent className="p-6">
+                          <div className="space-y-4">
+                            <div>
+                              <h3
+                                className="font-semibold"
+                                data-testid={`text-position-label-${position.positionKey}`}
+                              >
+                                {position.label}
+                              </h3>
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {position.description}
+                              </p>
+                              <code className="text-xs bg-muted px-2 py-1 rounded mt-2 inline-block">
+                                {position.positionKey}
+                              </code>
+                            </div>
 
-                          {position.mediaUrl ? (
-                            <div className="relative">
-                              <img
-                                src={position.mediaUrl}
-                                alt={position.mediaAlt || position.label}
-                                className="w-full h-32 object-cover rounded-md"
-                                data-testid={`img-position-media-${position.positionKey}`}
-                              />
-                              <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-md flex items-center justify-center gap-2">
+                            {position.mediaUrl ? (
+                              <div className="relative">
+                                <img
+                                  src={position.mediaUrl}
+                                  alt={position.mediaAlt || position.label}
+                                  className="w-full h-32 object-cover rounded-md"
+                                  data-testid={`img-position-media-${position.positionKey}`}
+                                />
+                                <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-md flex items-center justify-center gap-2">
+                                  <Button
+                                    variant="secondary"
+                                    size="sm"
+                                    onClick={() => handleAssignMedia(position)}
+                                    data-testid={`button-change-media-${position.positionKey}`}
+                                  >
+                                    Change
+                                  </Button>
+                                  <Button
+                                    variant="destructive"
+                                    size="sm"
+                                    onClick={() => handleRemoveMedia(position)}
+                                    data-testid={`button-remove-media-${position.positionKey}`}
+                                  >
+                                    Remove
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="border-2 border-dashed rounded-md p-8 text-center">
+                                <ImageIcon className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
+                                <p className="text-sm text-muted-foreground mb-3">
+                                  No image assigned
+                                </p>
                                 <Button
-                                  variant="secondary"
+                                  variant="outline"
                                   size="sm"
                                   onClick={() => handleAssignMedia(position)}
-                                  data-testid={`button-change-media-${position.positionKey}`}
+                                  data-testid={`button-assign-media-${position.positionKey}`}
                                 >
-                                  Change
-                                </Button>
-                                <Button
-                                  variant="destructive"
-                                  size="sm"
-                                  onClick={() => handleRemoveMedia(position)}
-                                  data-testid={`button-remove-media-${position.positionKey}`}
-                                >
-                                  Remove
+                                  <ImageIcon className="h-4 w-4 mr-2" />
+                                  Assign Image
                                 </Button>
                               </div>
-                            </div>
-                          ) : (
-                            <div className="border-2 border-dashed rounded-md p-8 text-center">
-                              <ImageIcon className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
-                              <p className="text-sm text-muted-foreground mb-3">No image assigned</p>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleAssignMedia(position)}
-                                data-testid={`button-assign-media-${position.positionKey}`}
-                              >
-                                <ImageIcon className="h-4 w-4 mr-2" />
-                                Assign Image
-                              </Button>
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       )}
 

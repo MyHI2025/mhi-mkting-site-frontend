@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -41,7 +47,7 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import { api, buildQueryString } from "@/lib/api";
 import { apiRequest } from "@/lib/queryClient";
-import type { AuditLog, User } from "@myhealthintegral/shared";
+import type { AuditLog, User } from "@myhi2025/shared";
 
 const actionIcons: Record<string, any> = {
   create: Plus,
@@ -80,13 +86,20 @@ export default function AdminAuditLogsPage() {
   });
 
   // Fetch audit logs with filters
-  const { data: logs = [], isLoading, refetch } = useQuery<AuditLog[]>({
+  const {
+    data: logs = [],
+    isLoading,
+    refetch,
+  } = useQuery<AuditLog[]>({
     queryKey: [api.admin.auditLogs, activeFilters],
     queryFn: () => {
       const params: any = {};
-      if (activeFilters.userId && activeFilters.userId !== "all") params.userId = activeFilters.userId;
-      if (activeFilters.resource && activeFilters.resource !== "all") params.resource = activeFilters.resource;
-      if (activeFilters.action && activeFilters.action !== "all") params.action = activeFilters.action;
+      if (activeFilters.userId && activeFilters.userId !== "all")
+        params.userId = activeFilters.userId;
+      if (activeFilters.resource && activeFilters.resource !== "all")
+        params.resource = activeFilters.resource;
+      if (activeFilters.action && activeFilters.action !== "all")
+        params.action = activeFilters.action;
       if (activeFilters.limit) params.limit = activeFilters.limit;
 
       const queryString = buildQueryString(params);
@@ -138,9 +151,11 @@ export default function AdminAuditLogsPage() {
 
   const getUserDisplayName = (userId: string | null) => {
     if (!userId) return "System";
-    const user = users.find(u => u.id === userId);
+    const user = users.find((u) => u.id === userId);
     if (!user) return "Unknown User";
-    return user.firstName ? `${user.firstName} ${user.lastName}` : user.username;
+    return user.firstName
+      ? `${user.firstName} ${user.lastName}`
+      : user.username;
   };
 
   return (
@@ -171,16 +186,23 @@ export default function AdminAuditLogsPage() {
               <Label htmlFor="filter-user">User</Label>
               <Select
                 value={filters.userId}
-                onValueChange={(value) => setFilters({ ...filters, userId: value })}
+                onValueChange={(value) =>
+                  setFilters({ ...filters, userId: value })
+                }
               >
-                <SelectTrigger id="filter-user" data-testid="select-user-filter">
+                <SelectTrigger
+                  id="filter-user"
+                  data-testid="select-user-filter"
+                >
                   <SelectValue placeholder="All users" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All users</SelectItem>
                   {users.map((user) => (
                     <SelectItem key={user.id} value={user.id}>
-                      {user.firstName ? `${user.firstName} ${user.lastName}` : user.username}
+                      {user.firstName
+                        ? `${user.firstName} ${user.lastName}`
+                        : user.username}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -191,9 +213,14 @@ export default function AdminAuditLogsPage() {
               <Label htmlFor="filter-resource">Resource</Label>
               <Select
                 value={filters.resource}
-                onValueChange={(value) => setFilters({ ...filters, resource: value })}
+                onValueChange={(value) =>
+                  setFilters({ ...filters, resource: value })
+                }
               >
-                <SelectTrigger id="filter-resource" data-testid="select-resource-filter">
+                <SelectTrigger
+                  id="filter-resource"
+                  data-testid="select-resource-filter"
+                >
                   <SelectValue placeholder="All resources" />
                 </SelectTrigger>
                 <SelectContent>
@@ -213,9 +240,14 @@ export default function AdminAuditLogsPage() {
               <Label htmlFor="filter-action">Action</Label>
               <Select
                 value={filters.action}
-                onValueChange={(value) => setFilters({ ...filters, action: value })}
+                onValueChange={(value) =>
+                  setFilters({ ...filters, action: value })
+                }
               >
-                <SelectTrigger id="filter-action" data-testid="select-action-filter">
+                <SelectTrigger
+                  id="filter-action"
+                  data-testid="select-action-filter"
+                >
                   <SelectValue placeholder="All actions" />
                 </SelectTrigger>
                 <SelectContent>
@@ -234,9 +266,14 @@ export default function AdminAuditLogsPage() {
               <Label htmlFor="filter-limit">Limit</Label>
               <Select
                 value={filters.limit}
-                onValueChange={(value) => setFilters({ ...filters, limit: value })}
+                onValueChange={(value) =>
+                  setFilters({ ...filters, limit: value })
+                }
               >
-                <SelectTrigger id="filter-limit" data-testid="select-limit-filter">
+                <SelectTrigger
+                  id="filter-limit"
+                  data-testid="select-limit-filter"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -251,7 +288,10 @@ export default function AdminAuditLogsPage() {
           </div>
 
           <div className="flex gap-3 mt-4">
-            <Button onClick={handleApplyFilters} data-testid="button-apply-filters">
+            <Button
+              onClick={handleApplyFilters}
+              data-testid="button-apply-filters"
+            >
               <Filter className="h-4 w-4 mr-2" />
               Apply Filters
             </Button>
@@ -308,18 +348,23 @@ export default function AdminAuditLogsPage() {
                     const ActionIcon = getActionIcon(log.action);
                     const ResourceIcon = getResourceIcon(log.resource);
                     return (
-                      <TableRow key={log.id} data-testid={`audit-log-${log.id}`}>
+                      <TableRow
+                        key={log.id}
+                        data-testid={`audit-log-${log.id}`}
+                      >
                         <TableCell className="font-mono text-xs">
                           <div className="flex items-center gap-1">
                             <Clock className="h-3 w-3 text-muted-foreground" />
                             <span>
-                              {log.createdAt && formatDistanceToNow(new Date(log.createdAt), { 
-                                addSuffix: true 
-                              })}
+                              {log.createdAt &&
+                                formatDistanceToNow(new Date(log.createdAt), {
+                                  addSuffix: true,
+                                })}
                             </span>
                           </div>
                           <div className="text-muted-foreground mt-1">
-                            {log.createdAt && new Date(log.createdAt).toLocaleString()}
+                            {log.createdAt &&
+                              new Date(log.createdAt).toLocaleString()}
                           </div>
                         </TableCell>
                         <TableCell>
@@ -331,7 +376,11 @@ export default function AdminAuditLogsPage() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-md ${getActionColor(log.action)}`}>
+                          <div
+                            className={`inline-flex items-center gap-1 px-2 py-1 rounded-md ${getActionColor(
+                              log.action
+                            )}`}
+                          >
                             <ActionIcon className="h-3 w-3" />
                             <span className="text-xs font-semibold uppercase">
                               {log.action}
@@ -350,12 +399,16 @@ export default function AdminAuditLogsPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          {log.details && typeof log.details === 'object' && Object.keys(log.details).length > 0 ? (
+                          {log.details &&
+                          typeof log.details === "object" &&
+                          Object.keys(log.details).length > 0 ? (
                             <pre className="text-xs bg-muted p-2 rounded max-w-xs overflow-auto">
                               {JSON.stringify(log.details, null, 2)}
                             </pre>
                           ) : (
-                            <span className="text-muted-foreground text-xs">No details</span>
+                            <span className="text-muted-foreground text-xs">
+                              No details
+                            </span>
                           )}
                         </TableCell>
                         <TableCell className="font-mono text-xs text-muted-foreground">

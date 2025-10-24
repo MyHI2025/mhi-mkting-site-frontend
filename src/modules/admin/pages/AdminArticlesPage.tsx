@@ -2,14 +2,37 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Edit, Trash2, FileText, Newspaper, Eye, EyeOff, ExternalLink } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  FileText,
+  Newspaper,
+  Eye,
+  EyeOff,
+  ExternalLink,
+} from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
@@ -18,13 +41,15 @@ import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { api } from "@/lib/api";
 import { z } from "zod";
-import type { Page } from "@myhealthintegral/shared";
+import type { Page } from "@myhi2025/shared";
 
 const articleFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   topicTags: z.array(z.string()).min(1, "At least one topic tag is required"),
-  targetUserTypes: z.array(z.string()).min(1, "At least one user type is required"),
+  targetUserTypes: z
+    .array(z.string())
+    .min(1, "At least one user type is required"),
   featuredImage: z.string().optional(),
   isPublished: z.boolean(),
 });
@@ -37,7 +62,7 @@ const topicTags = [
   "News and Update",
   "Telemedicine Tips",
   "Health and Wellness",
-  "Faces of MHI"
+  "Faces of MHI",
 ];
 
 const userTypes = [
@@ -47,7 +72,7 @@ const userTypes = [
   "Pharmacies",
   "Medical Laboratories",
   "Health Insurance Providers",
-  "Emergency Services Providers"
+  "Emergency Services Providers",
 ];
 
 export default function AdminArticlesPage() {
@@ -76,10 +101,14 @@ export default function AdminArticlesPage() {
     },
   });
 
-    const saveArticleMutation = useMutation({
+  const saveArticleMutation = useMutation({
     mutationFn: async (data: ArticleFormData) => {
-      const slug = editingArticle?.slug || `article-${Date.now()}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-      
+      const slug =
+        editingArticle?.slug ||
+        `article-${Date.now()}-${data.title
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")}`;
+
       const pageData = {
         title: data.title,
         slug,
@@ -106,7 +135,9 @@ export default function AdminArticlesPage() {
       form.reset();
       toast({
         title: editingArticle ? "Article updated" : "Article created",
-        description: `The article has been ${editingArticle ? "updated" : "created"} successfully.`,
+        description: `The article has been ${
+          editingArticle ? "updated" : "created"
+        } successfully.`,
       });
     },
     onError: (error: any) => {
@@ -192,8 +223,12 @@ export default function AdminArticlesPage() {
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Content Hub Articles</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage blog posts and articles</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Content Hub Articles
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            Manage blog posts and articles
+          </p>
         </div>
         <Button onClick={handleNewArticle} data-testid="button-new-article">
           <Plus className="mr-2 h-4 w-4" />
@@ -203,14 +238,20 @@ export default function AdminArticlesPage() {
 
       {isLoading ? (
         <div className="text-center py-12">
-          <p className="text-gray-600 dark:text-gray-400">Loading articles...</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Loading articles...
+          </p>
         </div>
       ) : articlePages.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
             <FileText className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No articles yet</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">Get started by creating your first article</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              No articles yet
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Get started by creating your first article
+            </p>
             <Button onClick={handleNewArticle}>
               <Plus className="mr-2 h-4 w-4" />
               Create First Article
@@ -247,41 +288,76 @@ export default function AdminArticlesPage() {
                     </div>
                     <div className="flex flex-wrap gap-2 mb-2">
                       {article.topicTags?.map((tag) => (
-                        <Badge key={tag} variant="outline" className="bg-blue-50 dark:bg-blue-900/30">
+                        <Badge
+                          key={tag}
+                          variant="outline"
+                          className="bg-blue-50 dark:bg-blue-900/30"
+                        >
                           {tag}
                         </Badge>
                       ))}
                       {article.targetUserTypes?.slice(0, 2).map((type) => (
-                        <Badge key={type} variant="secondary" className="bg-green-50 dark:bg-green-900/30">
+                        <Badge
+                          key={type}
+                          variant="secondary"
+                          className="bg-green-50 dark:bg-green-900/30"
+                        >
                           {type}
                         </Badge>
                       ))}
-                      {article.targetUserTypes && article.targetUserTypes.length > 2 && (
-                        <Badge variant="secondary" className="bg-green-50 dark:bg-green-900/30">
-                          +{article.targetUserTypes.length - 2} more
-                        </Badge>
-                      )}
+                      {article.targetUserTypes &&
+                        article.targetUserTypes.length > 2 && (
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-50 dark:bg-green-900/30"
+                          >
+                            +{article.targetUserTypes.length - 2} more
+                          </Badge>
+                        )}
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 line-clamp-2">{article.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 line-clamp-2">
+                      {article.description}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2">
                     <Link href={`/blog/${article.slug}`} target="_blank">
-                      <Button variant="ghost" size="sm" data-testid={`view-article-${article.id}`}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        data-testid={`view-article-${article.id}`}
+                      >
                         <ExternalLink className="h-4 w-4" />
                       </Button>
                     </Link>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => togglePublishMutation.mutate({ id: article.id, isPublished: !article.isPublished })}
+                      onClick={() =>
+                        togglePublishMutation.mutate({
+                          id: article.id,
+                          isPublished: !article.isPublished,
+                        })
+                      }
                       disabled={togglePublishMutation.isPending}
                     >
-                      {article.isPublished ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {article.isPublished ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => handleEdit(article)}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEdit(article)}
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => handleDelete(article)}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(article)}
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -296,14 +372,23 @@ export default function AdminArticlesPage() {
       <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingArticle ? "Edit Article" : "New Article"}</DialogTitle>
+            <DialogTitle>
+              {editingArticle ? "Edit Article" : "New Article"}
+            </DialogTitle>
             <DialogDescription>
-              {editingArticle ? "Update the article details below" : "Fill in the details to create a new article"}
+              {editingArticle
+                ? "Update the article details below"
+                : "Fill in the details to create a new article"}
             </DialogDescription>
           </DialogHeader>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => saveArticleMutation.mutate(data))} className="space-y-4">
+            <form
+              onSubmit={form.handleSubmit((data) =>
+                saveArticleMutation.mutate(data)
+              )}
+              className="space-y-4"
+            >
               <FormField
                 control={form.control}
                 name="title"
@@ -311,7 +396,10 @@ export default function AdminArticlesPage() {
                   <FormItem>
                     <FormLabel>Article Title *</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., The Future of Telemedicine in Africa" {...field} />
+                      <Input
+                        placeholder="e.g., The Future of Telemedicine in Africa"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -364,7 +452,7 @@ export default function AdminArticlesPage() {
                                             field.value?.filter(
                                               (value) => value !== tag
                                             )
-                                          )
+                                          );
                                     }}
                                   />
                                 </FormControl>
@@ -372,7 +460,7 @@ export default function AdminArticlesPage() {
                                   {tag}
                                 </FormLabel>
                               </FormItem>
-                            )
+                            );
                           }}
                         />
                       ))}
@@ -387,7 +475,9 @@ export default function AdminArticlesPage() {
                 name="targetUserTypes"
                 render={() => (
                   <FormItem>
-                    <FormLabel>Target User Types * (Select at least one)</FormLabel>
+                    <FormLabel>
+                      Target User Types * (Select at least one)
+                    </FormLabel>
                     <div className="grid grid-cols-2 gap-3 border rounded-lg p-4">
                       {userTypes.map((type) => (
                         <FormField
@@ -410,7 +500,7 @@ export default function AdminArticlesPage() {
                                             field.value?.filter(
                                               (value) => value !== type
                                             )
-                                          )
+                                          );
                                     }}
                                   />
                                 </FormControl>
@@ -418,7 +508,7 @@ export default function AdminArticlesPage() {
                                   {type}
                                 </FormLabel>
                               </FormItem>
-                            )
+                            );
                           }}
                         />
                       ))}
@@ -466,13 +556,18 @@ export default function AdminArticlesPage() {
                 render={({ field }) => (
                   <FormItem className="flex items-center justify-between rounded-lg border p-4">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Publish Article</FormLabel>
+                      <FormLabel className="text-base">
+                        Publish Article
+                      </FormLabel>
                       <div className="text-sm text-gray-600 dark:text-gray-400">
                         Make this article visible on the blog
                       </div>
                     </div>
                     <FormControl>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -480,9 +575,12 @@ export default function AdminArticlesPage() {
 
               {/* Rich Content Info */}
               <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-4">
-                <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">📝 Adding Full Article Content</h4>
+                <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                  📝 Adding Full Article Content
+                </h4>
                 <p className="text-sm text-blue-800 dark:text-blue-200 mb-3">
-                  To add detailed article body content (rich text, images, headings, lists, etc.), first save this article, then:
+                  To add detailed article body content (rich text, images,
+                  headings, lists, etc.), first save this article, then:
                 </p>
                 <ol className="text-sm text-blue-800 dark:text-blue-200 list-decimal list-inside space-y-1">
                   <li>Click "View Article" button from the article card</li>
@@ -492,8 +590,16 @@ export default function AdminArticlesPage() {
                 </ol>
                 {editingArticle && (
                   <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-800">
-                    <Link href={`/blog/${editingArticle.slug}?edit=true`} target="_blank">
-                      <Button variant="outline" size="sm" className="w-full" type="button">
+                    <Link
+                      href={`/blog/${editingArticle.slug}?edit=true`}
+                      target="_blank"
+                    >
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                        type="button"
+                      >
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Edit Full Content for This Article
                       </Button>
@@ -503,11 +609,19 @@ export default function AdminArticlesPage() {
               </div>
 
               <DialogFooter>
-                <Button type="button" variant="outline" onClick={() => setIsFormDialogOpen(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsFormDialogOpen(false)}
+                >
                   Cancel
                 </Button>
                 <Button type="submit" disabled={saveArticleMutation.isPending}>
-                  {saveArticleMutation.isPending ? "Saving..." : editingArticle ? "Update Article" : "Create Article"}
+                  {saveArticleMutation.isPending
+                    ? "Saving..."
+                    : editingArticle
+                    ? "Update Article"
+                    : "Create Article"}
                 </Button>
               </DialogFooter>
             </form>
@@ -521,16 +635,23 @@ export default function AdminArticlesPage() {
           <DialogHeader>
             <DialogTitle>Delete Article</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{articleToDelete?.title}"? This action cannot be undone.
+              Are you sure you want to delete "{articleToDelete?.title}"? This
+              action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
               Cancel
             </Button>
             <Button
               variant="destructive"
-              onClick={() => articleToDelete && deleteArticleMutation.mutate(articleToDelete.id)}
+              onClick={() =>
+                articleToDelete &&
+                deleteArticleMutation.mutate(articleToDelete.id)
+              }
               disabled={deleteArticleMutation.isPending}
             >
               {deleteArticleMutation.isPending ? "Deleting..." : "Delete"}
@@ -540,8 +661,8 @@ export default function AdminArticlesPage() {
       </Dialog>
 
       {/* Media Library Dialog */}
-      <MediaLibrary 
-        isOpen={isMediaLibraryOpen} 
+      <MediaLibrary
+        isOpen={isMediaLibraryOpen}
         onClose={() => setIsMediaLibraryOpen(false)}
         onSelectImage={handleImageSelect}
         showSelectButton={true}

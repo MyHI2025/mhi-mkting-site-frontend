@@ -2,22 +2,50 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Edit, Trash2, Briefcase, Eye, EyeOff, ExternalLink } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Briefcase,
+  Eye,
+  EyeOff,
+  ExternalLink,
+} from "lucide-react";
 import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { api } from "@/lib/api";
 import { z } from "zod";
-import type { Page } from "@myhealthintegral/shared";
+import type { Page } from "@myhi2025/shared";
 
 const jobFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -50,10 +78,7 @@ const employmentTypes = [
   "Volunteer",
 ];
 
-const locations = [
-  "Abuja/Lagos (Hybrid)",
-  "Remote",
-];
+const locations = ["Abuja/Lagos (Hybrid)", "Remote"];
 
 export default function AdminCareersPage() {
   const { toast } = useToast();
@@ -84,8 +109,12 @@ export default function AdminCareersPage() {
 
   const saveJobMutation = useMutation({
     mutationFn: async (data: JobFormData) => {
-      const slug = editingJob?.slug || `career/${Date.now()}-${data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-      
+      const slug =
+        editingJob?.slug ||
+        `career/${Date.now()}-${data.title
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")}`;
+
       const pageData = {
         title: data.title,
         slug,
@@ -117,7 +146,9 @@ export default function AdminCareersPage() {
       form.reset();
       toast({
         title: editingJob ? "Job updated" : "Job posted",
-        description: `The job posting has been ${editingJob ? "updated" : "created"} successfully.`,
+        description: `The job posting has been ${
+          editingJob ? "updated" : "created"
+        } successfully.`,
       });
     },
     onError: (error: any) => {
@@ -203,8 +234,12 @@ export default function AdminCareersPage() {
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Career Postings</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage job openings and career opportunities</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Career Postings
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            Manage job openings and career opportunities
+          </p>
         </div>
         <Button onClick={handleNewJob} data-testid="button-new-job">
           <Plus className="mr-2 h-4 w-4" />
@@ -214,14 +249,20 @@ export default function AdminCareersPage() {
 
       {isLoading ? (
         <div className="text-center py-12">
-          <p className="text-gray-600 dark:text-gray-400">Loading job postings...</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Loading job postings...
+          </p>
         </div>
       ) : jobPages.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
             <Briefcase className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No job postings yet</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">Get started by creating your first job posting</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              No job postings yet
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Get started by creating your first job posting
+            </p>
             <Button onClick={handleNewJob}>
               <Plus className="mr-2 h-4 w-4" />
               Create First Job
@@ -250,30 +291,59 @@ export default function AdminCareersPage() {
                       )}
                     </div>
                     <div className="flex flex-wrap gap-2 text-sm text-gray-600 dark:text-gray-400">
-                      <Badge variant="outline">{(job.metadata as any)?.department}</Badge>
-                      <Badge variant="outline">{(job.metadata as any)?.location}</Badge>
-                      <Badge variant="outline">{(job.metadata as any)?.type}</Badge>
+                      <Badge variant="outline">
+                        {(job.metadata as any)?.department}
+                      </Badge>
+                      <Badge variant="outline">
+                        {(job.metadata as any)?.location}
+                      </Badge>
+                      <Badge variant="outline">
+                        {(job.metadata as any)?.type}
+                      </Badge>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">{job.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+                      {job.description}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2 ml-4">
                     <Link href={`/${job.slug}`} target="_blank">
-                      <Button variant="ghost" size="sm" data-testid={`view-job-${job.id}`}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        data-testid={`view-job-${job.id}`}
+                      >
                         <ExternalLink className="h-4 w-4" />
                       </Button>
                     </Link>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => togglePublishMutation.mutate({ id: job.id, isPublished: !job.isPublished })}
+                      onClick={() =>
+                        togglePublishMutation.mutate({
+                          id: job.id,
+                          isPublished: !job.isPublished,
+                        })
+                      }
                       disabled={togglePublishMutation.isPending}
                     >
-                      {job.isPublished ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {job.isPublished ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => handleEdit(job)}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEdit(job)}
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => handleDelete(job)}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(job)}
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -288,14 +358,23 @@ export default function AdminCareersPage() {
       <Dialog open={isFormDialogOpen} onOpenChange={setIsFormDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingJob ? "Edit Job Posting" : "New Job Posting"}</DialogTitle>
+            <DialogTitle>
+              {editingJob ? "Edit Job Posting" : "New Job Posting"}
+            </DialogTitle>
             <DialogDescription>
-              {editingJob ? "Update the job posting details below" : "Fill in the details to create a new job posting"}
+              {editingJob
+                ? "Update the job posting details below"
+                : "Fill in the details to create a new job posting"}
             </DialogDescription>
           </DialogHeader>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => saveJobMutation.mutate(data))} className="space-y-4">
+            <form
+              onSubmit={form.handleSubmit((data) =>
+                saveJobMutation.mutate(data)
+              )}
+              className="space-y-4"
+            >
               <FormField
                 control={form.control}
                 name="title"
@@ -303,7 +382,10 @@ export default function AdminCareersPage() {
                   <FormItem>
                     <FormLabel>Job Title *</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., Senior Full-Stack Developer" {...field} />
+                      <Input
+                        placeholder="e.g., Senior Full-Stack Developer"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -348,9 +430,12 @@ export default function AdminCareersPage() {
 
               {/* Rich Content Info */}
               <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-4">
-                <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">📝 Adding Full Job Content</h4>
+                <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                  📝 Adding Full Job Content
+                </h4>
                 <p className="text-sm text-blue-800 dark:text-blue-200 mb-3">
-                  To add detailed job content (responsibilities, qualifications, requirements, benefits, etc.), first save this job, then:
+                  To add detailed job content (responsibilities, qualifications,
+                  requirements, benefits, etc.), first save this job, then:
                 </p>
                 <ol className="text-sm text-blue-800 dark:text-blue-200 list-decimal list-inside space-y-1">
                   <li>Click "View Job Page" from the job card</li>
@@ -360,8 +445,16 @@ export default function AdminCareersPage() {
                 </ol>
                 {editingJob && (
                   <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-800">
-                    <Link href={`/${editingJob.slug}?edit=true`} target="_blank">
-                      <Button variant="outline" size="sm" className="w-full" type="button">
+                    <Link
+                      href={`/${editingJob.slug}?edit=true`}
+                      target="_blank"
+                    >
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                        type="button"
+                      >
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Edit Full Content for This Job
                       </Button>
@@ -377,7 +470,10 @@ export default function AdminCareersPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Department *</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select department" />
@@ -402,7 +498,10 @@ export default function AdminCareersPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Employment Type *</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select type" />
@@ -454,14 +553,15 @@ export default function AdminCareersPage() {
                   <FormItem>
                     <FormLabel>Application Link (Optional)</FormLabel>
                     <FormControl>
-                      <Input 
-                        placeholder="https://example.com/apply or leave empty for contact form" 
-                        {...field} 
+                      <Input
+                        placeholder="https://example.com/apply or leave empty for contact form"
+                        {...field}
                         data-testid="input-apply-url"
                       />
                     </FormControl>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Custom URL for the "Apply Now" button. Leave empty to use the default contact form.
+                      Custom URL for the "Apply Now" button. Leave empty to use
+                      the default contact form.
                     </p>
                     <FormMessage />
                   </FormItem>
@@ -480,18 +580,29 @@ export default function AdminCareersPage() {
                       </div>
                     </div>
                     <FormControl>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
               />
 
               <DialogFooter>
-                <Button type="button" variant="outline" onClick={() => setIsFormDialogOpen(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsFormDialogOpen(false)}
+                >
                   Cancel
                 </Button>
                 <Button type="submit" disabled={saveJobMutation.isPending}>
-                  {saveJobMutation.isPending ? "Saving..." : editingJob ? "Update Job" : "Create Job"}
+                  {saveJobMutation.isPending
+                    ? "Saving..."
+                    : editingJob
+                    ? "Update Job"
+                    : "Create Job"}
                 </Button>
               </DialogFooter>
             </form>
@@ -505,16 +616,22 @@ export default function AdminCareersPage() {
           <DialogHeader>
             <DialogTitle>Delete Job Posting</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{jobToDelete?.title}"? This action cannot be undone.
+              Are you sure you want to delete "{jobToDelete?.title}"? This
+              action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
               Cancel
             </Button>
             <Button
               variant="destructive"
-              onClick={() => jobToDelete && deleteJobMutation.mutate(jobToDelete.id)}
+              onClick={() =>
+                jobToDelete && deleteJobMutation.mutate(jobToDelete.id)
+              }
               disabled={deleteJobMutation.isPending}
             >
               {deleteJobMutation.isPending ? "Deleting..." : "Delete"}

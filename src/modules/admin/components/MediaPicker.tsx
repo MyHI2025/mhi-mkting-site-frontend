@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, Check } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/queryClient";
 import { api } from "@/lib/api";
-import { type MediaAsset } from "@myhealthintegral/shared";
+import { type MediaAsset } from "@myhi2025/shared";
 
 interface MediaPickerProps {
   open: boolean;
@@ -15,13 +21,20 @@ interface MediaPickerProps {
   selectedMediaId?: string | null;
 }
 
-export function MediaPicker({ open, onOpenChange, onSelect, selectedMediaId }: MediaPickerProps) {
+export function MediaPicker({
+  open,
+  onOpenChange,
+  onSelect,
+  selectedMediaId,
+}: MediaPickerProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: mediaAssets = [], isLoading } = useQuery({
     queryKey: [api.admin.media, searchQuery],
     queryFn: () => {
-      const params = searchQuery ? `?search=${encodeURIComponent(searchQuery)}` : "";
+      const params = searchQuery
+        ? `?search=${encodeURIComponent(searchQuery)}`
+        : "";
       return apiRequest(`${api.admin.media}${params}`);
     },
     enabled: open,
@@ -52,7 +65,9 @@ export function MediaPicker({ open, onOpenChange, onSelect, selectedMediaId }: M
 
         <div className="flex-1 overflow-y-auto">
           {isLoading ? (
-            <div className="text-center py-8 text-muted-foreground">Loading...</div>
+            <div className="text-center py-8 text-muted-foreground">
+              Loading...
+            </div>
           ) : mediaAssets.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               No media found. Upload some images first.
