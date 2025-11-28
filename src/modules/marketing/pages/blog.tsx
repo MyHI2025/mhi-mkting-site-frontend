@@ -337,9 +337,9 @@ export default function Blog() {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center">
                         <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                        <div className="text-muted-foreground text-lg font-medium">
+                        {/* <div className="text-muted-foreground text-lg font-medium">
                           Featured Article Image
-                        </div>
+                        </div> */}
                         <div className="text-muted-foreground text-sm mt-1">
                           Hero image for "{featuredArticle.title}"
                         </div>
@@ -350,9 +350,9 @@ export default function Blog() {
                         Featured
                       </span>
                     </div>
-                    <div className="absolute bottom-4 right-4 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                    {/* <div className="absolute bottom-4 right-4 bg-black/60 text-white text-xs px-2 py-1 rounded">
                       Upload featured image
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="p-8 lg:p-12">
