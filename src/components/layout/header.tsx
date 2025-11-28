@@ -71,7 +71,7 @@ export default function Header() {
           </DropdownMenu>
 
           <Link href="/corporates" className="nav-link">For Business</Link>
-          <Link href="/pricing" className="nav-link">Pricing</Link>
+          {/* <Link href="/pricing" className="nav-link">Pricing</Link> */}
           <Link href="/about" className="nav-link">About</Link>
           <Link href="/blog" className="nav-link">Content Hub</Link>
           <Link href="/career" className="nav-link">Careers</Link>
@@ -130,7 +130,7 @@ export default function Header() {
           </div>
 
           <Link href="/corporates" className="mobile-link">For Business</Link>
-          <Link href="/pricing" className="mobile-link">Pricing</Link>
+          {/* <Link href="/pricing" className="mobile-link">Pricing</Link> */}
           <Link href="/about" className="mobile-link">About</Link>
           <Link href="/blog" className="mobile-link">Content Hub</Link>
           <Link href="/career" className="mobile-link">Careers</Link>
