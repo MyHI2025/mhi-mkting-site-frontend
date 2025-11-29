@@ -39,7 +39,10 @@ export default function Header() {
     { href: "/investors", label: "Investors" }
   ];
 
-  const isActive = (path) => location === path;
+  const isActive = (path: string) =>
+  path === "/" ? location === "/" : location.startsWith(path);
+
+
   const activeClass = "bg-slate-200 dark:bg-slate-700 rounded-md px-2 py-1 text-foreground";
 
   return (
