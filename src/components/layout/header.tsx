@@ -95,40 +95,72 @@ export default function Header() {
                   >
                     {item.label}
                   </Link>
-                )
-              )}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Link href="/corporates" className="nav-link">For Business</Link>
+          {/* <Link href="/pricing" className="nav-link">Pricing</Link> */}
+          <Link href="/about" className="nav-link">About</Link>
+          <Link href="/blog" className="nav-link">Content Hub</Link>
+          <Link href="/career" className="nav-link">Careers</Link>
+          <Link href="/contact" className="nav-link">Contact</Link>
+          <Link href="/investors" className="nav-link">Investors</Link>
+        </div>
+      </div>
+
+      {/* RIGHT SECTION */}
+      <div className="flex items-center space-x-3">
+        <Button
+          variant="ghost"
+          className="hidden sm:inline-flex"
+          data-testid="button-signin"
+          title="Complete the waiting list form to be invited when we launch"
+          onClick={() => {
+            alert("Join our waiting list! Complete the contact form to be invited when we launch.");
+            setLocation("/contact#contact-form");
+          }}
+        >
+          Sign In
+        </Button>
+
+        <Button className="bg-primary hover:bg-primary/90" asChild>
+          <Link href="/contact#contact-form">Get Started</Link>
+        </Button>
+
+        {/* Mobile Toggle */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </Button>
+      </div>
+    </div>
+
+    {/* Mobile Navigation */}
+    {isMobileMenuOpen && (
+      <div className="lg:hidden border-t border-border py-4">
+        <div className="space-y-4">
+          <Link href="/" className="mobile-link">Home</Link>
+          <Link href="/patients" className="mobile-link">For Patients</Link>
+
+          <div className="space-y-2">
+            <div className="text-sm font-medium text-foreground">
+              For Healthcare Providers
             </div>
           </div>
 
-          {/* RIGHT SECTION */}
-          <div className="flex items-center space-x-3">
-            <Button
-              variant="ghost"
-              className="hidden sm:inline-flex"
-              data-testid="button-signin"
-              title="Complete the waiting list form to be invited when we launch"
-              onClick={() => {
-                alert("Join our waiting list! Complete the contact form to be invited when we launch.");
-                setLocation("/contact#contact-form");
-              }}
-            >
-              Sign In
-            </Button>
-
-            <Button className="bg-primary hover:bg-primary/90" asChild>
-              <Link href="/contact#contact-form">Get Started</Link>
-            </Button>
-
-            {/* Mobile Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          </div>
+          <Link href="/corporates" className="mobile-link">For Business</Link>
+          {/* <Link href="/pricing" className="mobile-link">Pricing</Link> */}
+          <Link href="/about" className="mobile-link">About</Link>
+          <Link href="/blog" className="mobile-link">Content Hub</Link>
+          <Link href="/career" className="mobile-link">Careers</Link>
+          <Link href="/contact" className="mobile-link">Contact</Link>
+          <Link href="/investors" className="mobile-link">Investors</Link>
         </div>
 
         {/* Mobile Navigation */}
