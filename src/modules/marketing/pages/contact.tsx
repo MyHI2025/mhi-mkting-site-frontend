@@ -52,6 +52,8 @@ import { useMediaPosition } from "@/hooks/use-media-position";
 import { useSEO } from "@/hooks/use-seo";
 import contactHeroFallback from "@assets/stock_images/professional_african_422d811a.jpg";
 import { TITLE_OPTIONS } from "@myhi2025/shared";
+import faqImg from "../../../../attached_assets/stock_images/professional_african_70f2d164.jpg";
+import healthcareImg from "../../../../attached_assets/stock_images/professional_african_aa1cf976.jpg";
 
 const contactSchema = z.object({
   title: z
@@ -1138,23 +1140,31 @@ export default function Contact() {
 
               {/* Contact Information */}
               <div className="space-y-8">
-                {/* Healthcare Communication Image Placeholder */}
-                <div className="relative h-32 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-xl overflow-hidden mb-6">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <Phone className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                      <div className="text-muted-foreground text-sm font-medium">
-                        Healthcare Communication
-                      </div>
-                      <div className="text-muted-foreground text-xs mt-1">
-                        Support team or contact imagery
-                      </div>
-                    </div>
-                  </div>
-                  <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
-                    Upload communication image
-                  </div>
-                </div>
+              {/* Healthcare Communication Image */}
+<div className="relative h-32 rounded-xl overflow-hidden mb-6">
+  
+  {/* Full background image */}
+  <img
+    src={healthcareImg}
+    alt="FAQ Image"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+
+  {/* Overlay content */}
+  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+    <div className="text-center">
+      <Phone className="h-8 w-8 text-white mx-auto mb-2" />
+      <div className="text-white text-sm font-medium">
+        Healthcare Communication
+      </div>
+      <div className="text-white text-xs mt-1">
+        Support team or contact imagery
+      </div>
+    </div>
+  </div>
+
+</div>
+
 
                 <div>
                   <h2
@@ -1359,23 +1369,30 @@ export default function Contact() {
         {/* User Type Specific FAQs */}
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Healthcare Support Team Image Placeholder */}
-            <div className="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl overflow-hidden mb-16">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <HelpCircle className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                  <div className="text-muted-foreground text-lg font-medium">
-                    Role-Specific FAQs
-                  </div>
-                  <div className="text-muted-foreground text-sm mt-1">
-                    Find answers tailored to your specific healthcare role
-                  </div>
-                </div>
-              </div>
-              <div className="absolute bottom-4 left-4 bg-black/60 text-white text-xs px-3 py-2 rounded">
-                Upload FAQ guidance image
-              </div>
-            </div>
+          {/* Healthcare Support Team Image */}
+<div className="relative h-48 rounded-2xl overflow-hidden mb-16">
+  
+  {/* Full background image */}
+  <img
+    src={faqImg}
+    alt="FAQ Image"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+
+  {/* Overlay content */}
+  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+    <div className="text-center">
+      <HelpCircle className="h-12 w-12 text-white mx-auto mb-3" />
+      <div className="text-white text-lg font-medium">
+        Role-Specific FAQs
+      </div>
+      <div className="text-white text-sm mt-1">
+        Find answers tailored to your specific healthcare role
+      </div>
+    </div>
+  </div>
+
+</div>
 
             <div className="text-center mb-16">
               <h2

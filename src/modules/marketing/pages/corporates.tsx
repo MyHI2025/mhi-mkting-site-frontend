@@ -29,6 +29,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import corporatesHeroFallback from "@assets/stock_images/diverse_african_heal_6654566f.jpg";
+import aiImg from "../../../../attached_assets/home/bg.png";
 
 const corporateServices = [
   {
@@ -286,18 +287,28 @@ export default function Corporates() {
                 </ul>
               </div>
               
-              <div className="relative">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl h-96 flex items-center justify-center">
-                  <div className="text-center">
-                    <BarChart3 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                    <div className="text-muted-foreground text-lg font-medium">Corporate Wellness Analytics</div>
-                    <div className="text-muted-foreground text-sm mt-2">Employee health dashboard and metrics visualization</div>
-                  </div>
-                </div>
-                <div className="absolute top-4 right-4 bg-black/60 text-white text-xs px-3 py-2 rounded">
-                  Upload corporate analytics image
-                </div>
-              </div>
+              <div className="relative rounded-2xl h-96 overflow-hidden">
+
+  {/* Full background image */}
+  <img
+    src={aiImg}
+    alt="Corporate Wellness Analytics"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+
+  {/* Overlay content */}
+  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+    <div className="text-center">
+      <BarChart3 className="h-16 w-16 text-white mx-auto mb-4" />
+      <div className="text-white text-lg font-medium">Corporate Wellness Analytics</div>
+      <div className="text-white text-sm mt-2">
+        Employee health dashboard and metrics visualization
+      </div>
+    </div>
+  </div>
+
+</div>
+
             </div>
           </div>
         </section>
