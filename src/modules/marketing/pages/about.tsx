@@ -630,7 +630,7 @@ export default function About() {
                         data-testid={`team-member-${index}`}
                       >
                         {/* Professional Photo */}
-                        <div className="relative h-64 bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
+                        <div className="relative h-[250px] bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
                           {member.photoUrl ? (
                             <img
                               src={member.photoUrl}
@@ -638,7 +638,7 @@ export default function About() {
                                 member.photoAlt ||
                                 `${member.firstName} ${member.lastName}`
                               }
-                              className="w-full h-full object-cover"
+                              className="w-ful h-full aspect-[1/1] object-cont mx-auto backdrop-blur-3xl"
                             />
                           ) : (
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -687,7 +687,7 @@ export default function About() {
                           {/* Achievements */}
                           {achievements.length > 0 && (
                             <div className="mb-6">
-                              <h4 className="text-sm font-semibold text-foreground mb-3">
+                              <h4 className="text-sm font-semibold text-foreground mb-2">
                                 Key Expertise
                               </h4>
                               <div className="flex flex-wrap gap-2 justify-center">
