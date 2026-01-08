@@ -18,27 +18,33 @@ export default function Header() {
   const [location, setLocation] = useLocation();
   const { data: logoPosition } = useMediaPosition("logo_header");
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/patients", label: "For Patients" },
-    {
-      label: "For Healthcare Providers",
-      dropdown: [
-        { href: "/physicians", label: "Private Physicians" },
-        { href: "/hospitals", label: "Hospitals" },
-        { href: "/laboratories", label: "Medical Labs" },
-        { href: "/pharmacies", label: "Pharmacies" },
-        { href: "/emergency", label: "Emergency Services" },
-        { href: "/insurance", label: "Insurance Providers" },
-      ],
-    },
-    { href: "/corporates", label: "For Business" },
-    { href: "/about", label: "About" },
-    { href: "/blog", label: "Content Hub" },
-    { href: "/career", label: "Careers" },
-    { href: "/contact", label: "Contact" },
-    { href: "/investors", label: "Investors" },
-  ];
+ const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/patients", label: "For Patients" },
+  {
+    label: "For Healthcare Providers",
+    dropdown: [
+      { href: "/physicians", label: "Private Physicians" },
+      { href: "/hospitals", label: "Hospitals" },
+      { href: "/laboratories", label: "Medical Labs" },
+      { href: "/pharmacies", label: "Pharmacies" },
+      { href: "/emergency", label: "Emergency Services" },
+      { href: "/insurance", label: "Insurance Providers" },
+    ],
+  },
+  { href: "/corporates", label: "For Business" },
+  {
+    label: "Company",
+    dropdown: [
+      { href: "/about", label: "About" },
+      { href: "/blog", label: "Content Hub" },
+      { href: "/career", label: "Careers" },
+    ],
+  },
+  { href: "/contact", label: "Contact" },
+  { href: "/investors", label: "Investors" },
+];
+
 
   const isActive = (path: string) =>
     path === "/" ? location === "/" : location.startsWith(path);
@@ -47,7 +53,7 @@ export default function Header() {
     "bg-slate-200 dark:bg-slate-700 rounded-md px-2 py-1 text-foreground";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-white backdrop-blur-md">
       <nav className="container mx-auto">
         <div className="flex h-16 items-center justify-between">
 

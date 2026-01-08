@@ -22,7 +22,7 @@ import {
   Calendar,
 } from "lucide-react";
 
-import founderPortrait from "@assets/stock_images/professional_african_32e7be04.jpg";
+import founderPortrait from "../../../../attached_assets/stock_images/davidceo.jpg";
 import childhoodHospital from "@assets/stock_images/child_sick_hospital__8066777b.jpg";
 import motherCare from "@assets/stock_images/elderly_mother_hospi_07a5408b.jpg";
 import familyLoss from "@assets/stock_images/african_family_grief_f89fcb8f.jpg";

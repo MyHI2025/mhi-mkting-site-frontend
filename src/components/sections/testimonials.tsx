@@ -1,8 +1,8 @@
 import { Star, MapPin, Quote } from "lucide-react";
 import { useMediaPosition } from "@/hooks/use-media-position";
-import patientFallback from "@assets/stock_images/professional_african_9c97e616.jpg";
-import providerFallback from "@assets/stock_images/professional_african_aa1cf976.jpg";
-import adminFallback from "@assets/stock_images/professional_african_422d811a.jpg";
+import patientFallback from "@assets/stock_images/dabi.jpg";
+import providerFallback from "@assets/stock_images/professional_african_9c97e616.jpg";
+import adminFallback from "@assets/stock_images/professional_african_aa1cf976.jpg";
 
 const testimonials = [
   {

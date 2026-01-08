@@ -196,6 +196,7 @@ function App() {
   }, []);
 
   return (
+    
     <QueryClientProvider client={queryClient}>
       <AdminProvider>
         <EditingProvider>
