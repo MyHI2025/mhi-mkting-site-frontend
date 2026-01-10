@@ -18,10 +18,12 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { CMSPage } from "@/components/cms/CMSPage";
+import { useToast } from "@/hooks/use-toast";
 
 export default function BlogDetail() {
   const params = useParams();
   const articleSlug = params.id || "";
+  const { toast } = useToast();
   
   // Fetch article from database
   const { data: pages = [], isLoading } = useQuery({
@@ -32,7 +34,7 @@ export default function BlogDetail() {
   const article = useMemo(() => {
   if (!Array.isArray(pages)) return null;
   // Search for the slug directly
-  const page = pages.find((p: any) => p.slug === articleSlug && p.pageType === 'blog');
+  const page = pages.find((p: any) => p.slug === `blog/${articleSlug}` && p.pageType === 'blog');
     if (!page) return null;
     
     return {
@@ -54,6 +56,23 @@ export default function BlogDetail() {
     title: article ? `${article.title} | My Health Integral Blog` : "Article | My Health Integral",
     description: article ? article.excerpt : "Loading article...",
   });
+
+  const copyJobLink = async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast({
+        title: "Link copied!",
+        description: "Blog link has been copied to your clipboard.",
+      });
+    } catch (err) {
+      toast({
+        title: "Failed to copy",
+        description: "Please copy the link manually from your browser.",
+        variant: "destructive",
+      });
+    }
+  };
 
   // Show loading state while fetching
   if (isLoading) {
@@ -217,12 +236,14 @@ export default function BlogDetail() {
                     <div className="mt-6 pt-6 border-t border-border">
                       <h4 className="font-medium text-foreground mb-3">Share this article</h4>
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm" className="flex-1">
+                        <Button variant="outline" size="sm" className="flex-1" onClick={copyJobLink} data-testid="copy-article-link">
                           Copy Link
                         </Button>
-                        <Button variant="outline" size="sm" className="flex-1">
-                          Email
-                        </Button>
+                        <a href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer" className="flex-1">
+                          <Button variant="outline" size="sm" className="flex-1" data-testid="share-via-email">
+                            Email
+                          </Button>
+                        </a>
                       </div>
                     </div>
                   </div>

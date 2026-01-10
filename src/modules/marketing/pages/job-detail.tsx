@@ -32,7 +32,7 @@ interface Page {
 }
 
 export default function JobDetail() {
-  const [, params] = useRoute("/career/:id");
+  const [, params] = useRoute("/careers/:id");
   const jobId = params?.id;
   const { toast } = useToast();
   
@@ -42,8 +42,8 @@ export default function JobDetail() {
     enabled: !!jobId,
   });
 
-  // Construct full slug from jobId (URL has /career/1, but slug in DB is career/1)
-  const fullSlug = jobId ? `career/${jobId}` : '';
+  // Construct full slug from jobId (URL has /careers/1, but slug in DB is careers/1)
+  const fullSlug = jobId ? `careers/${jobId}` : '';
   const job = Array.isArray(pages) ? pages.find((p: Page) => p.slug === fullSlug && p.pageType === "job") : undefined;
 
   useSEO({
