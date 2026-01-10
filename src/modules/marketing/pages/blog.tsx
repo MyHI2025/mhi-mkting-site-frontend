@@ -139,6 +139,8 @@ export default function Blog() {
     featuredArticle,
   ]);
 
+  console.log("filteredArticles:", filteredArticles);
+
   const resetFilters = () => {
     setSearchTerm("");
     setSelectedUserType("All User Types");
