@@ -42,7 +42,15 @@ export default function Header() {
     ],
   },
   { href: "/contact", label: "Contact" },
-  { href: "/investors", label: "Investors" },
+ 
+  {
+    label: "Investors",
+    dropdown: [
+      { href: "/investors", label: "Why Invest" },
+      { href: "/contact?type=investor", label: "Contact Investor Relations" },
+    ],
+  },
+
 ];
 
 

@@ -27,11 +27,11 @@ const testimonials = [
   },
   {
     rating: 5,
-    quote: "MHI provides top-notch healthcare services at affordable prices. The platform has transformed how we deliver care.",
-    author: "David Johnson",
-    role: "Hospital Administrator",
-    location: "Accra, Ghana",
-    mediaKey: "testimonial_admin",
+    quote: "Quality health care imo is using all necessary resources to give care to a particular Px at the right time with evidence based medicine.",
+    author: "Adewale Adefolaji",
+    role: "Medical Doctor",
+    location: "Lagos, Nigeria",
+    mediaKey: "testimonial_provider",
     fallback: adminFallback,
     alt: "Hospital administrator testimonial headshot"
   }
