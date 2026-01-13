@@ -16,6 +16,8 @@ import realtimeImg from "../../../attached_assets/home/operation2.png";
 import advancedImg from "../../../attached_assets/home/scan.png";
 import globalImg from "../../../attached_assets/home/prep.png";
 import twentyFourSevenImg from "../../../attached_assets/home/img3.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 const features = [
   {
@@ -170,7 +172,30 @@ export default function Features() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
+            spaceBetween={48}
+            loop
+            autoplay={{
+              delay: 1000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            pagination={{ clickable: true }}
+            navigation
+            className="max-w-6xl mx-auto"
+          >
             {[
               {
                 icon: Heart,
@@ -199,24 +224,25 @@ export default function Features() {
             ].map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div
-                  key={index}
-                  className="bg-card rounded-lg p-6 border border-border card-hover text-center"
-                  data-testid={`secondary-feature-${index}`}
-                >
-                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-6 w-6" />
+                <SwiperSlide key={index}>
+                  <div
+                    className="bg-card rounded-lg p-6 border border-border card-hover text-center h-full"
+                    data-testid={`secondary-feature-${index}`}
+                  >
+                    <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h4 className="font-semibold text-foreground mb-3 text-sm">
+                      {feature.title}
+                    </h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  <h4 className="font-semibold text-foreground mb-3 text-sm">
-                    {feature.title}
-                  </h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
+                </SwiperSlide>
               );
             })}
-          </div>
+          </Swiper>
         </div>
       </div>
     </section>

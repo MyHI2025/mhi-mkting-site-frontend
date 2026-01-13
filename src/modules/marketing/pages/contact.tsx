@@ -1151,7 +1151,7 @@ export default function Contact() {
   />
 
   {/* Overlay content */}
-  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+  <div className="absolute inset-0 flex items-center justify-center bg-black/20" id="contact">
     <div className="text-center">
       <Phone className="h-8 w-8 text-white mx-auto mb-2" />
       <div className="text-white text-sm font-medium">
@@ -1166,7 +1166,7 @@ export default function Contact() {
 </div>
 
 
-                <div>
+                <div >
                   <h2
                     className="text-2xl font-bold text-foreground mb-6"
                     data-testid="contact-info-title"

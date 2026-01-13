@@ -2,7 +2,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ServiceCard from "@/components/ui/service-card";
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useSEO } from "@/hooks/use-seo";
 import { useMediaPosition } from "@/hooks/use-media-position";
 import { 
@@ -150,6 +150,7 @@ const corporateFAQs = [
 
 export default function Corporates() {
   const { data: corporatesHeroImage } = useMediaPosition("hero_corporates");
+  const [, setLocation] = useLocation();
   
   useSEO({
     title: "Corporate Health Solutions - My Health Integral",
@@ -199,14 +200,18 @@ export default function Corporates() {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
+                  <a  href="https://calendly.com/david-izuogu-myhealthintegral/partnership-call-with-mhi">
                   <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-8 py-4 group" data-testid="corporates-schedule-demo">
                     <Calendar className="mr-2 h-5 w-5" />
                     Schedule Enterprise Demo
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
+                  </a>
+                   <Link href="/contact#contact-form">
                   <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary px-8 py-4" data-testid="corporates-contact-sales">
                     Contact Sales Team
                   </Button>
+                  </Link>
                 </div>
               </div>
               

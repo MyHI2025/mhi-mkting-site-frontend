@@ -1,6 +1,8 @@
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ServiceCard from "@/components/ui/service-card";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useSEO } from "@/hooks/use-seo";
@@ -363,53 +365,112 @@ export default function Emergency() {
           </div>
         </section>
 
-        {/* Critical Features */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="emergency-features-title">
-                Critical Response Features
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto" data-testid="emergency-features-description">
-                Essential features designed specifically for emergency medical services and critical care scenarios.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="text-center" data-testid="emergency-feature-1">
-                <div className="w-16 h-16 bg-destructive/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Clock className="text-destructive h-8 w-8" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-4">Sub-4 Minute Response</h3>
-                <p className="text-muted-foreground">AI-optimized dispatch achieving industry-leading response times.</p>
-              </div>
-              
-              <div className="text-center" data-testid="emergency-feature-2">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Activity className="text-primary h-8 w-8" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-4">Live Patient Monitoring</h3>
-                <p className="text-muted-foreground">Real-time vital signs and patient status during transport.</p>
-              </div>
-              
-              <div className="text-center" data-testid="emergency-feature-3">
-                <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <MapPin className="text-secondary h-8 w-8" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-4">Precise Location Tracking</h3>
-                <p className="text-muted-foreground">GPS accuracy within 3 meters for emergency vehicle dispatch.</p>
-              </div>
-              
-              <div className="text-center" data-testid="emergency-feature-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Database className="text-accent h-8 w-8" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-4">Instant Medical Records</h3>
-                <p className="text-muted-foreground">Immediate access to critical patient history and allergies.</p>
-              </div>
-            </div>
+     {/* Critical Features */}
+<section className="py-20 section-peach">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2
+        className="text-3xl sm:text-4xl font-bold text-foreground mb-4"
+        data-testid="emergency-features-title"
+      >
+        Critical Response Features
+      </h2>
+      <p
+        className="text-xl text-muted-foreground max-w-2xl mx-auto"
+        data-testid="emergency-features-description"
+      >
+        Essential features designed specifically for emergency medical services
+        and critical care scenarios.
+      </p>
+    </div>
+
+    <Swiper
+      modules={[Navigation, Pagination, Autoplay]}
+      autoplay={{
+        delay: 1000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }}
+      pagination={{ clickable: true }}
+      navigation
+      spaceBetween={24}
+      breakpoints={{
+        0: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      }}
+      className="pb-12"
+    >
+      <SwiperSlide className="h-auto">
+        <div
+          className="h-full text-center bg-card border border-border rounded-xl p-8"
+          data-testid="emergency-feature-1"
+        >
+          <div className="w-16 h-16 bg-destructive/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Clock className="text-destructive h-8 w-8" />
           </div>
-        </section>
+          <h3 className="text-lg font-semibold text-foreground mb-4">
+            Sub-4 Minute Response
+          </h3>
+          <p className="text-muted-foreground">
+            AI-optimized dispatch achieving industry-leading response times.
+          </p>
+        </div>
+      </SwiperSlide>
+
+      <SwiperSlide className="h-auto">
+        <div
+          className="h-full text-center bg-card border border-border rounded-xl p-8"
+          data-testid="emergency-feature-2"
+        >
+          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Activity className="text-primary h-8 w-8" />
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mb-4">
+            Live Patient Monitoring
+          </h3>
+          <p className="text-muted-foreground">
+            Real-time vital signs and patient status during transport.
+          </p>
+        </div>
+      </SwiperSlide>
+
+      <SwiperSlide className="h-auto">
+        <div
+          className="h-full text-center bg-card border border-border rounded-xl p-8"
+          data-testid="emergency-feature-3"
+        >
+          <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <MapPin className="text-secondary h-8 w-8" />
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mb-4">
+            Precise Location Tracking
+          </h3>
+          <p className="text-muted-foreground">
+            GPS accuracy within 3 meters for emergency vehicle dispatch.
+          </p>
+        </div>
+      </SwiperSlide>
+
+      <SwiperSlide className="h-auto">
+        <div
+          className="h-full text-center bg-card border border-border rounded-xl p-8"
+          data-testid="emergency-feature-4"
+        >
+          <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Database className="text-accent h-8 w-8" />
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mb-4">
+            Instant Medical Records
+          </h3>
+          <p className="text-muted-foreground">
+            Immediate access to critical patient history and allergies.
+          </p>
+        </div>
+      </SwiperSlide>
+    </Swiper>
+  </div>
+</section>
 
         {/* FAQ Section */}
         <section className="py-20 bg-background">
