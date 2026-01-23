@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useSEO } from "@/hooks/use-seo";
 import { useMediaPosition } from "@/hooks/use-media-position";
 import {
@@ -228,7 +228,7 @@ function TelemedicineBenefitSection() {
   const { data: telemedicineImage } = useMediaPosition("benefit_telemedicine");
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background section-teal-light">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           {/* Benefit Image */}
@@ -325,7 +325,7 @@ function TelemedicineBenefitSection() {
 
 export default function Patients() {
   const { data: patientsHeroImage } = useMediaPosition("hero_patients");
-
+  const [location, setLocation] = useLocation();
   useSEO({
     title: "Patient Care Services",
     description:
@@ -335,6 +335,25 @@ export default function Patients() {
       "Access telemedicine consultations, AI diagnostics, digital health records, and 24/7 healthcare support from anywhere.",
     canonical: `${window.location.origin}/patients`,
   });
+
+  const serviceCardColors = [
+   
+    {
+      bg: "bg-teal-50",
+      border: "border-teal-200",
+      accentText: "text-teal-600",
+      accentBg: "bg-teal-600",
+    },
+     {
+      bg: "bg-amber-50",
+      border: "border-amber-200",
+      accentText: "text-amber-600",
+      accentBg: "bg-amber-600",
+    },
+  ];
+
+
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -476,6 +495,9 @@ export default function Patients() {
                   icon={service.icon}
                   title={service.title}
                   description={service.description}
+                  colorClass={
+                    serviceCardColors[index % serviceCardColors.length]
+                  }
                 />
               ))}
             </div>
@@ -576,21 +598,35 @@ export default function Patients() {
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-6">
-                {benefits.map((benefit, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start space-x-4 p-6 bg-card rounded-lg border border-border"
-                    data-testid={`patients-benefit-${index}`}
-                  >
-                    <div className="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"></div>
-                    <p
-                      className="text-foreground leading-relaxed"
-                      data-testid={`patients-benefit-text-${index}`}
+                {benefits.map((benefit, index) => {
+                  const isEvenRow = Math.floor(index / 2) % 2 === 0;
+
+                  const colorClasses = isEvenRow
+                    ? "bg-teal-50 border-teal-200 hover:bg-teal-100 hover:border-teal-300"
+                    : "bg-amber-50 border-amber-200 hover:bg-amber-100 hover:border-amber-300";
+
+                  return (
+                    <div
+                      key={index}
+                      className={`
+                flex items-start space-x-4 p-6 rounded-lg border
+                ${colorClasses}
+                transition-all duration-300 ease-out
+                hover:-translate-y-1 hover:shadow-md
+              `}
+                      data-testid={`patients-benefit-${index}`}
                     >
-                      {benefit}
-                    </p>
-                  </div>
-                ))}
+                      <div className="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"></div>
+
+                      <p
+                        className="text-foreground leading-relaxed"
+                        data-testid={`patients-benefit-text-${index}`}
+                      >
+                        {benefit}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -639,6 +675,12 @@ export default function Patients() {
                   variant="outline"
                   className="px-8 py-3"
                   data-testid="patients-see-all-faqs"
+                  onClick={() => {
+                    alert(
+                      "Complete the contact form to view all patient FAQs.",
+                    );
+                    setLocation("/contact#contact-form");
+                  }}
                 >
                   <ArrowRight className="mr-2 h-4 w-4" />
                   See All Patient FAQs

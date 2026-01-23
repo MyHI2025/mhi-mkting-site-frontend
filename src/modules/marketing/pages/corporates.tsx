@@ -150,7 +150,7 @@ const corporateFAQs = [
 
 export default function Corporates() {
   const { data: corporatesHeroImage } = useMediaPosition("hero_corporates");
-  const [, setLocation] = useLocation();
+  const [ setLocation] = useLocation();
   
   useSEO({
     title: "Corporate Health Solutions - My Health Integral",
@@ -160,6 +160,20 @@ export default function Corporates() {
     canonical: `${window.location.origin}/corporates`
   });
 
+  const serviceCardColors = [
+    {
+      bg: "bg-teal-50",
+      border: "border-teal-200",
+      accentText: "text-teal-600",
+      accentBg: "bg-teal-600",
+    },
+    {
+      bg: "bg-amber-50",
+      border: "border-amber-200",
+      accentText: "text-amber-600",
+      accentBg: "bg-amber-600",
+    },
+  ];
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -208,7 +222,7 @@ export default function Corporates() {
                   </Button>
                   </a>
                    <Link href="/contact#contact-form">
-                  <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary px-8 py-4" data-testid="corporates-contact-sales">
+                  <Button variant="outline" size="lg" className="border-white text-primary  hover:bg-white/90 hover:text-primary px-8 py-4" data-testid="corporates-contact-sales">
                     Contact Sales Team
                   </Button>
                   </Link>
@@ -257,13 +271,15 @@ export default function Corporates() {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {corporateServices.map((service, index) => (
-                <ServiceCard
-                  key={index}
-                  icon={service.icon}
-                  title={service.title}
-                  description={service.description}
-                  data-testid={`corporates-service-${index + 1}`}
-                />
+                 <ServiceCard
+                                 key={index}
+                                 icon={service.icon}
+                                 title={service.title}
+                                 description={service.description}
+                                 colorClass={
+                                   serviceCardColors[index % serviceCardColors.length]
+                                 }
+                               />
               ))}
             </div>
           </div>
@@ -281,14 +297,35 @@ export default function Corporates() {
                   Transform your employee wellness program with measurable results and improved health outcomes for your workforce.
                 </p>
                 <ul className="space-y-4">
-                  {benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mt-0.5 mr-3">
-                        <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      </div>
-                      <span className="text-muted-foreground" data-testid={`corporates-benefit-${index + 1}`}>{benefit}</span>
-                    </li>
-                  ))}
+                  {benefits.map((benefit, index) => {
+                  const isEvenRow = Math.floor(index / 2) % 2 === 0;
+
+                  const colorClasses = isEvenRow
+                    ? "bg-teal-50 border-teal-200 hover:bg-teal-100 hover:border-teal-300"
+                    : "bg-amber-50 border-amber-200 hover:bg-amber-100 hover:border-amber-300";
+
+                  return (
+                    <div
+                      key={index}
+                      className={`
+                flex items-start space-x-4 p-6 rounded-lg border
+                ${colorClasses}
+                transition-all duration-300 ease-out
+                hover:-translate-y-1 hover:shadow-md
+              `}
+                      data-testid={`patients-benefit-${index}`}
+                    >
+                      <div className="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"></div>
+
+                      <p
+                        className="text-foreground leading-relaxed"
+                        data-testid={`patients-benefit-text-${index}`}
+                      >
+                        {benefit}
+                      </p>
+                    </div>
+                  );
+                })}
                 </ul>
               </div>
               
@@ -407,9 +444,12 @@ export default function Corporates() {
                     Get Started Today
                   </Button>
                 </Link>
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary px-8 py-4" data-testid="corporates-request-demo">
+
+                  <a  href="https://calendly.com/david-izuogu-myhealthintegral/partnership-call-with-mhi">
+                <Button variant="outline" size="lg" className="border-white text-primary  hover:bg-white/90 hover:text-primary px-8 py-4" data-testid="corporates-request-demo">
                   Request Enterprise Demo
                 </Button>
+                </a>
               </div>
             </div>
           </div>

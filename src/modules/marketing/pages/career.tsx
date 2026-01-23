@@ -176,109 +176,125 @@ export default function Career() {
       
       <main>
         {/* Hero Section */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-left">
-                <EditableText
-                  pageId={careerPageId}
-                  sectionId={heroSection?.id}
-                  field="title"
-                  as="h1"
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
-                  placeholder="Add hero title..."
-                >
-                  {heroSection?.content?.title || (
-                    <>
-                      Join Our Mission to
-                      <span className="block text-white/90 mt-2">Transform Healthcare in Africa</span>
-                    </>
-                  )}
-                </EditableText>
-                
-                <EditableText
-                  pageId={careerPageId}
-                  sectionId={heroSection?.id}
-                  field="description"
-                  as="p"
-                  className="text-xl text-white/90 mb-8 max-w-2xl"
-                  placeholder="Add hero description..."
-                >
-                  {heroSection?.content?.description ? (
-                    <div dangerouslySetInnerHTML={{ __html: heroSection.content.description }} />
-                  ) : (
-                    "Be part of a team that's revolutionizing healthcare accessibility. Help us build solutions that impact millions of lives while advancing your career in a fast-growing, mission-driven company."
-                  )}
-                </EditableText>
-                
-                {/* Key Metrics */}
-                <div className="flex flex-wrap gap-6 mb-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white" data-testid="metric-positions">50+</div>
-                    <div className="text-sm text-white/80" data-testid="metric-positions-label">Open Positions</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white" data-testid="metric-countries">3</div>
-                    <div className="text-sm text-white/80" data-testid="metric-countries-label">Countries</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white" data-testid="metric-remote">100%</div>
-                    <div className="text-sm text-white/80" data-testid="metric-remote-label">Remote Options</div>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg" data-testid="view-openings">
-                    <Briefcase className="mr-2 h-5 w-5" />
-                    View Open Positions
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                  <Button variant="outline" className="text-white border-2 border-white/60 bg-white/15 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/25 transition-colors" data-testid="learn-culture">
-                    <Users className="mr-2 h-5 w-5" />
-                    Learn About Our Culture
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Hero Image */}
-              <div className="relative lg:block hidden">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src={careersHeroImage?.mediaUrl || careersHeroFallback} 
-                    alt={careersHeroImage?.mediaAlt || "Diverse African healthcare team collaborating together"} 
-                    className="w-full h-auto object-cover"
-                    data-testid="careers-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"></div>
-                </div>
-                
-                {/* Join Our Team Badge */}
-                <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10" data-testid="careers-team-badge">
-                  <div className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-primary" />
-                    <div>
-                      <div className="text-xs font-semibold text-foreground">Join Our Team</div>
-                      <div className="text-[10px] text-muted-foreground">Growing Together</div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Make Impact Badge */}
-                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10" data-testid="careers-impact-badge">
-                  <div className="flex items-center gap-2">
-                    <Heart className="h-6 w-6 text-primary" />
-                    <div>
-                      <div className="text-xs font-semibold text-foreground">Make Impact</div>
-                      <div className="text-[10px] text-muted-foreground">Change Lives</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <section
+  className="relative text-white py-20 overflow-hidden"
+  style={{
+    backgroundImage: `url(${careersHeroImage?.mediaUrl || careersHeroFallback})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  {/* Dark overlay for readability */}
+  <div className="absolute inset-0 bg-black/50"></div>
+
+  {/* Badges – top right, side by side */}
+  <div className="absolute top-6 right-6 z-20 flex gap-3">
+    {/* Join Our Team Badge */}
+    <div
+      className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
+      data-testid="careers-team-badge"
+    >
+      <div className="flex items-center gap-2">
+        <Users className="h-5 w-5 text-primary" />
+        <div>
+          <div className="text-xs font-semibold text-foreground">
+            Join Our Team
           </div>
-        </section>
+          <div className="text-[10px] text-muted-foreground">
+            Growing Together
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Make Impact Badge */}
+    <div
+      className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
+      data-testid="careers-impact-badge"
+    >
+      <div className="flex items-center gap-2">
+        <Heart className="h-5 w-5 text-primary" />
+        <div>
+          <div className="text-xs font-semibold text-foreground">
+            Make Impact
+          </div>
+          <div className="text-[10px] text-muted-foreground">
+            Change Lives
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Content Card */}
+<div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="max-w-3xl">
+    <div className="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl p-8 sm:p-10">
+      
+      <EditableText
+        pageId={careerPageId}
+        sectionId={heroSection?.id}
+        field="title"
+        as="h1"
+        className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+      >
+        Join Our Mission to
+        <span className="block text-white/90 mt-2">
+          Transform Healthcare in Africa
+        </span>
+      </EditableText>
+
+      <EditableText
+        pageId={careerPageId}
+        sectionId={heroSection?.id}
+        field="description"
+        as="p"
+        className="text-xl text-white/90 mb-8"
+      >
+        Be part of a team that's revolutionizing healthcare accessibility.
+        Help us build solutions that impact millions of lives.
+      </EditableText>
+
+      {/* Metrics */}
+      <div className="flex flex-wrap gap-8 mb-10">
+        <div>
+          <div className="text-3xl font-bold">50+</div>
+          <div className="text-sm text-white/70">Open Positions</div>
+        </div>
+        <div>
+          <div className="text-3xl font-bold">3</div>
+          <div className="text-sm text-white/70">Countries</div>
+        </div>
+        <div>
+          <div className="text-3xl font-bold">100%</div>
+          <div className="text-sm text-white/70">Remote Options</div>
+        </div>
+      </div>
+
+      {/* CTA Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:bg-white/95">
+          <Briefcase className="mr-2 h-5 w-5" />
+          View Open Positions
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+   
+   <a href="/about">
+        <Button
+          variant="outline"
+          className="text-white border-2 border-white/60 bg-white/10 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/20"
+        >
+          <Users className="mr-2 h-5 w-5" />
+          Learn About Our Culture
+        </Button>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</section>
 
         {/* Open Positions */}
         <section className="py-20 bg-background">
@@ -444,9 +460,12 @@ export default function Career() {
               <p className="text-muted-foreground mb-6">
                 Don't see a role that fits? We're always looking for exceptional talent.
               </p>
+
+              <a href="mailto:recruitment@myhralthintegral.com">
               <Button variant="outline" className="px-8 py-3" data-testid="send-resume">
                 Send Us Your Resume
               </Button>
+              </a>
             </div>
           </div>
         </section>

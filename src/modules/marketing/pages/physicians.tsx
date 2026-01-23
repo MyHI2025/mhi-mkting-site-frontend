@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useSEO } from "@/hooks/use-seo";
 import { useMediaPosition } from "@/hooks/use-media-position";
 import {
@@ -214,7 +214,7 @@ const physicianFAQs = [
 
 export default function Physicians() {
   const { data: physiciansHeroImage } = useMediaPosition("hero_physicians");
-
+const [location, setLocation] = useLocation();
   useSEO({
     title: "Physician Services & Virtual Practice Solutions",
     description:
@@ -224,6 +224,20 @@ export default function Physicians() {
       "Join our network of healthcare professionals with virtual practice setup, AI diagnostics, telemedicine tools, and performance-based compensation.",
     canonical: `${window.location.origin}/physicians`,
   });
+   const serviceCardColors = [
+    {
+      bg: "bg-teal-50",
+      border: "border-teal-200",
+      accentText: "text-teal-600",
+      accentBg: "bg-teal-600",
+    },
+    {
+      bg: "bg-amber-50",
+      border: "border-amber-200",
+      accentText: "text-amber-600",
+      accentBg: "bg-amber-600",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -364,11 +378,14 @@ export default function Physicians() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {physicianServices.map((service, index) => (
                 <ServiceCard
-                  key={index}
-                  icon={service.icon}
-                  title={service.title}
-                  description={service.description}
-                />
+                                 key={index}
+                                 icon={service.icon}
+                                 title={service.title}
+                                 description={service.description}
+                                 colorClass={
+                                   serviceCardColors[index % serviceCardColors.length]
+                                 }
+                               />
               ))}
             </div>
           </div>
@@ -472,21 +489,35 @@ export default function Physicians() {
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-6">
-                {benefits.map((benefit, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start space-x-4 p-6 bg-card rounded-lg border border-border"
-                    data-testid={`physicians-benefit-${index}`}
-                  >
-                    <div className="w-2 h-2 bg-secondary rounded-full mt-3 flex-shrink-0"></div>
-                    <p
-                      className="text-foreground leading-relaxed"
-                      data-testid={`physicians-benefit-text-${index}`}
+                 {benefits.map((benefit, index) => {
+                  const isEvenRow = Math.floor(index / 2) % 2 === 0;
+
+                  const colorClasses = isEvenRow
+                    ? "bg-teal-50 border-teal-200 hover:bg-teal-100 hover:border-teal-300"
+                    : "bg-amber-50 border-amber-200 hover:bg-amber-100 hover:border-amber-300";
+
+                  return (
+                    <div
+                      key={index}
+                      className={`
+                flex items-start space-x-4 p-6 rounded-lg border
+                ${colorClasses}
+                transition-all duration-300 ease-out
+                hover:-translate-y-1 hover:shadow-md
+              `}
+                      data-testid={`patients-benefit-${index}`}
                     >
-                      {benefit}
-                    </p>
-                  </div>
-                ))}
+                      <div className="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"></div>
+
+                      <p
+                        className="text-foreground leading-relaxed"
+                        data-testid={`patients-benefit-text-${index}`}
+                      >
+                        {benefit}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -535,6 +566,12 @@ export default function Physicians() {
                   variant="outline"
                   className="px-8 py-3"
                   data-testid="physicians-see-all-faqs"
+                   onClick={() => {
+                alert(
+                  "Complete the contact form to view all physician FAQs."
+                );
+                setLocation("/contact#contact-form");
+              }}
                 >
                   <ArrowRight className="mr-2 h-4 w-4" />
                   See All Physician FAQs

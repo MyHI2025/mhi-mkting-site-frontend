@@ -7,9 +7,9 @@ import heroImageFallback from "@assets/stock_images/african_patient_usin_b1dc298
 
 const personaContent = {
   overview: {
-    title: "The Future of Healthcare - Unified",
-    subtitle: "Where AI meets humanity to unify healthcare",
-    description: "We're not just another digital health platform, we're transforming the system. MHI connects patients, providers, and partners into one intelligent, seamless ecosystem. One platform. Every need. All connected.",
+    title: "Revolutionizing Healthcare for Everyone, Everywhere",
+    subtitle: "",
+    description: "Comprehensive, affordable, and accessible healthcare solutions tailored for patients, providers, and everyone in between.",
     primaryCTA: { text: "I'm a Patient", href: "/patients", icon: UserRound },
     secondaryCTA: { text: "I'm a Provider", href: "/providers" },
     icon: Globe

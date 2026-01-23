@@ -175,144 +175,108 @@ export default function Blog() {
 
       <main>
         {/* Hero Section */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-center lg:text-left">
-                <h1
-                  className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
-                  data-testid="blog-hero-title"
-                >
-                  Insights & Innovation in
-                  <span className="block text-white/90">
-                    Digital Healthcare
-                  </span>
-                </h1>
-                <p
-                  className="text-xl text-white/90 mb-8"
-                  data-testid="blog-hero-description"
-                >
-                  Explore the latest trends, case studies, and innovations
-                  shaping the future of healthcare accessibility. From technical
-                  deep-dives to patient success stories.
-                </p>
+       <section className="relative text-white py-20 overflow-hidden">
+  {/* Background Image */}
+  <div className="absolute inset-0">
+    <img
+      src={heroBlogImage?.mediaUrl || blogHeroFallback}
+      alt=""
+      className="w-full h-full object-cover"
+    />
+    {/* Overlay for readability */}
+    <div className="absolute inset-0 bg-black/50" />
+  </div>
 
-                {/* Metrics */}
-                <div className="grid grid-cols-3 gap-4 mb-8">
-                  <div className="text-center lg:text-left">
-                    <div
-                      className="text-3xl font-bold"
-                      data-testid="metric-articles"
-                    >
-                      100+
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-articles-label"
-                    >
-                      Articles
-                    </div>
-                  </div>
-                  <div className="text-center lg:text-left">
-                    <div
-                      className="text-3xl font-bold"
-                      data-testid="metric-updates"
-                    >
-                      Weekly
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-updates-label"
-                    >
-                      Updates
-                    </div>
-                  </div>
-                  <div className="text-center lg:text-left">
-                    <div
-                      className="text-3xl font-bold"
-                      data-testid="metric-authors"
-                    >
-                      Expert
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-authors-label"
-                    >
-                      Authors
-                    </div>
-                  </div>
-                </div>
+  {/* Floating Badges */}
+  <div className="absolute top-6 right-6 z-20 hidden sm:flex gap-3">
+    <div className="backdrop-blur-md bg-white/90 text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+      <Award className="h-4 w-4" />
+      <span className="text-sm font-semibold">Expert Insights</span>
+    </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <div className="relative flex-1 sm:max-w-sm">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/70" />
-                    <Input
-                      placeholder="Search articles & videos..."
-                      className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/70 focus:bg-white/30"
-                      data-testid="search-input"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </div>
-                  <Button
-                    variant="outline"
-                    className="text-white border-2 border-white/60 bg-white/15 hover:bg-white/25 transition-colors"
-                    data-testid="search-button"
-                    onClick={
-                      searchTerm ||
-                      selectedUserType !== "All User Types" ||
-                      selectedTopicCategory !== "All Topics"
-                        ? resetFilters
-                        : scrollToFilters
-                    }
-                  >
-                    <Filter className="h-4 w-4 mr-2" />
-                    {searchTerm ||
-                    selectedUserType !== "All User Types" ||
-                    selectedTopicCategory !== "All Topics"
-                      ? "Reset"
-                      : "Filter"}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
+    <div className="backdrop-blur-md bg-primary/90 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+      <TrendingUp className="h-4 w-4" />
+      <span className="text-sm font-semibold">Latest Research</span>
+    </div>
+  </div>
 
-              {/* Hero Image */}
-              <div className="relative hidden lg:block">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img
-                    src={heroBlogImage?.mediaUrl || blogHeroFallback}
-                    alt={
-                      heroBlogImage?.mediaAlt ||
-                      "Professional African educator sharing healthcare knowledge"
-                    }
-                    className="w-full h-96 object-cover"
-                    data-testid="blog-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+  {/* Content */}
+  <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Hero Content */}
+      <div className="text-center lg:text-left">
+        <h1
+          className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
+          data-testid="blog-hero-title"
+        >
+          Insights & Innovation in
+          <span className="block text-white/90">
+            Digital Healthcare
+          </span>
+        </h1>
 
-                  {/* Expert Insights Badge */}
-                  <div className="absolute top-6 left-6 bg-white/95 text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <Award className="h-5 w-5" />
-                    <span className="text-sm font-semibold">
-                      Expert Insights
-                    </span>
-                  </div>
+        <p
+          className="text-xl text-white/90 mb-8"
+          data-testid="blog-hero-description"
+        >
+          Explore the latest trends, case studies, and innovations shaping the
+          future of healthcare accessibility. From technical deep-dives to
+          patient success stories.
+        </p>
 
-                  {/* Latest Research Badge */}
-                  <div className="absolute bottom-6 right-6 bg-primary text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <TrendingUp className="h-5 w-5" />
-                    <span className="text-sm font-semibold">
-                      Latest Research
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* Metrics */}
+        <div className="grid grid-cols-3 gap-4 mb-8">
+          <div>
+            <div className="text-3xl font-bold">100+</div>
+            <div className="text-sm text-white/80">Articles</div>
           </div>
-        </section>
+          <div>
+            <div className="text-3xl font-bold">Weekly</div>
+            <div className="text-sm text-white/80">Updates</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold">Expert</div>
+            <div className="text-sm text-white/80">Authors</div>
+          </div>
+        </div>
+
+        {/* Search */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <div className="relative flex-1 sm:max-w-sm">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-white/70" />
+            <Input
+              placeholder="Search articles & videos..."
+              className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/70 focus:bg-white/30"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <Button
+            variant="outline"
+            className="text-white border-2 border-white/60 bg-white/15 hover:bg-white/25"
+            onClick={
+              searchTerm ||
+              selectedUserType !== "All User Types" ||
+              selectedTopicCategory !== "All Topics"
+                ? resetFilters
+                : scrollToFilters
+            }
+          >
+            <Filter className="h-4 w-4 mr-2" />
+            {searchTerm ||
+            selectedUserType !== "All User Types" ||
+            selectedTopicCategory !== "All Topics"
+              ? "Reset"
+              : "Filter"}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         {/* Featured Article */}
         {featuredArticle && (

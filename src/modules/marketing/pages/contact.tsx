@@ -176,6 +176,7 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { data: heroImage } = useMediaPosition("hero_contact");
 
+
   // Check if this is an investor contact form
   const [location] = useLocation();
   const urlParams = new URLSearchParams(window.location.search);
@@ -1454,14 +1455,17 @@ export default function Contact() {
                 Need help with something else? Our support team is here to help.
               </p>
               <div className="flex justify-center space-x-4">
+                <a href="mailto: info@myhealthintegral.com">
                 <Button
                   variant="outline"
                   size="sm"
                   data-testid="general-support-button"
+                
                 >
                   <Mail className="mr-2 h-4 w-4" />
                   General Support
                 </Button>
+                </a>
                 <Button
                   variant="outline"
                   size="sm"
