@@ -5,6 +5,17 @@
 @tailwind utilities;
 
 :root {
+
+  /* Force equal-height Swiper slides */
+.swiper-wrapper {
+  align-items: stretch;
+}
+
+.swiper-slide {
+  height: auto;
+  display: flex;
+}
+
   /* MHI Brand Colors - Updated to exact brand guidelines */
   --background: hsl(0 0% 100%);
   --foreground: hsl(183 100% 9%); /* Deep Blue-Green #00292E */

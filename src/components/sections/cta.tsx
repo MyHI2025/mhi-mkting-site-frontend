@@ -21,6 +21,8 @@ export default function CTA() {
                 Get Started Today
               </Button>
             </Link>
+            
+             <Link href="/contact#contact-form">
             <Button 
               variant="outline"
               className="text-white border-2 border-white/60 bg-white/15 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/25 transition-colors min-w-[200px]"
@@ -29,6 +31,7 @@ export default function CTA() {
               <Play className="mr-2 h-5 w-5" />
               Watch Demo
             </Button>
+            </Link>
           </div>
           
           <div className="text-white/80 text-sm flex items-center justify-center" data-testid="cta-security">

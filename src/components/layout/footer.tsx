@@ -93,11 +93,11 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">For Patients</h3>
             <ul className="space-y-3">
-              <li><Link href="/patients" className="text-white/70 hover:text-white transition-colors" data-testid="footer-telemedicine">Telemedicine</Link></li>
-              <li><Link href="/patients" className="text-white/70 hover:text-white transition-colors" data-testid="footer-health-records">Health Records</Link></li>
-              <li><Link href="/patients" className="text-white/70 hover:text-white transition-colors" data-testid="footer-lab-tests">Lab Tests</Link></li>
-              <li><Link href="/patients" className="text-white/70 hover:text-white transition-colors" data-testid="footer-pharmacy-services">Pharmacy Services</Link></li>
-              <li><Link href="/patients" className="text-white/70 hover:text-white transition-colors" data-testid="footer-emergency-care">Emergency Care</Link></li>
+              <li><Link href="/patients" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-telemedicine">Telemedicine</Link></li>
+              <li><Link href="/patients" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-health-records">Health Records</Link></li>
+              <li><Link href="/patients" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-lab-tests">Lab Tests</Link></li>
+              <li><Link href="/patients" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-pharmacy-services">Pharmacy Services</Link></li>
+              <li><Link href="/patients" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-emergency-care">Emergency Care</Link></li>
             </ul>
           </div>
           
@@ -105,11 +105,11 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">For Providers</h3>
             <ul className="space-y-3">
-              <li><Link href="/physicians" className="text-white/70 hover:text-white transition-colors" data-testid="footer-physicians">Physicians</Link></li>
-              <li><Link href="/hospitals" className="text-white/70 hover:text-white transition-colors" data-testid="footer-hospitals">Hospitals</Link></li>
-              <li><Link href="/laboratories" className="text-white/70 hover:text-white transition-colors" data-testid="footer-laboratories">Laboratories</Link></li>
-              <li><Link href="/pharmacies" className="text-white/70 hover:text-white transition-colors" data-testid="footer-pharmacies">Pharmacies</Link></li>
-              <li><Link href="/insurance" className="text-white/70 hover:text-white transition-colors" data-testid="footer-insurance">Insurance</Link></li>
+              <li><Link href="/physicians" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-physicians">Physicians</Link></li>
+              <li><Link href="/hospitals" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-hospitals">Hospitals</Link></li>
+              <li><Link href="/laboratories" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-laboratories">Laboratories</Link></li>
+              <li><Link href="/pharmacies" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-pharmacies">Pharmacies</Link></li>
+              <li><Link href="/insurance" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-insurance">Insurance</Link></li>
             </ul>
           </div>
           
@@ -117,10 +117,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">For Business/Corporate</h3>
             <ul className="space-y-3">
-              <li><Link href="/corporates" className="text-white/70 hover:text-white transition-colors" data-testid="footer-corporate-wellness">Corporate Wellness</Link></li>
-              <li><Link href="/corporates" className="text-white/70 hover:text-white transition-colors" data-testid="footer-employee-health">Employee Health</Link></li>
-              <li><Link href="/corporates" className="text-white/70 hover:text-white transition-colors" data-testid="footer-enterprise-solutions">Enterprise Solutions</Link></li>
-              <li><Link href="/pricing" className="text-white/70 hover:text-white transition-colors" data-testid="footer-corporate-pricing">Corporate Pricing</Link></li>
+              <li><Link href="/corporates" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-corporate-wellness">Corporate Wellness</Link></li>
+              <li><Link href="/corporates" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-employee-health">Employee Health</Link></li>
+              <li><Link href="/corporates" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-enterprise-solutions">Enterprise Solutions</Link></li>
+              <li><Link href="/pricing" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-corporate-pricing">Corporate Pricing</Link></li>
             </ul>
           </div>
           
@@ -128,16 +128,16 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Company</h3>
             <ul className="space-y-3">
-              <li><Link href="/about" className="text-white/70 hover:text-white transition-colors" data-testid="footer-about">About Us</Link></li>
-              <li><Link href="/career" className="text-white/70 hover:text-white transition-colors" data-testid="footer-career">Careers</Link></li>
-              <li><Link href="/blog" className="text-white/70 hover:text-white transition-colors" data-testid="footer-blog">Content Hub</Link></li>
-              <li><Link href="/contact" className="text-white/70 hover:text-white transition-colors" data-testid="footer-contact-us">Contact Us</Link></li>
-              <li><button onClick={openChat} className="text-white/70 hover:text-white transition-colors flex items-center space-x-2" data-testid="footer-live-chat">
+              <li><Link href="/about" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-about">About Us</Link></li>
+              <li><Link href="/career" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-career">Careers</Link></li>
+              <li><Link href="/blog" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-blog">Content Hub</Link></li>
+              <li><Link href="/contact" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-contact-us">Contact Us</Link></li>
+              <li><button onClick={openChat} className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors flex items-center space-x-2" data-testid="footer-live-chat">
                 <MessageCircle className="h-4 w-4" />
                 <span>Live Chat</span>
               </button></li>
-              <li><Link href="/privacy-policy" className="text-white/70 hover:text-white transition-colors" data-testid="footer-privacy-policy">Privacy Policy</Link></li>
-              <li><Link href="/terms-of-use" className="text-white/70 hover:text-white transition-colors" data-testid="footer-terms-of-use">Terms of Use</Link></li>
+              <li><Link href="/privacy-policy" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-privacy-policy">Privacy Policy</Link></li>
+              <li><Link href="/terms-of-use" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-terms-of-use">Terms of Use</Link></li>
             </ul>
           </div>
         </div>

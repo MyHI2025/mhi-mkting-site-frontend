@@ -1,8 +1,8 @@
 import { Star, MapPin, Quote } from "lucide-react";
 import { useMediaPosition } from "@/hooks/use-media-position";
-import patientFallback from "@assets/stock_images/professional_african_9c97e616.jpg";
-import providerFallback from "@assets/stock_images/professional_african_aa1cf976.jpg";
-import adminFallback from "@assets/stock_images/professional_african_422d811a.jpg";
+import patientFallback from "@assets/stock_images/dabi.jpg";
+import providerFallback from "@assets/stock_images/joyimage.jpeg";
+import adminFallback from "@assets/stock_images/adewale.jpg";
 
 const testimonials = [
   {
@@ -10,7 +10,7 @@ const testimonials = [
     quote: "Quality healthcare to me means having access to healthcare services at my fingertips. Thanks to MHI, I do not have to worry about that.",
     author: "Nwabueze Dabeluchukwu",
     role: "Patient",
-    location: "Lagos, Nigeria",
+    location: "Anambra, Nigeria",
     mediaKey: "testimonial_patient",
     fallback: patientFallback,
     alt: "Happy patient testimonial headshot"
@@ -27,11 +27,11 @@ const testimonials = [
   },
   {
     rating: 5,
-    quote: "MHI provides top-notch healthcare services at affordable prices. The platform has transformed how we deliver care.",
-    author: "David Johnson",
-    role: "Hospital Administrator",
-    location: "Accra, Ghana",
-    mediaKey: "testimonial_admin",
+    quote: "Quality health care imo is using all necessary resources to give care to a particular Px at the right time with evidence based medicine.",
+    author: "Adewale Adefolaji",
+    role: "Medical Doctor",
+    location: "Lagos, Nigeria",
+    mediaKey: "testimonial_provider",
     fallback: adminFallback,
     alt: "Hospital administrator testimonial headshot"
   }

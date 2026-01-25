@@ -176,6 +176,7 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { data: heroImage } = useMediaPosition("hero_contact");
 
+
   // Check if this is an investor contact form
   const [location] = useLocation();
   const urlParams = new URLSearchParams(window.location.search);
@@ -1151,7 +1152,7 @@ export default function Contact() {
   />
 
   {/* Overlay content */}
-  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+  <div className="absolute inset-0 flex items-center justify-center bg-black/20" id="contact">
     <div className="text-center">
       <Phone className="h-8 w-8 text-white mx-auto mb-2" />
       <div className="text-white text-sm font-medium">
@@ -1166,7 +1167,7 @@ export default function Contact() {
 </div>
 
 
-                <div>
+                <div >
                   <h2
                     className="text-2xl font-bold text-foreground mb-6"
                     data-testid="contact-info-title"
@@ -1454,14 +1455,17 @@ export default function Contact() {
                 Need help with something else? Our support team is here to help.
               </p>
               <div className="flex justify-center space-x-4">
+                <a href="mailto: info@myhealthintegral.com">
                 <Button
                   variant="outline"
                   size="sm"
                   data-testid="general-support-button"
+                
                 >
                   <Mail className="mr-2 h-4 w-4" />
                   General Support
                 </Button>
+                </a>
                 <Button
                   variant="outline"
                   size="sm"
