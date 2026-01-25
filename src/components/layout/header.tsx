@@ -65,7 +65,7 @@ export default function Header() {
       <nav className="container mx-auto">
         <div className="flex h-16 items-center justify-between">
 
-          {/* Logo */}
+          {/* Logo Section */}
           <Link href="/" className="flex items-center space-x-2">
             <img
               src={logoPosition?.mediaUrl || mhiLogo}
