@@ -484,7 +484,7 @@ export default function About() {
                   The Turning Point
                 </h3>
                 <p className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-12">
-                  These aren't just my stories—they're the stories of millions
+                  These aren't just my stories, they're the stories of millions
                   across Nigeria and Africa. People losing their lives to
                   preventable causes because the healthcare system failed them.
                   That's when I knew something had to change.
@@ -502,7 +502,7 @@ export default function About() {
                     To ensure no one loses their life to preventable causes, and
                     no one's health is left to chance due to disjointed,
                     inefficient care. MHI connects patients, doctors,
-                    pharmacies, labs, and emergency services—ensuring everyone
+                    pharmacies, labs, and emergency services, ensuring everyone
                     receives the care they need, when they need it.
                   </p>
 
@@ -513,7 +513,7 @@ export default function About() {
                       Every patient we reach, every provider we empower, reminds
                       us why we exist.{" "}
                       <span className="text-primary-foreground bg-primary px-3 py-1 rounded shadow-md">
-                        MHI isn't just a platform—it's a movement to rewrite the
+                        MHI isn't just a platform, it's a movement to rewrite the
                         healthcare narrative in Nigeria and Africa.
                       </span>
                     </p>
