@@ -1,19 +1,22 @@
 import { useState, useMemo, useCallback } from "react";
+import { useLocation } from "wouter";
+import { useEffect } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Users, 
-  Stethoscope, 
-  Building2, 
-  FlaskConical, 
-  Pill, 
-  Ambulance, 
-  Shield, 
-  Briefcase
+import {
+  Users,
+  Stethoscope,
+  Building2,
+  FlaskConical,
+  Pill,
+  Ambulance,
+  Shield,
+  Briefcase,
 } from "lucide-react";
 import { Link } from "wouter";
-import { 
-  patientPricing, 
+import {
+  patientPricing,
   physicianPricing,
   hospitalPricing,
   laboratoryPricing,
@@ -21,7 +24,7 @@ import {
   emergencyPricing,
   insurancePricing,
   corporatePricing,
-  type UserTypePricing
+  type UserTypePricing,
 } from "@/data/pricing";
 import { PricingToggle } from "@/components/pricing/PricingToggle";
 import { PricingCard } from "@/components/pricing/PricingCard";
@@ -35,32 +38,52 @@ const iconMap: Record<string, any> = {
   Pill,
   Ambulance,
   Shield,
-  Briefcase
+  Briefcase,
 };
 
 export default function PricingPage() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
-  const [activeTab, setActiveTab] = useState("patients");
-  const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">(
+    "monthly",
+  );
+  const [location] = useLocation();
 
-  const userTypes: Record<string, UserTypePricing> = useMemo(() => ({
-    patients: patientPricing,
-    physicians: physicianPricing,
-    hospitals: hospitalPricing,
-    laboratories: laboratoryPricing,
-    pharmacies: pharmacyPricing,
-    emergency: emergencyPricing,
-    insurance: insurancePricing,
-    corporates: corporatePricing
-  }), []);
+  const userTypes: Record<string, UserTypePricing> = useMemo(
+    () => ({
+      patients: patientPricing,
+      physicians: physicianPricing,
+      hospitals: hospitalPricing,
+      laboratories: laboratoryPricing,
+      pharmacies: pharmacyPricing,
+      emergency: emergencyPricing,
+      insurance: insurancePricing,
+      corporates: corporatePricing,
+    }),
+    [],
+  );
+
+  const initialTab = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type");
+    return type && userTypes[type] ? type : "patients";
+  }, [userTypes]);
+
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab]);
+
+  const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>(
+    {},
+  );
 
   const currentUserType = userTypes[activeTab];
   const Icon = iconMap[currentUserType.icon];
 
   const toggleCardExpansion = useCallback((tierName: string) => {
-    setExpandedCards(prev => ({
+    setExpandedCards((prev) => ({
       ...prev,
-      [tierName]: !prev[tierName]
+      [tierName]: !prev[tierName],
     }));
   }, []);
 
@@ -69,33 +92,44 @@ export default function PricingPage() {
       {/* Header */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4" data-testid="heading-pricing">
+          <h1
+            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
+            data-testid="heading-pricing"
+          >
             Transparent Pricing for Every Healthcare Stakeholder
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-            Choose the plan that fits your needs. From free listings to full-featured enterprise solutions. Every plan includes AI-powered features.
+            Choose the plan that fits your needs. From free listings to
+            full-featured enterprise solutions. Every plan includes AI-powered
+            features.
           </p>
 
-          <PricingToggle 
-            value={billingCycle} 
-            onChange={setBillingCycle}
-          />
+          <PricingToggle value={billingCycle} onChange={setBillingCycle} />
         </div>
 
         {/* User Type Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs
+          value={activeTab}
+          onValueChange={(value) => {
+            setActiveTab(value);
+            window.history.replaceState(null, "", `/pricing?type=${value}`);
+          }}
+          className="w-full"
+        >
           <TabsList className="grid grid-cols-4 lg:grid-cols-8 w-full mb-8 h-auto gap-2">
             {Object.entries(userTypes).map(([key, userType]) => {
               const TabIcon = iconMap[userType.icon];
               return (
-                <TabsTrigger 
-                  key={key} 
-                  value={key} 
+                <TabsTrigger
+                  key={key}
+                  value={key}
                   className="flex flex-col items-center gap-1 py-3"
                   data-testid={`tab-${key}`}
                 >
                   <TabIcon className="w-5 h-5" />
-                  <span className="text-xs hidden sm:inline">{userType.title.split(" ")[0]}</span>
+                  <span className="text-xs hidden sm:inline">
+                    {userType.title.split(" ")[0]}
+                  </span>
                 </TabsTrigger>
               );
             })}
@@ -131,8 +165,8 @@ export default function PricingPage() {
                     ))}
                   </div>
 
-                  <FeatureComparisonTable 
-                    tiers={userType.tiers} 
+                  <FeatureComparisonTable
+                    tiers={userType.tiers}
                     allFeatures={userType.allFeatures}
                   />
                 </>
@@ -143,7 +177,8 @@ export default function PricingPage() {
                     Coming Soon
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-6">
-                    We're finalizing pricing plans for {userType.title}. Check back soon!
+                    We're finalizing pricing plans for {userType.title}. Check
+                    back soon!
                   </p>
                   <Button asChild>
                     <Link href="/contact">Get Notified</Link>
