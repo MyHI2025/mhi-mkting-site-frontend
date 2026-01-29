@@ -50,6 +50,7 @@ export default function Header() {
       { href: "/contact?type=investor", label: "Contact Investor Relations" },
     ],
   },
+  // { href: "/pricing", label: "Pricing" },
 
 ];
 
@@ -79,7 +80,7 @@ export default function Header() {
             {navLinks.map((item) =>
               item.dropdown ? (
                 <DropdownMenu key={item.label}>
-                  <DropdownMenuTrigger className="nav-link flex items-center gap-1">
+                  <DropdownMenuTrigger className="nav-link flex itemms-center gap-1">
                     {item.label}
                     <ChevronDown className="h-3 w-3" />
                   </DropdownMenuTrigger>

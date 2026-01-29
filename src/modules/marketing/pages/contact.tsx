@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -55,6 +55,10 @@ import { TITLE_OPTIONS } from "@myhi2025/shared";
 import faqImg from "../../../../attached_assets/stock_images/professional_african_70f2d164.jpg";
 import healthcareImg from "../../../../attached_assets/stock_images/professional_african_aa1cf976.jpg";
 
+/* =====================
+   Schemas
+===================== */
+
 const contactSchema = z.object({
   title: z
     .string()
@@ -79,7 +83,20 @@ const investorContactSchema = contactSchema.extend({
     .min(2, "Organization is required for investor inquiries"),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+/* 🔐 Turnstile token added */
+type ContactFormData = z.infer<typeof contactSchema> & {
+  turnstileToken?: string;
+};
+
+function hasTurnstile(
+  t: typeof window.turnstile
+): t is NonNullable<typeof window.turnstile> & {
+  execute: (container: HTMLElement) => void;
+  reset: (container?: HTMLElement) => void;
+} {
+  return !!t?.execute && !!t?.reset;
+}
+
 
 const userTypes = [
   { value: "pharmacy", label: "Pharmacy" },
@@ -170,14 +187,20 @@ const userTypeFAQSections = [
   },
 ];
 
+/* =====================
+   Component
+===================== */
+
 export default function Contact() {
   const { toast } = useToast();
   const { openChat } = useLiveChat();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { data: heroImage } = useMediaPosition("hero_contact");
 
+  /* 🔐 Turnstile */
+  const turnstileRef = useRef<HTMLDivElement | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-  // Check if this is an investor contact form
   const [location] = useLocation();
   const urlParams = new URLSearchParams(window.location.search);
   const isInvestorForm = urlParams.get("type") === "investor";
@@ -185,14 +208,8 @@ export default function Contact() {
   useSEO({
     title: isInvestorForm ? "Investor Relations - Contact Us" : "Contact Us",
     description: isInvestorForm
-      ? "Explore investment opportunities in digital healthcare innovation. Contact us to learn about our funding rounds, business model, and growth projections."
-      : "Get in touch with My Health Integral. We're here 24/7 to help transform your healthcare experience. Contact us to learn more about our comprehensive digital health solutions.",
-    ogTitle: isInvestorForm
-      ? "Investor Relations - Partner with My Health Integral"
-      : "Contact My Health Integral - We're Always Here to Help",
-    ogDescription: isInvestorForm
-      ? "Join us in transforming global healthcare. Explore investment opportunities with My Health Integral."
-      : "Ready to revolutionize your healthcare experience? Contact us 24/7. Our team is here to answer your questions and help you get started.",
+      ? "Explore investment opportunities in digital healthcare innovation."
+      : "Get in touch with My Health Integral.",
     canonical: `${window.location.origin}/contact${
       isInvestorForm ? "?type=investor" : ""
     }`,
@@ -213,39 +230,48 @@ export default function Contact() {
       city: "",
       userType: isInvestorForm ? "investor" : "",
       message: isInvestorForm
-        ? "I'm interested in learning more about investment opportunities with My Health Integral. Please provide information about your current funding round, business model, and growth projections."
+        ? "I'm interested in learning more about investment opportunities with My Health Integral."
         : "",
     },
   });
 
-  // Ensure userType is always "investor" when in investor mode
   useEffect(() => {
     if (isInvestorForm) {
       form.setValue("userType", "investor", { shouldValidate: false });
     }
   }, [isInvestorForm, form]);
 
-  // Scroll to form if hash is present, otherwise scroll to top
   useEffect(() => {
     if (window.location.hash === "#contact-form") {
       setTimeout(() => {
-        const element = document.getElementById("contact-form");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+        document
+          .getElementById("contact-form")
+          ?.scrollIntoView({ behavior: "smooth" });
       }, 100);
     } else {
       window.scrollTo(0, 0);
     }
   }, [location]);
 
+  /* 🔐 Turnstile init */
+ useEffect(() => {
+  const t = window.turnstile;
+  if (!turnstileRef.current || !t) return;
+
+  t.render(turnstileRef.current, {
+    sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
+    size: "invisible",
+    callback: (token) => setTurnstileToken(token),
+    "expired-callback": () => setTurnstileToken(null),
+  });
+}, []);
+
+
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
       const response = await fetch(api.public.contact, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
@@ -253,9 +279,7 @@ export default function Contact() {
         const error = await response
           .json()
           .catch(() => ({ error: "Network error" }));
-        throw new Error(
-          error.error || error.message || "Failed to send message"
-        );
+        throw new Error(error.error || error.message);
       }
 
       return response.json();
@@ -268,7 +292,7 @@ export default function Contact() {
         description: "We'll get back to you within 24 hours.",
       });
     },
-    onError: (error: any) => {
+    onError: () => {
       toast({
         title: "Error sending message",
         description: "Please try again or contact us directly.",
@@ -277,9 +301,40 @@ export default function Contact() {
     },
   });
 
-  const onSubmit = (data: ContactFormData) => {
-    contactMutation.mutate(data);
+const onSubmit = (data: ContactFormData) => {
+  const container = turnstileRef.current;
+  if (!container || !hasTurnstile(window.turnstile)) return;
+
+  const turnstile = window.turnstile;
+
+  // Reset before executing to avoid "already executing"
+  turnstile.reset(container);
+
+  // Define a one-time listener for the token
+  const handleResponse = (event: CustomEvent) => {
+    const token = event.detail?.token;
+    if (!token) return;
+
+    console.log("Turnstile token:", token);
+
+    // Clean up the listener after use
+    container.removeEventListener("turnstile-response", handleResponse as EventListener);
+
+    // Reset the widget so it can be reused
+    turnstile.reset(container);
+
+    // Optional: clear local token state if using React state
+    setTurnstileToken(null);
   };
+
+  container.addEventListener("turnstile-response", handleResponse as EventListener);
+
+  // Execute challenge
+  turnstile.execute(container);
+};
+
+
+
 
   if (isSubmitted) {
     return (
@@ -1123,6 +1178,15 @@ export default function Contact() {
                       )}
                     />
 
+                  
+      {/* Turnstile */}
+      <div
+        ref={turnstileRef}
+        id="turnstile-widget"
+        className="mt-4"
+        data-sitekey={import.meta.env.VITE_TURNSTILE_SITEKEY}
+      ></div>
+
                     <Button
                       type="submit"
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
@@ -1132,8 +1196,8 @@ export default function Contact() {
                       {contactMutation.isPending
                         ? "Sending..."
                         : isInvestorForm
-                        ? "Submit Investment Inquiry"
-                        : "Send Message"}
+                          ? "Submit Investment Inquiry"
+                          : "Send Message"}
                     </Button>
                   </form>
                 </Form>
@@ -1141,33 +1205,33 @@ export default function Contact() {
 
               {/* Contact Information */}
               <div className="space-y-8">
-              {/* Healthcare Communication Image */}
-<div className="relative h-32 rounded-xl overflow-hidden mb-6">
-  
-  {/* Full background image */}
-  <img
-    src={healthcareImg}
-    alt="FAQ Image"
-    className="absolute inset-0 w-full h-full object-cover"
-  />
+                {/* Healthcare Communication Image */}
+                <div className="relative h-32 rounded-xl overflow-hidden mb-6">
+                  {/* Full background image */}
+                  <img
+                    src={healthcareImg}
+                    alt="FAQ Image"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
 
-  {/* Overlay content */}
-  <div className="absolute inset-0 flex items-center justify-center bg-black/20" id="contact">
-    <div className="text-center">
-      <Phone className="h-8 w-8 text-white mx-auto mb-2" />
-      <div className="text-white text-sm font-medium">
-        Healthcare Communication
-      </div>
-      <div className="text-white text-xs mt-1">
-        Support team or contact imagery
-      </div>
-    </div>
-  </div>
+                  {/* Overlay content */}
+                  <div
+                    className="absolute inset-0 flex items-center justify-center bg-black/20"
+                    id="contact"
+                  >
+                    <div className="text-center">
+                      <Phone className="h-8 w-8 text-white mx-auto mb-2" />
+                      <div className="text-white text-sm font-medium">
+                        Healthcare Communication
+                      </div>
+                      <div className="text-white text-xs mt-1">
+                        Support team or contact imagery
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-</div>
-
-
-                <div >
+                <div>
                   <h2
                     className="text-2xl font-bold text-foreground mb-6"
                     data-testid="contact-info-title"
@@ -1370,30 +1434,28 @@ export default function Contact() {
         {/* User Type Specific FAQs */}
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Healthcare Support Team Image */}
-<div className="relative h-48 rounded-2xl overflow-hidden mb-16">
-  
-  {/* Full background image */}
-  <img
-    src={faqImg}
-    alt="FAQ Image"
-    className="absolute inset-0 w-full h-full object-cover"
-  />
+            {/* Healthcare Support Team Image */}
+            <div className="relative h-48 rounded-2xl overflow-hidden mb-16">
+              {/* Full background image */}
+              <img
+                src={faqImg}
+                alt="FAQ Image"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
 
-  {/* Overlay content */}
-  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-    <div className="text-center">
-      <HelpCircle className="h-12 w-12 text-white mx-auto mb-3" />
-      <div className="text-white text-lg font-medium">
-        Role-Specific FAQs
-      </div>
-      <div className="text-white text-sm mt-1">
-        Find answers tailored to your specific healthcare role
-      </div>
-    </div>
-  </div>
-
-</div>
+              {/* Overlay content */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                <div className="text-center">
+                  <HelpCircle className="h-12 w-12 text-white mx-auto mb-3" />
+                  <div className="text-white text-lg font-medium">
+                    Role-Specific FAQs
+                  </div>
+                  <div className="text-white text-sm mt-1">
+                    Find answers tailored to your specific healthcare role
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="text-center mb-16">
               <h2
@@ -1420,7 +1482,7 @@ export default function Contact() {
                       className="bg-card rounded-lg p-6 border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 cursor-pointer group h-full"
                       data-testid={`faq-section-${section.link.replace(
                         "/",
-                        ""
+                        "",
                       )}`}
                     >
                       <div className="flex items-center mb-4">
@@ -1456,15 +1518,14 @@ export default function Contact() {
               </p>
               <div className="flex justify-center space-x-4">
                 <a href="mailto: info@myhealthintegral.com">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  data-testid="general-support-button"
-                
-                >
-                  <Mail className="mr-2 h-4 w-4" />
-                  General Support
-                </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    data-testid="general-support-button"
+                  >
+                    <Mail className="mr-2 h-4 w-4" />
+                    General Support
+                  </Button>
                 </a>
                 <Button
                   variant="outline"

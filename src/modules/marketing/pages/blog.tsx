@@ -202,9 +202,9 @@ export default function Blog() {
 
   {/* Content */}
   <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <div className="grid lg:grid-cols-2 gap-12 items-center ">
       {/* Hero Content */}
-      <div className="text-center lg:text-left">
+      <div className="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl p-8 sm:p-10">
         <h1
           className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
           data-testid="blog-hero-title"

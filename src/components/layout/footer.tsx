@@ -120,7 +120,7 @@ export default function Footer() {
               <li><Link href="/corporates" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-corporate-wellness">Corporate Wellness</Link></li>
               <li><Link href="/corporates" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-employee-health">Employee Health</Link></li>
               <li><Link href="/corporates" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-enterprise-solutions">Enterprise Solutions</Link></li>
-              <li><Link href="/pricing" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-corporate-pricing">Corporate Pricing</Link></li>
+              {/* <li><Link href="/pricing?type=corporates" className="text-white/70 hover:text-white hover:underline underline-offset-4 decoration-1 hover:decoration-2 transition-colors" data-testid="footer-corporate-pricing">Corporate Pricing</Link></li> */}
             </ul>
           </div>
           
