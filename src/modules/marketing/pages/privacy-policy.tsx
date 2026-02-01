@@ -20,165 +20,226 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-foreground mb-8" data-testid="privacy-title">
-            Privacy Policy
-          </h1>
-          
-          <div className="prose prose-lg max-w-none text-foreground">
-            <p className="text-lg text-muted-foreground mb-8">
-              <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
-            </p>
+    <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div className="max-w-4xl mx-auto">
+    <h1 className="text-4xl font-bold text-foreground mb-8" data-testid="privacy-title">
+      Privacy Policy
+    </h1>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
-              <p className="mb-4">
-                My Health Integral ("we," "our," or "us") is committed to protecting your privacy and personal health information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our digital healthcare platform and services.
-              </p>
-              <p>
-                We comply with the Health Insurance Portability and Accountability Act (HIPAA), General Data Protection Regulation (GDPR), and other applicable privacy laws to ensure your health information remains secure and confidential.
-              </p>
-            </section>
+    <div className="prose prose-lg max-w-none text-foreground">
+      <p className="text-lg text-muted-foreground mb-8">
+        <strong>Effective Date:</strong> {new Date().toLocaleDateString()} <br />
+        <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
+      </p>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">2. Information We Collect</h2>
-              
-              <h3 className="text-xl font-semibold mb-3">2.1 Personal Health Information</h3>
-              <ul className="mb-4 space-y-2">
-                <li>• Medical records and health history</li>
-                <li>• Diagnostic test results and lab reports</li>
-                <li>• Treatment plans and medication information</li>
-                <li>• Vital signs and health monitoring data</li>
-                <li>• Insurance and billing information</li>
-              </ul>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
+        <p className="mb-4">
+          My Health Integral Ltd (“MHI,” “we,” “our,” or “us”) is committed to protecting the privacy,
+          confidentiality, and security of personal data and personal health information entrusted to us.
+        </p>
+        <p className="mb-4">
+          This Privacy Policy explains how we collect, use, disclose, store, retain, and protect personal
+          data when you access or use our digital healthcare platform, website, mobile applications,
+          telemedicine services, diagnostic coordination services, and related offerings (collectively,
+          the “Services”).
+        </p>
+        <p className="mb-4">
+          For the purposes of applicable data protection laws, My Health Integral Ltd acts as a Data
+          Controller in respect of personal data processed through its platform and as a Data Processor
+          where processing is carried out on behalf of healthcare providers using the platform.
+        </p>
+        <p>
+          We process personal data in accordance with applicable laws, including the UK GDPR, UK Data
+          Protection Act 2018, Nigeria Data Protection Regulation (NDPR), and other applicable healthcare,
+          medical ethics, and data protection laws.
+        </p>
+      </section>
 
-              <h3 className="text-xl font-semibold mb-3">2.2 Personal Information</h3>
-              <ul className="mb-4 space-y-2">
-                <li>• Name, address, and contact information</li>
-                <li>• Date of birth and demographic information</li>
-                <li>• Emergency contact details</li>
-                <li>• Account credentials and authentication data</li>
-              </ul>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">2. Scope of This Policy</h2>
+        <ul className="space-y-2">
+          <li>• Patients and individual users</li>
+          <li>• Healthcare professionals and providers</li>
+          <li>• Business and institutional users</li>
+          <li>• Visitors to our websites and applications</li>
+        </ul>
+        <p className="mt-4">
+          This policy does not apply to third-party websites, applications, or services that may be linked
+          to or integrated with our platform.
+        </p>
+      </section>
 
-              <h3 className="text-xl font-semibold mb-3">2.3 Technical Information</h3>
-              <ul className="space-y-2">
-                <li>• Device information and IP address</li>
-                <li>• Usage data and platform interactions</li>
-                <li>• Location data (when permitted)</li>
-                <li>• Cookies and tracking technologies</li>
-              </ul>
-            </section>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">3. Information We Collect</h2>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">3. How We Use Your Information</h2>
-              <ul className="space-y-3">
-                <li>• <strong>Healthcare Services:</strong> Provide telemedicine consultations, health monitoring, and care coordination</li>
-                <li>• <strong>Treatment Support:</strong> Share information with your healthcare providers for diagnosis and treatment</li>
-                <li>• <strong>Platform Operations:</strong> Maintain and improve our services, process payments, and provide customer support</li>
-                <li>• <strong>Legal Compliance:</strong> Meet regulatory requirements and respond to legal requests</li>
-                <li>• <strong>Research:</strong> Conduct de-identified research to improve healthcare outcomes (with appropriate consent)</li>
-              </ul>
-            </section>
+        <h3 className="text-xl font-semibold mb-3">
+          3.1 Personal Health Information (Special Category Data)
+        </h3>
+        <ul className="mb-4 space-y-2">
+          <li>• Medical records and health history</li>
+          <li>• Diagnostic test results and laboratory reports</li>
+          <li>• Treatment plans, prescriptions, and referrals</li>
+          <li>• Vital signs and health monitoring data</li>
+          <li>• Appointment records and clinical notes</li>
+          <li>• Insurance and billing-related health information</li>
+        </ul>
+        <p className="mb-4">
+          Personal health information is processed only where explicit consent has been obtained or
+          another lawful basis applies.
+        </p>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">4. Information Sharing and Disclosure</h2>
-              
-              <h3 className="text-xl font-semibold mb-3">4.1 Healthcare Providers</h3>
-              <p className="mb-4">
-                We may share your health information with healthcare providers involved in your care, including physicians, specialists, laboratories, pharmacies, and hospitals within our network.
-              </p>
+        <h3 className="text-xl font-semibold mb-3">3.2 Personal and Account Information</h3>
+        <ul className="mb-4 space-y-2">
+          <li>• Full name, address, email address, and phone number</li>
+          <li>• Date of birth and demographic information</li>
+          <li>• Emergency contact details</li>
+          <li>• User account credentials and authentication data</li>
+        </ul>
 
-              <h3 className="text-xl font-semibold mb-3">4.2 Business Associates</h3>
-              <p className="mb-4">
-                We may share information with third-party service providers who assist us in delivering healthcare services, subject to appropriate business associate agreements and privacy protections.
-              </p>
+        <h3 className="text-xl font-semibold mb-3">3.3 Technical and Usage Information</h3>
+        <ul className="space-y-2">
+          <li>• Device identifiers, IP addresses, and browser information</li>
+          <li>• Platform usage logs and interaction data</li>
+          <li>• Approximate location data (where permitted)</li>
+          <li>• Cookies and similar tracking technologies</li>
+        </ul>
+      </section>
 
-              <h3 className="text-xl font-semibold mb-3">4.3 Legal Requirements</h3>
-              <p>
-                We may disclose information when required by law, court order, or to protect public health and safety, prevent crime, or respond to emergencies.
-              </p>
-            </section>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">4. Lawful Basis for Processing</h2>
+        <ul className="space-y-2">
+          <li>• Performance of a contract</li>
+          <li>• Compliance with legal and regulatory obligations</li>
+          <li>• Protection of vital interests</li>
+          <li>• Legitimate interests</li>
+          <li>• Explicit consent where required</li>
+        </ul>
+      </section>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">5. Data Security</h2>
-              <p className="mb-4">
-                We implement comprehensive security measures to protect your information:
-              </p>
-              <ul className="space-y-2">
-                <li>• End-to-end encryption for all data transmission</li>
-                <li>• Secure cloud storage with redundancy and backup</li>
-                <li>• Multi-factor authentication and access controls</li>
-                <li>• Regular security audits and vulnerability assessments</li>
-                <li>• Employee training on privacy and security protocols</li>
-                <li>• Incident response and breach notification procedures</li>
-              </ul>
-            </section>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">5. How We Use Your Information</h2>
+        <ul className="space-y-2">
+          <li>• Telemedicine and virtual healthcare services</li>
+          <li>• Diagnostic testing and laboratory coordination</li>
+          <li>• Clinical care, referrals, and continuity of care</li>
+          <li>• Platform operations and improvement</li>
+          <li>• Payments, billing, and insurance processing</li>
+          <li>• Customer support and communications</li>
+          <li>• Analytics and de-identified research</li>
+          <li>• Legal and regulatory compliance</li>
+        </ul>
+      </section>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">6. Your Rights</h2>
-              <p className="mb-4">You have the following rights regarding your personal health information:</p>
-              <ul className="space-y-2">
-                <li>• <strong>Access:</strong> Request copies of your health information</li>
-                <li>• <strong>Amendment:</strong> Request corrections to inaccurate information</li>
-                <li>• <strong>Restriction:</strong> Request limits on use or disclosure of your information</li>
-                <li>• <strong>Portability:</strong> Request transfer of your data to another provider</li>
-                <li>• <strong>Deletion:</strong> Request deletion of your information (subject to legal requirements)</li>
-                <li>• <strong>Communication:</strong> Request confidential communications through specific methods</li>
-              </ul>
-            </section>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">6. Information Sharing and Disclosure</h2>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">7. Data Retention</h2>
-              <p>
-                We retain your health information as required by law and medical standards. Medical records are typically retained for at least 7 years after your last interaction with our services, or longer as required by applicable regulations.
-              </p>
-            </section>
+        <h3 className="text-xl font-semibold mb-3">6.1 Healthcare Providers</h3>
+        <p className="mb-4">
+          We may share information with physicians, diagnostic centres, laboratories, pharmacies,
+          hospitals, and clinics involved in your care.
+        </p>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">8. International Data Transfers</h2>
-              <p>
-                If we transfer your information internationally, we ensure appropriate safeguards are in place to protect your privacy rights in accordance with applicable data protection laws.
-              </p>
-            </section>
+        <h3 className="text-xl font-semibold mb-3">6.2 Service Providers</h3>
+        <p className="mb-4">
+          Trusted third parties supporting hosting, payments, analytics, and technical operations are
+          bound by confidentiality and data protection agreements.
+        </p>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">9. Children's Privacy</h2>
-              <p>
-                Our services are not intended for children under 13. We do not knowingly collect personal information from children under 13 without verifiable parental consent. For minors aged 13-18, we require parental or guardian consent for certain services.
-              </p>
-            </section>
+        <h3 className="text-xl font-semibold mb-3">6.3 Legal Disclosure</h3>
+        <p>
+          Information may be disclosed where required by law or regulatory authority.
+        </p>
+      </section>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">10. Changes to This Policy</h2>
-              <p>
-                We may update this Privacy Policy periodically. We will notify you of significant changes by email or through our platform. Your continued use of our services after changes take effect constitutes acceptance of the updated policy.
-              </p>
-            </section>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">7. Data Retention</h2>
+        <ul className="space-y-2">
+          <li>• UK: Up to 8 years</li>
+          <li>• Nigeria: 5–8 years</li>
+          <li>• Inactive accounts: up to 2 years</li>
+          <li>• Financial records: 6 years (UK), 5 years (Nigeria)</li>
+        </ul>
+      </section>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">11. Contact Information</h2>
-              <p className="mb-4">
-                If you have questions about this Privacy Policy or wish to exercise your rights, please contact us:
-              </p>
-              <div className="bg-muted p-6 rounded-lg">
-                <p><strong>Privacy Officer</strong></p>
-                <p>My Health Integral</p>
-                <p>Email: privacy@myhealthintegral.com</p>
-                <p>Phone: 1-800-MHI-CARE (1-800-644-2273)</p>
-                <p>Address: [Company Address]</p>
-              </div>
-            </section>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">8. Cookies and Tracking</h2>
+        <p>
+          We use cookies for core functionality, analytics, and performance. Consent is obtained where
+          required. See our Cookie Policy for more details.
+        </p>
+      </section>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">12. Complaints</h2>
-              <p>
-                If you believe your privacy rights have been violated, you may file a complaint with us or with the U.S. Department of Health and Human Services Office for Civil Rights. We will not retaliate against you for filing a complaint.
-              </p>
-            </section>
-          </div>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">9. Data Security</h2>
+        <ul className="space-y-2">
+          <li>• Encryption in transit and at rest</li>
+          <li>• Secure cloud infrastructure</li>
+          <li>• Role-based access and MFA</li>
+          <li>• Continuous monitoring and audits</li>
+          <li>• Staff training and incident response</li>
+        </ul>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">10. Your Rights</h2>
+        <ul className="space-y-2">
+          <li>• Access and rectification</li>
+          <li>• Erasure and restriction</li>
+          <li>• Data portability</li>
+          <li>• Withdrawal of consent</li>
+          <li>• Objection to processing</li>
+        </ul>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">11. International Transfers</h2>
+        <p>
+          Transfers outside the UK or Nigeria are protected using Standard Contractual Clauses or other
+          lawful safeguards.
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">12. Children’s Privacy</h2>
+        <p>
+          Services are intended for adults. Where minors are involved, verifiable parental consent is
+          required.
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">13. Changes to This Policy</h2>
+        <p>
+          Updates will be communicated via email, platform notifications, or website updates.
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">14. Contact Information</h2>
+        <div className="bg-muted p-6 rounded-lg">
+          <p><strong>Privacy Officer / Data Protection Lead</strong></p>
+          <p>My Health Integral Ltd</p>
+          <p>Email: privacy@myhealthintegral.com</p>
+          <p>Phone: +234 813 746 3268</p>
+          <p className="mt-2">
+            UK: 53 Verulam Way, Cambridge, England, CB4 2HJ<br />
+            Nigeria: Adedoyin Olusoga Close, Millenium Estate, Gbagada, Lagos
+          </p>
         </div>
-      </main>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">15. Complaints</h2>
+        <p>
+          Complaints may be made to us or to the UK ICO or Nigeria Data Protection Commission. We do not
+          retaliate against individuals exercising their rights.
+        </p>
+      </section>
+    </div>
+  </div>
+</main>
+
       <Footer />
     </div>
   );

@@ -131,7 +131,7 @@ const teamHighlights = [
 export default function Investors() {
   const { data: investorsHeroImage } = useMediaPosition("hero_investors");
   const [openPitchModal, setOpenPitchModal] = useState(false);
-   const [location, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
 
   useSEO({
     title: "Investor Relations - My Health Integral",
@@ -149,141 +149,141 @@ export default function Investors() {
 
       <main>
         {/* Hero Section - Enhanced with Visual Elements */}
-       <section className="relative text-white py-20 overflow-hidden">
-  {/* Background Image */}
-  <img
-    src={investorsHeroImage?.mediaUrl || investorsHeroFallback}
-    alt={
-      investorsHeroImage?.mediaAlt ||
-      "Modern African hospital infrastructure showcasing healthcare innovation"
-    }
-    className="absolute inset-0 w-full h-full object-cover"
-  />
+        <section className="relative text-white py-20 overflow-hidden">
+          {/* Background Image */}
+          <img
+            src={investorsHeroImage?.mediaUrl || investorsHeroFallback}
+            alt={
+              investorsHeroImage?.mediaAlt ||
+              "Modern African hospital infrastructure showcasing healthcare innovation"
+            }
+            className="absolute inset-0 w-full h-full object-cover"
+          />
 
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/50"></div>
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/50"></div>
 
-  {/* Floating Badges */}
-  <div className="absolute top-6 right-6 z-20 flex gap-3">
-    <div
-      className="bg-green-500/90 backdrop-blur text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg"
-      data-testid="badge-high-growth"
-    >
-      <TrendingUp className="h-5 w-5" />
-      <span className="text-sm font-semibold">High Growth</span>
-    </div>
-
-    <div
-      className="bg-red-500/90 backdrop-blur text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg"
-      data-testid="badge-impact-investment"
-    >
-      <Heart className="h-5 w-5" />
-      <span className="text-sm font-semibold">Impact Investment</span>
-    </div>
-  </div>
-
-  {/* Content */}
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
-      {/* Hero Content */}
-      <div className="text-left">
-        <h1
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
-          data-testid="investors-hero-title"
-        >
-          Investing in the Future of
-          <span className="block text-white/90 mt-2">
-            Global Healthcare
-          </span>
-        </h1>
-
-        <p
-          className="text-xl text-white/90 mb-8 max-w-2xl"
-          data-testid="investors-hero-description"
-        >
-          Join us in revolutionizing healthcare delivery through
-          comprehensive digital transformation. My Health Integral is
-          building the world's most integrated healthcare ecosystem.
-        </p>
-
-        {/* Key Metrics */}
-        <div className="flex flex-wrap gap-6 mb-8">
-          <div className="text-center">
+          {/* Floating Badges */}
+          <div className="absolute top-6 right-6 z-20 flex gap-3">
             <div
-              className="text-3xl font-bold"
-              data-testid="metric-market-size"
+              className="bg-green-500/90 backdrop-blur text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg"
+              data-testid="badge-high-growth"
             >
-              $4.5T
+              <TrendingUp className="h-5 w-5" />
+              <span className="text-sm font-semibold">High Growth</span>
             </div>
+
             <div
-              className="text-sm text-white/80"
-              data-testid="metric-market-size-label"
+              className="bg-red-500/90 backdrop-blur text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg"
+              data-testid="badge-impact-investment"
             >
-              Market Size
+              <Heart className="h-5 w-5" />
+              <span className="text-sm font-semibold">Impact Investment</span>
             </div>
           </div>
 
-          <div className="text-center">
-            <div
-              className="text-3xl font-bold"
-              data-testid="metric-cagr"
-            >
-              8.9%
-            </div>
-            <div
-              className="text-sm text-white/80"
-              data-testid="metric-cagr-label"
-            >
-              CAGR
+          {/* Content */}
+          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <div className="bg-black/30 backdrop-blur-xl rounded-2xl p-8 sm:p-12 shadow-2xl">
+                {/* Hero Content */}
+                <div className="text-left">
+                  <h1
+                    className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+                    data-testid="investors-hero-title"
+                  >
+                    Investing in the Future of
+                    <span className="block text-white/90 mt-2">
+                      Global Healthcare
+                    </span>
+                  </h1>
+
+                  <p
+                    className="text-xl text-white/90 mb-8 max-w-2xl"
+                    data-testid="investors-hero-description"
+                  >
+                    Join us in revolutionizing healthcare delivery through
+                    comprehensive digital transformation. My Health Integral is
+                    building the world's most integrated healthcare ecosystem.
+                  </p>
+
+                  {/* Key Metrics */}
+                  <div className="flex flex-wrap gap-6 mb-8">
+                    <div className="text-center">
+                      <div
+                        className="text-3xl font-bold"
+                        data-testid="metric-market-size"
+                      >
+                        $4.5T
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-market-size-label"
+                      >
+                        Market Size
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <div
+                        className="text-3xl font-bold"
+                        data-testid="metric-cagr"
+                      >
+                        8.9%
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-cagr-label"
+                      >
+                        CAGR
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <div
+                        className="text-3xl font-bold"
+                        data-testid="metric-countries"
+                      >
+                        3 Countries
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-countries-label"
+                      >
+                        Coverage
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Link href="/contact?type=investor">
+                      <Button
+                        className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:bg-white/95"
+                        data-testid="investors-contact-button"
+                      >
+                        Contact Investor Relations
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+
+                     <Link href="/contact?type=investor">
+                    <Button
+                      variant="outline"
+                      className="bg-white/10 text-white border-2 border-white/30 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/20"
+                      data-testid="investors-pitch-button"
+                      onClick={() => setOpenPitchModal(true)}
+                    >
+                      <Play className="mr-2 h-5 w-5" />
+                      View Pitch Deck
+                    </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div className="text-center">
-            <div
-              className="text-3xl font-bold"
-              data-testid="metric-countries"
-            >
-              3 Countries
-            </div>
-            <div
-              className="text-sm text-white/80"
-              data-testid="metric-countries-label"
-            >
-              Coverage
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button
-            asChild
-            className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg group"
-            data-testid="investors-contact-button"
-          >
-            <Link href="/contact?type=investor">
-              Contact Investor Relations
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
-
-        <Link href="/contact?type=investor">
-          <Button
-            variant="outline"
-            className="bg-white/10 text-white border-2 border-white/30 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/20 transition-colors"
-            data-testid="investors-pitch-button"
-            onClick={() => setOpenPitchModal(true)}
-          >
-            <Play className="mr-2 h-5 w-5" />
-            View Pitch Deck
-          </Button>
-          </Link>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+        </section>
 
         {/* Market Opportunity */}
         <section className="py-20 section-cream">
@@ -568,12 +568,12 @@ export default function Investors() {
                   variant="outline"
                   className="bg-primary-foreground/10 text-white border-2 border-white/30 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors"
                   data-testid="investors-materials-button"
-                    onClick={() => {
-                                  alert(
-                                    "Join our waiting list! Complete the contact form to get notified when materials are available for downloads."
-                                  );
-                                  setLocation("/contact#contact-form");
-                                }}
+                  onClick={() => {
+                    alert(
+                      "Join our waiting list! Complete the contact form to get notified when materials are available for downloads.",
+                    );
+                    setLocation("/contact#contact-form");
+                  }}
                 >
                   <Download className="mr-2 h-5 w-5" />
                   Download Materials
