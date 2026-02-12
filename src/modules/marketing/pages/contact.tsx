@@ -83,20 +83,7 @@ const investorContactSchema = contactSchema.extend({
     .min(2, "Organization is required for investor inquiries"),
 });
 
-/* 🔐 Turnstile token added */
-type ContactFormData = z.infer<typeof contactSchema> & {
-  turnstileToken?: string;
-};
-
-function hasTurnstile(
-  t: typeof window.turnstile
-): t is NonNullable<typeof window.turnstile> & {
-  execute: (container: HTMLElement) => void;
-  reset: (container?: HTMLElement) => void;
-} {
-  return !!t?.execute && !!t?.reset;
-}
-
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const userTypes = [
   { value: "pharmacy", label: "Pharmacy" },
@@ -190,16 +177,11 @@ const userTypeFAQSections = [
 /* =====================
    Component
 ===================== */
-
 export default function Contact() {
   const { toast } = useToast();
   const { openChat } = useLiveChat();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { data: heroImage } = useMediaPosition("hero_contact");
-
-  /* 🔐 Turnstile */
-  const turnstileRef = useRef<HTMLDivElement | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const [location] = useLocation();
   const urlParams = new URLSearchParams(window.location.search);
@@ -253,20 +235,6 @@ export default function Contact() {
     }
   }, [location]);
 
-  /* 🔐 Turnstile init */
- useEffect(() => {
-  const t = window.turnstile;
-  if (!turnstileRef.current || !t) return;
-
-  t.render(turnstileRef.current, {
-    sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
-    size: "invisible",
-    callback: (token) => setTurnstileToken(token),
-    "expired-callback": () => setTurnstileToken(null),
-  });
-}, []);
-
-
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
       const response = await fetch(api.public.contact, {
@@ -301,37 +269,10 @@ export default function Contact() {
     },
   });
 
-const onSubmit = (data: ContactFormData) => {
-  const container = turnstileRef.current;
-  if (!container || !hasTurnstile(window.turnstile)) return;
-
-  const turnstile = window.turnstile;
-
-  // Reset before executing to avoid "already executing"
-  turnstile.reset(container);
-
-  // Define a one-time listener for the token
-  const handleResponse = (event: CustomEvent) => {
-    const token = event.detail?.token;
-    if (!token) return;
-
-    console.log("Turnstile token:", token);
-
-    // Clean up the listener after use
-    container.removeEventListener("turnstile-response", handleResponse as EventListener);
-
-    // Reset the widget so it can be reused
-    turnstile.reset(container);
-
-    // Optional: clear local token state if using React state
-    setTurnstileToken(null);
+  const onSubmit = (data: ContactFormData) => {
+    contactMutation.mutate(data);
   };
 
-  container.addEventListener("turnstile-response", handleResponse as EventListener);
-
-  // Execute challenge
-  turnstile.execute(container);
-};
 
 
 
@@ -1177,16 +1118,6 @@ const onSubmit = (data: ContactFormData) => {
                         </FormItem>
                       )}
                     />
-
-                  
-      {/* Turnstile */}
-      <div
-        ref={turnstileRef}
-        id="turnstile-widget"
-        className="mt-4"
-        data-sitekey={import.meta.env.VITE_TURNSTILE_SITEKEY}
-      ></div>
-
                     <Button
                       type="submit"
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
