@@ -280,7 +280,7 @@ function LabBenefitSection() {
 
 export default function Laboratories() {
   const { data: labsHeroImage } = useMediaPosition("hero_laboratories");
-const [location, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   useSEO({
     title: "Medical Laboratory Solutions",
     description:
@@ -311,138 +311,145 @@ const [location, setLocation] = useLocation();
 
       <main>
         {/* Hero Section - Enhanced with Professional Imagery */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
+        <section
+          className="
+    relative text-white overflow-hidden bg-cover bg-center
+    pt-40 sm:pt-32 lg:pt-20
+    pb-20
+  "
+          style={{
+            backgroundImage: `url(${labsHeroImage?.mediaUrl || labsHeroFallback})`,
+          }}
+        >
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/60"></div>
+
+          {/* ================= Section Top-Right Badges ================= */}
+          <div className="absolute top-6 right-4 sm:right-6 z-20 flex flex-col sm:flex-row gap-4">
+            {/* ISO Compliance Badge */}
+            <div
+              className="bg-white/95 backdrop-blur-md rounded-lg px-4 py-2 shadow-xl border border-primary/10"
+              data-testid="labs-compliance-badge"
+            >
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-xs font-semibold text-foreground">
+                    ISO 15189
+                  </div>
+                  <div className="text-[10px] text-muted-foreground">
+                    Certified
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Real-Time Processing Badge */}
+            <div
+              className="bg-white/95 backdrop-blur-md rounded-lg px-4 py-3 shadow-xl border border-primary/10"
+              data-testid="labs-realtime-badge"
+            >
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-6 w-6 text-primary" />
+                <div>
+                  <div className="text-xs font-semibold text-foreground">
+                    Real-Time Processing
+                  </div>
+                  <div className="text-[10px] text-muted-foreground">
+                    Instant Results
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
+              {/* ================= Hero Content ================= */}
               <div className="text-left">
-                <h1
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
-                  data-testid="labs-hero-title"
-                >
-                  Revolutionize Laboratory Operations
-                  <span className="block text-white/90 mt-2">
-                    Efficient Test Management & Reporting
-                  </span>
-                </h1>
-                <p
-                  className="text-xl text-white/90 mb-8 max-w-2xl"
-                  data-testid="labs-hero-description"
-                >
-                  Improve efficiency in test management and reporting with our
-                  comprehensive digital laboratory solutions designed for modern
-                  medical laboratories.
-                </p>
-
-                {/* Key Metrics */}
-                <div className="flex flex-wrap gap-6 mb-8">
-                  <div className="text-center">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-tat"
-                    >
-                      40%
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-tat-label"
-                    >
-                      Faster TAT
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-accuracy"
-                    >
-                      99.9%
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-accuracy-label"
-                    >
-                      Accuracy Rate
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-monitoring"
-                    >
-                      24/7
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-monitoring-label"
-                    >
-                      Monitoring
-                    </div>
-                  </div>
-                </div>
-
-                <Link href="/contact#contact-form">
-                  <Button
-                    className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
-                    data-testid="labs-get-started"
+                {/* Glass Blur Card */}
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-2xl max-w-2xl">
+                  <h1
+                    className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+                    data-testid="labs-hero-title"
                   >
-                    Transform Your Lab
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
+                    Revolutionize Laboratory Operations
+                    <span className="block text-white/90 mt-2">
+                      Efficient Test Management & Reporting
+                    </span>
+                  </h1>
 
-              {/* Hero Image */}
-              <div className="relative lg:block hidden">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img
-                    src={labsHeroImage?.mediaUrl || labsHeroFallback}
-                    alt={
-                      labsHeroImage?.mediaAlt ||
-                      "Modern African medical laboratory with advanced diagnostic equipment"
-                    }
-                    className="w-full h-auto object-cover"
-                    data-testid="labs-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"></div>
-                </div>
+                  <p
+                    className="text-xl text-white/90 mb-8"
+                    data-testid="labs-hero-description"
+                  >
+                    Improve efficiency in test management and reporting with our
+                    comprehensive digital laboratory solutions designed for
+                    modern medical laboratories.
+                  </p>
 
-                {/* ISO Compliance Badge */}
-                <div
-                  className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
-                  data-testid="labs-compliance-badge"
-                >
-                  <div className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-primary" />
-                    <div>
-                      <div className="text-xs font-semibold text-foreground">
-                        ISO 15189
+                  {/* Key Metrics */}
+                  <div className="flex flex-wrap gap-6 mb-8">
+                    <div className="text-center">
+                      <div
+                        className="text-3xl font-bold text-white"
+                        data-testid="metric-tat"
+                      >
+                        40%
                       </div>
-                      <div className="text-[10px] text-muted-foreground">
-                        Certified
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-tat-label"
+                      >
+                        Faster TAT
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <div
+                        className="text-3xl font-bold text-white"
+                        data-testid="metric-accuracy"
+                      >
+                        99.9%
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-accuracy-label"
+                      >
+                        Accuracy Rate
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <div
+                        className="text-3xl font-bold text-white"
+                        data-testid="metric-monitoring"
+                      >
+                        24/7
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-monitoring-label"
+                      >
+                        Monitoring
                       </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Real-time Processing Badge */}
-                <div
-                  className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10"
-                  data-testid="labs-realtime-badge"
-                >
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-6 w-6 text-primary" />
-                    <div>
-                      <div className="text-xs font-semibold text-foreground">
-                        Real-Time Processing
-                      </div>
-                      <div className="text-[10px] text-muted-foreground">
-                        Instant Results
-                      </div>
-                    </div>
-                  </div>
+                  <Link href="/contact#contact-form">
+                    <Button
+                      className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
+                      data-testid="labs-get-started"
+                    >
+                      Transform Your Lab
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
+
+              {/* Spacer column */}
+              <div className="hidden lg:block"></div>
             </div>
           </div>
         </section>
@@ -468,15 +475,15 @@ const [location, setLocation] = useLocation();
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {labServices.map((service, index) => (
-                 <ServiceCard
-                                 key={index}
-                                 icon={service.icon}
-                                 title={service.title}
-                                 description={service.description}
-                                 colorClass={
-                                   serviceCardColors[index % serviceCardColors.length]
-                                 }
-                               />
+                <ServiceCard
+                  key={index}
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  colorClass={
+                    serviceCardColors[index % serviceCardColors.length]
+                  }
+                />
               ))}
             </div>
           </div>
@@ -506,7 +513,7 @@ const [location, setLocation] = useLocation();
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-6">
-               {benefits.map((benefit, index) => {
+                {benefits.map((benefit, index) => {
                   const isEvenRow = Math.floor(index / 2) % 2 === 0;
 
                   const colorClasses = isEvenRow
@@ -696,12 +703,12 @@ const [location, setLocation] = useLocation();
                   variant="outline"
                   className="px-8 py-3"
                   data-testid="labs-see-all-faqs"
-                   onClick={() => {
-                alert(
-                  "Complete the contact form to view all laboratory FAQs."
-                );
-                setLocation("/contact#contact-form");
-              }}
+                  onClick={() => {
+                    alert(
+                      "Complete the contact form to view all laboratory FAQs.",
+                    );
+                    setLocation("/contact#contact-form");
+                  }}
                 >
                   <ArrowRight className="mr-2 h-4 w-4" />
                   See All Laboratory FAQs

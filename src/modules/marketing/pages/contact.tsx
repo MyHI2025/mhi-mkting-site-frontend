@@ -322,143 +322,135 @@ export default function Contact() {
 
       <main>
         {/* Hero Section - Enhanced with Professional Imagery */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-left">
-                <h1
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
-                  data-testid="contact-hero-title"
-                >
-                  {isInvestorForm ? "Investor Relations" : "Get in Touch"}
-                  <span className="block text-white/90 mt-2">
-                    {isInvestorForm
-                      ? "Partner with Us in Healthcare Innovation"
-                      : "Let's Transform Healthcare Together"}
-                  </span>
-                </h1>
-                <p
-                  className="text-xl text-white/90 mb-8 max-w-2xl"
-                  data-testid="contact-hero-description"
-                >
-                  {isInvestorForm
-                    ? "Explore investment opportunities in the next generation of digital healthcare. Join us as we scale our platform to transform healthcare accessibility worldwide."
-                    : "Ready to revolutionize your healthcare experience? We'd love to hear from you. Contact us to learn more about how My Health Integral can meet your specific needs."}
-                </p>
+      <section className="relative text-white py-20 overflow-hidden">
+  {/* Background Image */}
+  <div className="absolute inset-0">
+    <img
+      src={heroImage?.mediaUrl || contactHeroFallback}
+      alt={
+        heroImage?.mediaAlt ||
+        "Professional African healthcare team ready to assist you"
+      }
+      className="w-full h-full object-cover"
+    />
+    {/* Dark overlay for readability */}
+    <div className="absolute inset-0 bg-black/50"></div>
+  </div>
 
-                {/* Key Metrics / Trust Indicators */}
-                <div className="flex flex-wrap gap-6 mb-8">
-                  <div className="text-center">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-available"
-                    >
-                      24/7
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-available-label"
-                    >
-                      Available
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-response"
-                    >
-                      &lt;24h
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-response-label"
-                    >
-                      Response Time
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-dedicated"
-                    >
-                      100%
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-dedicated-label"
-                    >
-                      Dedicated
-                    </div>
-                  </div>
-                </div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-                <Link href="#contact-form">
-                  <Button
-                    className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
-                    data-testid="contact-cta-button"
-                  >
-                    {isInvestorForm ? "Start Conversation" : "Get Started"}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
+      {/* Hero Content (Left with Blur Background) */}
+      <div className="text-left backdrop-blur-md bg-white/10 p-8 rounded-2xl border border-white/20 shadow-xl">
+        <h1
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+          data-testid="contact-hero-title"
+        >
+          {isInvestorForm ? "Investor Relations" : "Get in Touch"}
+          <span className="block text-white/90 mt-2">
+            {isInvestorForm
+              ? "Partner with Us in Healthcare Innovation"
+              : "Let's Transform Healthcare Together"}
+          </span>
+        </h1>
 
-              {/* Hero Image with Floating Badges */}
-              <div className="relative lg:block hidden">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img
-                    src={heroImage?.mediaUrl || contactHeroFallback}
-                    alt={
-                      heroImage?.mediaAlt ||
-                      "Professional African healthcare team ready to assist you"
-                    }
-                    className="w-full h-auto object-cover"
-                    data-testid="contact-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"></div>
-                </div>
+        <p
+          className="text-xl text-white/90 mb-8 max-w-2xl"
+          data-testid="contact-hero-description"
+        >
+          {isInvestorForm
+            ? "Explore investment opportunities in the next generation of digital healthcare. Join us as we scale our platform to transform healthcare accessibility worldwide."
+            : "Ready to revolutionize your healthcare experience? We'd love to hear from you. Contact us to learn more about how My Health Integral can meet your specific needs."}
+        </p>
 
-                {/* 24/7 Support Badge */}
-                <div
-                  className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
-                  data-testid="contact-support-badge"
-                >
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-primary" />
-                    <div>
-                      <div className="text-xs font-semibold text-foreground">
-                        24/7 Support
-                      </div>
-                      <div className="text-[10px] text-muted-foreground">
-                        Always Available
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Always Here Badge */}
-                <div
-                  className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10"
-                  data-testid="contact-care-badge"
-                >
-                  <div className="flex items-center gap-2">
-                    <Heart className="h-6 w-6 text-primary" />
-                    <div>
-                      <div className="text-xs font-semibold text-foreground">
-                        Always Here
-                      </div>
-                      <div className="text-[10px] text-muted-foreground">
-                        We Care About You
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {/* Key Metrics */}
+        <div className="flex flex-wrap gap-6 mb-8">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white" data-testid="metric-available">
+              24/7
+            </div>
+            <div className="text-sm text-white/80" data-testid="metric-available-label">
+              Available
             </div>
           </div>
-        </section>
+
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white" data-testid="metric-response">
+              &lt;24h
+            </div>
+            <div className="text-sm text-white/80" data-testid="metric-response-label">
+              Response Time
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white" data-testid="metric-dedicated">
+              100%
+            </div>
+            <div className="text-sm text-white/80" data-testid="metric-dedicated-label">
+              Dedicated
+            </div>
+          </div>
+        </div>
+
+        <Link href="#contact-form">
+          <Button
+            className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
+            data-testid="contact-cta-button"
+          >
+            {isInvestorForm ? "Start Conversation" : "Get Started"}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </Link>
+      </div>
+
+      {/* Right Side (Empty column kept for layout balance) */}
+      <div className="hidden lg:block"></div>
+    </div>
+  </div>
+
+  {/* Top-Right Floating Badges (Side by Side) */}
+  <div className="absolute top-6 right-6 flex gap-4 z-20">
+
+    {/* 24/7 Support Badge */}
+    <div
+      className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
+      data-testid="contact-support-badge"
+    >
+      <div className="flex items-center gap-2">
+        <Clock className="h-5 w-5 text-primary" />
+        <div>
+          <div className="text-xs font-semibold text-foreground">
+            24/7 Support
+          </div>
+          <div className="text-[10px] text-muted-foreground">
+            Always Available
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Always Here Badge */}
+    <div
+      className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10"
+      data-testid="contact-care-badge"
+    >
+      <div className="flex items-center gap-2">
+        <Heart className="h-6 w-6 text-primary" />
+        <div>
+          <div className="text-xs font-semibold text-foreground">
+            Always Here
+          </div>
+          <div className="text-[10px] text-muted-foreground">
+            We Care About You
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
         {/* Contact Form and Info */}
         <section id="contact-form" className="py-20 bg-background">

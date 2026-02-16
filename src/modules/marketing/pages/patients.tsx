@@ -337,14 +337,13 @@ export default function Patients() {
   });
 
   const serviceCardColors = [
-   
     {
       bg: "bg-teal-50",
       border: "border-teal-200",
       accentText: "text-teal-600",
       accentBg: "bg-teal-600",
     },
-     {
+    {
       bg: "bg-amber-50",
       border: "border-amber-200",
       accentText: "text-amber-600",
@@ -352,116 +351,154 @@ export default function Patients() {
     },
   ];
 
-
-
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
       <main>
         {/* Hero Section - Enhanced with Professional Imagery */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <section className="relative text-white overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src={patientsHeroImage?.mediaUrl || patientsHeroFallback}
+              alt={
+                patientsHeroImage?.mediaAlt ||
+                "African family receiving healthcare at home via telemedicine"
+              }
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+          </div>
+
+          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            {/* Desktop Layout */}
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-center lg:text-left">
-                <h1
-                  className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
-                  data-testid="patients-hero-title"
-                >
-                  Your Health, Your Way
-                  <span className="block text-white/90 text-3xl sm:text-4xl font-medium mt-2">
-                    Comprehensive Patient Care Services
-                  </span>
-                </h1>
-                <p
-                  className="text-xl text-white/90 mb-8 leading-relaxed"
-                  data-testid="patients-hero-description"
-                >
-                  At My Health Integral, we are revolutionizing the way you
-                  access healthcare. Experience personalized, convenient, and
-                  comprehensive healthcare services designed around your needs.
-                </p>
-
-                {/* Key Benefits List */}
-                <div className="mb-8 space-y-3">
-                  <div className="flex items-center gap-3 text-white/90">
-                    <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span>24/7 Access to Healthcare Providers</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/90">
-                    <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span>AI-Powered Diagnosis & Triage</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/90">
-                    <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span>Complete Health Records at Your Fingertips</span>
-                  </div>
-                </div>
-
-                <Link href="/contact#contact-form">
-                  <Button
-                    className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
-                    data-testid="patients-get-started"
-                  >
-                    <ArrowRight className="mr-2 h-5 w-5" />
-                    Get Started Today
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Hero Image - Family Healthcare at Home */}
-              <div className="relative order-first lg:order-last">
-                <div className="relative z-10">
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20">
-                    <img
-                      src={patientsHeroImage?.mediaUrl || patientsHeroFallback}
-                      alt={
-                        patientsHeroImage?.mediaAlt ||
-                        "African family receiving healthcare at home via telemedicine"
-                      }
-                      className="w-full h-auto object-cover"
-                      data-testid="patients-hero-image"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"></div>
-                  </div>
-
-                  {/* Healthcare Access Badge */}
+              {/* Left Content */}
+              <div className="relative">
+                {/* Badges - Mobile (in flow, no overlap) */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-6 lg:hidden">
                   <div
-                    className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
+                    className="bg-white/95 backdrop-blur-md rounded-xl px-5 py-3 shadow-xl border border-primary/10"
                     data-testid="patients-access-badge"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <Video className="h-5 w-5 text-primary" />
                       <div>
                         <div className="text-xs font-semibold text-foreground">
                           Telemedicine Ready
                         </div>
-                        <div className="text-[10px] text-muted-foreground">
+                        <div className="text-[11px] text-muted-foreground">
                           Consult from Home
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* AI Diagnosis Badge */}
                   <div
-                    className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10"
+                    className="bg-white/95 backdrop-blur-md rounded-xl px-5 py-3 shadow-xl border border-primary/10"
                     data-testid="patients-ai-badge"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <Brain className="h-6 w-6 text-primary" />
                       <div>
                         <div className="text-xs font-semibold text-foreground">
                           AI Diagnosis
                         </div>
-                        <div className="text-[10px] text-muted-foreground">
+                        <div className="text-[11px] text-muted-foreground">
                           Instant Insights
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+
+                {/* Glass Content Card */}
+                <div className="backdrop-blur-xl bg-white/10 p-6 sm:p-8 lg:p-10 rounded-3xl border border-white/20 shadow-2xl">
+                  <h1
+                    className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6"
+                    data-testid="patients-hero-title"
+                  >
+                    Your Health, Your Way
+                    <span className="block text-white/90 text-2xl sm:text-3xl lg:text-4xl font-medium mt-2">
+                      Comprehensive Patient Care Services
+                    </span>
+                  </h1>
+
+                  <p
+                    className="text-lg sm:text-xl text-white/90 mb-8 leading-relaxed"
+                    data-testid="patients-hero-description"
+                  >
+                    At My Health Integral, we are revolutionizing the way you
+                    access healthcare. Experience personalized, convenient, and
+                    comprehensive healthcare services designed around your
+                    needs.
+                  </p>
+
+                  {/* Key Benefits */}
+                  <div className="mb-8 space-y-3">
+                    <div className="flex items-center gap-3 text-white/90">
+                      <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
+                      <span>24/7 Access to Healthcare Providers</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-white/90">
+                      <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
+                      <span>AI-Powered Diagnosis & Triage</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-white/90">
+                      <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
+                      <span>Complete Health Records at Your Fingertips</span>
+                    </div>
+                  </div>
+
+                  <Link href="/contact#contact-form">
+                    <Button
+                      className="bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-white/95 transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto"
+                      data-testid="patients-get-started"
+                    >
+                      <ArrowRight className="mr-2 h-5 w-5" />
+                      Get Started Today
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Spacer Column */}
+              <div className="hidden lg:block"></div>
+            </div>
+          </div>
+
+          {/* Desktop Badges (Absolute, no overlap) */}
+          <div className="hidden lg:flex absolute top-8 right-8 gap-4 z-20">
+            <div
+              className="bg-white/95 backdrop-blur-md rounded-xl px-5 py-3 shadow-xl border border-primary/10"
+              data-testid="patients-access-badge"
+            >
+              <div className="flex items-center gap-3">
+                <Video className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-xs font-semibold text-foreground">
+                    Telemedicine Ready
+                  </div>
+                  <div className="text-[11px] text-muted-foreground">
+                    Consult from Home
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="bg-white/95 backdrop-blur-md rounded-xl px-5 py-3 shadow-xl border border-primary/10"
+              data-testid="patients-ai-badge"
+            >
+              <div className="flex items-center gap-3">
+                <Brain className="h-6 w-6 text-primary" />
+                <div>
+                  <div className="text-xs font-semibold text-foreground">
+                    AI Diagnosis
+                  </div>
+                  <div className="text-[11px] text-muted-foreground">
+                    Instant Insights
                   </div>
                 </div>
               </div>

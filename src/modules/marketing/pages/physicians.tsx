@@ -214,7 +214,7 @@ const physicianFAQs = [
 
 export default function Physicians() {
   const { data: physiciansHeroImage } = useMediaPosition("hero_physicians");
-const [location, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   useSEO({
     title: "Physician Services & Virtual Practice Solutions",
     description:
@@ -224,7 +224,7 @@ const [location, setLocation] = useLocation();
       "Join our network of healthcare professionals with virtual practice setup, AI diagnostics, telemedicine tools, and performance-based compensation.",
     canonical: `${window.location.origin}/physicians`,
   });
-   const serviceCardColors = [
+  const serviceCardColors = [
     {
       bg: "bg-teal-50",
       border: "border-teal-200",
@@ -245,12 +245,62 @@ const [location, setLocation] = useLocation();
 
       <main>
         {/* Hero Section - Enhanced with Professional Imagery */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-center lg:text-left">
+        <section
+          className="relative text-white py-20 overflow-hidden bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${
+              physiciansHeroImage?.mediaUrl || physiciansHeroFallback
+            })`,
+          }}
+        >
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/60"></div>
+
+          {/* ====== BADGES - TRUE TOP RIGHT OF PAGE ====== */}
+          <div className="absolute top-4 right-4 z-30">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-end">
+              {/* Digital Practice Badge */}
+              <div
+                className="bg-white/90 backdrop-blur-md rounded-lg px-4 py-2 shadow-lg border border-primary/10"
+                data-testid="physicians-digital-badge"
+              >
+                <div className="flex items-center gap-2">
+                  <Monitor className="h-5 w-5 text-primary" />
+                  <div>
+                    <div className="text-xs font-semibold text-foreground">
+                      Digital Practice
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">
+                      Anywhere, Anytime
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* AI Tools Badge */}
+              <div
+                className="bg-white/90 backdrop-blur-md rounded-lg px-4 py-2 shadow-lg border border-primary/10"
+                data-testid="physicians-tools-badge"
+              >
+                <div className="flex items-center gap-2">
+                  <Brain className="h-6 w-6 text-primary" />
+                  <div>
+                    <div className="text-xs font-semibold text-foreground">
+                      AI-Powered Tools
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">
+                      Enhanced Diagnostics
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="relative">
+              {/* ====== LEFT CONTENT WITH GLASS EFFECT ====== */}
+              <div className="max-w-2xl bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
                 <h1
                   className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
                   data-testid="physicians-hero-title"
@@ -260,6 +310,7 @@ const [location, setLocation] = useLocation();
                     Join the Future of Healthcare Delivery
                   </span>
                 </h1>
+
                 <p
                   className="text-xl text-white/90 mb-8 leading-relaxed"
                   data-testid="physicians-hero-description"
@@ -277,6 +328,7 @@ const [location, setLocation] = useLocation();
                     <div className="text-2xl font-bold">3x</div>
                     <div className="text-sm text-white/80">Patient Reach</div>
                   </div>
+
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                     <Users2 className="h-8 w-8 text-blue-400 mb-2" />
                     <div className="text-2xl font-bold">2000+</div>
@@ -295,62 +347,6 @@ const [location, setLocation] = useLocation();
                     Join Our Network
                   </Button>
                 </Link>
-              </div>
-
-              {/* Hero Image - Professional Doctor with Digital Platform */}
-              <div className="relative order-first lg:order-last">
-                <div className="relative z-10">
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20">
-                    <img
-                      src={
-                        physiciansHeroImage?.mediaUrl || physiciansHeroFallback
-                      }
-                      alt={
-                        physiciansHeroImage?.mediaAlt ||
-                        "Professional African doctor using digital healthcare platform"
-                      }
-                      className="w-full h-auto object-cover"
-                      data-testid="physicians-hero-image"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"></div>
-                  </div>
-
-                  {/* Digital Practice Badge */}
-                  <div
-                    className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
-                    data-testid="physicians-digital-badge"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Monitor className="h-5 w-5 text-primary" />
-                      <div>
-                        <div className="text-xs font-semibold text-foreground">
-                          Digital Practice
-                        </div>
-                        <div className="text-[10px] text-muted-foreground">
-                          Anywhere, Anytime
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* AI Tools Badge */}
-                  <div
-                    className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10"
-                    data-testid="physicians-tools-badge"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Brain className="h-6 w-6 text-primary" />
-                      <div>
-                        <div className="text-xs font-semibold text-foreground">
-                          AI-Powered Tools
-                        </div>
-                        <div className="text-[10px] text-muted-foreground">
-                          Enhanced Diagnostics
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -378,14 +374,14 @@ const [location, setLocation] = useLocation();
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {physicianServices.map((service, index) => (
                 <ServiceCard
-                                 key={index}
-                                 icon={service.icon}
-                                 title={service.title}
-                                 description={service.description}
-                                 colorClass={
-                                   serviceCardColors[index % serviceCardColors.length]
-                                 }
-                               />
+                  key={index}
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  colorClass={
+                    serviceCardColors[index % serviceCardColors.length]
+                  }
+                />
               ))}
             </div>
           </div>
@@ -489,7 +485,7 @@ const [location, setLocation] = useLocation();
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-6">
-                 {benefits.map((benefit, index) => {
+                {benefits.map((benefit, index) => {
                   const isEvenRow = Math.floor(index / 2) % 2 === 0;
 
                   const colorClasses = isEvenRow
@@ -566,12 +562,12 @@ const [location, setLocation] = useLocation();
                   variant="outline"
                   className="px-8 py-3"
                   data-testid="physicians-see-all-faqs"
-                   onClick={() => {
-                alert(
-                  "Complete the contact form to view all physician FAQs."
-                );
-                setLocation("/contact#contact-form");
-              }}
+                  onClick={() => {
+                    alert(
+                      "Complete the contact form to view all physician FAQs.",
+                    );
+                    setLocation("/contact#contact-form");
+                  }}
                 >
                   <ArrowRight className="mr-2 h-4 w-4" />
                   See All Physician FAQs
