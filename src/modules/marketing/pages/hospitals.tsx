@@ -209,115 +209,127 @@ const [location, setLocation] = useLocation();
 
       <main>
         {/* Hero Section - Enhanced with Professional Imagery */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-center lg:text-left">
-                <h1
-                  className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
-                  data-testid="hospitals-hero-title"
-                >
-                  Transform Hospital Operations
-                  <span className="block text-white/90 text-3xl sm:text-4xl font-medium mt-2">
-                    Next-Generation Healthcare Infrastructure
-                  </span>
-                </h1>
-                <p
-                  className="text-xl text-white/90 mb-8 leading-relaxed"
-                  data-testid="hospitals-hero-description"
-                >
-                  Enhance patient care with real-time data integration,
-                  telehealth solutions, and comprehensive digital infrastructure
-                  designed for modern hospitals.
-                </p>
+       <section className="relative text-white py-20 overflow-hidden">
+  {/* Background Image */}
+  <div className="absolute inset-0">
+    <img
+      src={hospitalsHeroImage?.mediaUrl || hospitalsHeroFallback}
+      alt={
+        hospitalsHeroImage?.mediaAlt ||
+        "Modern African hospital with digital healthcare infrastructure"
+      }
+      className="w-full h-full object-cover"
+      data-testid="hospitals-hero-image"
+    />
+    <div className="absolute inset-0 bg-black/50"></div>
+  </div>
 
-                {/* Key Impact Metrics */}
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <Activity className="h-8 w-8 text-green-400 mb-2" />
-                    <div className="text-2xl font-bold">40%</div>
-                    <div className="text-sm text-white/80">Efficiency Gain</div>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <Award className="h-8 w-8 text-yellow-400 mb-2" />
-                    <div className="text-2xl font-bold">15+</div>
-                    <div className="text-sm text-white/80">
-                      Hospital Partners
-                    </div>
-                  </div>
-                </div>
+  {/* ✅ BADGES — Direct child of section */}
+  <div
+    className="
+      relative
+      lg:absolute lg:top-6 lg:right-6
+      z-20
+      flex gap-4
+      flex-col sm:flex-row
+      px-4 sm:px-6 lg:px-0
+      mb-8 lg:mb-0
+    "
+  >
+    {/* Real-Time Monitoring Badge */}
+    <div
+      className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
+      data-testid="hospitals-monitoring-badge"
+    >
+      <div className="flex items-center gap-2">
+        <Activity className="h-5 w-5 text-primary" />
+        <div>
+          <div className="text-xs font-semibold text-foreground">
+            Real-Time Monitoring
+          </div>
+          <div className="text-[10px] text-muted-foreground">
+            All Departments
+          </div>
+        </div>
+      </div>
+    </div>
 
-                <Link href="/contact#contact-form">
-                  <Button
-                    className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
-                    data-testid="hospitals-get-started"
-                  >
-                    <ArrowRight className="mr-2 h-5 w-5" />
-                    Partner With Us
-                  </Button>
-                </Link>
-              </div>
+    {/* Digital Infrastructure Badge */}
+    <div
+      className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10"
+      data-testid="hospitals-infrastructure-badge"
+    >
+      <div className="flex items-center gap-2">
+        <Building2 className="h-6 w-6 text-primary" />
+        <div>
+          <div className="text-xs font-semibold text-foreground">
+            Full Integration
+          </div>
+          <div className="text-[10px] text-muted-foreground">
+            All Systems Connected
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-              {/* Hero Image - Modern African Hospital with Digital Infrastructure */}
-              <div className="relative order-first lg:order-last">
-                <div className="relative z-10">
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20">
-                    <img
-                      src={
-                        hospitalsHeroImage?.mediaUrl || hospitalsHeroFallback
-                      }
-                      alt={
-                        hospitalsHeroImage?.mediaAlt ||
-                        "Modern African hospital with digital healthcare infrastructure"
-                      }
-                      className="w-full h-auto object-cover"
-                      data-testid="hospitals-hero-image"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"></div>
-                  </div>
+  {/* Content Container */}
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-                  {/* Real-Time Monitoring Badge */}
-                  <div
-                    className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-primary/10"
-                    data-testid="hospitals-monitoring-badge"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Activity className="h-5 w-5 text-primary" />
-                      <div>
-                        <div className="text-xs font-semibold text-foreground">
-                          Real-Time Monitoring
-                        </div>
-                        <div className="text-[10px] text-muted-foreground">
-                          All Departments
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      {/* Hero Content */}
+      <div className="text-center lg:text-left backdrop-blur-md bg-white/10 p-8 rounded-2xl border border-white/20">
+        <h1
+          className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
+          data-testid="hospitals-hero-title"
+        >
+          Transform Hospital Operations
+          <span className="block text-white/90 text-3xl sm:text-4xl font-medium mt-2">
+            Next-Generation Healthcare Infrastructure
+          </span>
+        </h1>
 
-                  {/* Digital Infrastructure Badge */}
-                  <div
-                    className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-primary/10"
-                    data-testid="hospitals-infrastructure-badge"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Building2 className="h-6 w-6 text-primary" />
-                      <div>
-                        <div className="text-xs font-semibold text-foreground">
-                          Full Integration
-                        </div>
-                        <div className="text-[10px] text-muted-foreground">
-                          All Systems Connected
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <p
+          className="text-xl text-white/90 mb-8 leading-relaxed"
+          data-testid="hospitals-hero-description"
+        >
+          Enhance patient care with real-time data integration,
+          telehealth solutions, and comprehensive digital infrastructure
+          designed for modern hospitals.
+        </p>
+
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+            <Activity className="h-8 w-8 text-green-400 mb-2" />
+            <div className="text-2xl font-bold">40%</div>
+            <div className="text-sm text-white/80">Efficiency Gain</div>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+            <Award className="h-8 w-8 text-yellow-400 mb-2" />
+            <div className="text-2xl font-bold">15+</div>
+            <div className="text-sm text-white/80">
+              Hospital Partners
             </div>
           </div>
-        </section>
+        </div>
+
+        <Link href="/contact#contact-form">
+          <Button
+            className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
+            data-testid="hospitals-get-started"
+          >
+            <ArrowRight className="mr-2 h-5 w-5" />
+            Partner With Us
+          </Button>
+        </Link>
+      </div>
+
+      <div className="hidden lg:block"></div>
+    </div>
+  </div>
+</section>
+
 
         {/* Services Grid */}
         <section className="py-20 bg-background">

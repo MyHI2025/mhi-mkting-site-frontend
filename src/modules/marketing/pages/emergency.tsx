@@ -155,77 +155,92 @@ function EmergencyBenefitSection() {
   const { data: emergencyBenefitImage } = useMediaPosition("benefit_emergency");
   
   return (
-    <section className="py-20 section-cream">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
-          {/* Benefit Image */}
-          <div className="flex-1 w-full">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src={emergencyBenefitImage?.mediaUrl || emergencyBenefitFallback} 
-                alt={emergencyBenefitImage?.mediaAlt || "Emergency medical professional responding to critical situation"} 
-                className="w-full h-96 object-cover"
-                data-testid="emergency-benefit-image"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-              
-              {/* Response Time Badge */}
-              <div className="absolute top-6 left-6 bg-red-500 text-white px-4 py-2 rounded-full flex items-center gap-2">
-                <Heart className="h-5 w-5" />
-                <span className="text-sm font-semibold">&lt; 8 Min Response</span>
+ <section className="relative py-20 overflow-hidden">
+  {/* Background Image */}
+  <img
+    src={emergencyBenefitImage?.mediaUrl || emergencyBenefitFallback}
+    alt={emergencyBenefitImage?.mediaAlt || "Emergency medical professional responding to critical situation"}
+    className="absolute inset-0 w-full h-full object-cover"
+    data-testid="emergency-benefit-image"
+  />
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-black/50"></div>
+{/* Top Right Badges */}
+   <div className="lg:absolute lg:top-0 lg:right-0 lg:mt-6 flex flex-wrap gap-3 mb-6 lg:mb-0 z-20">
+      <div className="bg-red-500 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+        <Heart className="h-5 w-5" />
+        <span className="text-sm font-semibold">&lt; 8 Min Response</span>
+      </div>
+
+      <div className="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full shadow-lg">
+        <Ambulance className="h-4 w-4" />
+        <span className="text-sm font-semibold">Emergency Care</span>
+      </div>
+    </div>
+
+  <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+    
+    
+    <div className="flex justify-start">
+      
+      {/* Glass Content Card */}
+      <div className="max-w-xl w-full space-y-6 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 shadow-2xl text-white">
+        
+        <h2 className="text-3xl sm:text-4xl font-bold">
+          Life-Saving Response When Seconds Count
+        </h2>
+
+        <p className="text-lg text-white/80 leading-relaxed">
+          Coordinate emergency response with GPS tracking, real-time dispatch, and instant medical history access. Save lives with optimized response times and seamless hospital integration.
+        </p>
+
+        <ul className="space-y-4">
+          <li className="flex items-start gap-3">
+            <CheckCircle className="h-6 w-6 text-green-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <div className="font-semibold">Instant GPS Location</div>
+              <div className="text-sm text-white/70">
+                Automatic location sharing reduces response time by 45%
               </div>
             </div>
-          </div>
-          
-          {/* Benefit Content */}
-          <div className="flex-1 w-full space-y-6">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full">
-              <Ambulance className="h-4 w-4" />
-              <span className="text-sm font-semibold">Emergency Care</span>
+          </li>
+
+          <li className="flex items-start gap-3">
+            <CheckCircle className="h-6 w-6 text-green-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <div className="font-semibold">Real-Time Medical History</div>
+              <div className="text-sm text-white/70">
+                Pre-arrival access to critical patient information
+              </div>
             </div>
-            
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Life-Saving Response When Seconds Count
-            </h2>
-            
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Coordinate emergency response with GPS tracking, real-time dispatch, and instant medical history access. Save lives with optimized response times and seamless hospital integration.
-            </p>
-            
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-semibold text-foreground">Instant GPS Location</div>
-                  <div className="text-sm text-muted-foreground">Automatic location sharing reduces response time by 45%</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-semibold text-foreground">Real-Time Medical History</div>
-                  <div className="text-sm text-muted-foreground">Pre-arrival access to critical patient information</div>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="font-semibold text-foreground">Hospital Pre-Alert</div>
-                  <div className="text-sm text-muted-foreground">Emergency departments prepare before ambulance arrives</div>
-                </div>
-              </li>
-            </ul>
-            
-            <Link href="/contact#contact-form">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-semibold group" data-testid="button-integrate-emergency">
-                Integrate Emergency Services
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </div>
-        </div>
+          </li>
+
+          <li className="flex items-start gap-3">
+            <CheckCircle className="h-6 w-6 text-green-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <div className="font-semibold">Hospital Pre-Alert</div>
+              <div className="text-sm text-white/70">
+                Emergency departments prepare before ambulance arrives
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <Link href="/contact#contact-form">
+          <Button
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-semibold group"
+            data-testid="button-integrate-emergency"
+          >
+            Integrate Emergency Services
+            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </Link>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
   );
 }
 
@@ -260,69 +275,98 @@ export default function Emergency() {
       
       <main>
         {/* Hero Section - Enhanced with Two-Column Layout */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-left">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6" data-testid="emergency-hero-title">
-                  Advanced Emergency Services
-                  <span className="block text-white/90 mt-2">Enhance Response Times & Patient Care</span>
-                </h1>
-                <p className="text-xl text-white/90 mb-8" data-testid="emergency-hero-description">
-                  Improve response times and coordinate patient care during emergencies with our comprehensive digital platform designed for emergency medical service providers.
-                </p>
-                
-                {/* Metrics */}
-                <div className="grid grid-cols-3 gap-6 mb-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white" data-testid="metric-response">&lt;8 Min</div>
-                    <div className="text-sm text-white/80" data-testid="metric-response-label">Response Time</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white" data-testid="metric-coverage">24/7</div>
-                    <div className="text-sm text-white/80" data-testid="metric-coverage-label">Coverage</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white" data-testid="metric-success">98%</div>
-                    <div className="text-sm text-white/80" data-testid="metric-success-label">Success Rate</div>
-                  </div>
-                </div>
-                
-                <Link href="/contact#contact-form">
-                  <Button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg" data-testid="emergency-get-started">
-                    Enhance Your EMS
-                  </Button>
-                </Link>
-              </div>
-              
-              {/* Hero Image */}
-              <div className="relative hidden lg:block">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src={emergencyHeroImage?.mediaUrl || emergencyHeroFallback} 
-                    alt={emergencyHeroImage?.mediaAlt || "Emergency medical response team in action"} 
-                    className="w-full h-96 object-cover"
-                    data-testid="emergency-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                  
-                  {/* Floating Badges */}
-                  <div className="absolute top-6 right-6 bg-white/95 text-foreground px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <AlertTriangle className="h-4 w-4 text-red-500" />
-                    <span className="text-sm font-semibold">Emergency Ready</span>
-                  </div>
-                  
-                  <div className="absolute bottom-6 left-6 bg-white/95 text-foreground px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <MapPin className="h-4 w-4 text-blue-500" />
-                    <span className="text-sm font-semibold">GPS Enabled</span>
-                  </div>
-                </div>
-              </div>
+     <section className="relative py-20 overflow-hidden text-white">
+  {/* Background Image */}
+  <img
+    src={emergencyHeroImage?.mediaUrl || emergencyHeroFallback}
+    alt={emergencyHeroImage?.mediaAlt || "Emergency medical response team in action"}
+    className="absolute inset-0 w-full h-full object-cover"
+    data-testid="emergency-hero-image"
+  />
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-black/60"></div>
+   {/* Top Right Badges */}
+<div className="lg:absolute lg:top-6 lg:right-6 flex flex-wrap gap-3 mb-6 lg:mb-0 z-20">
+
+      <div className="bg-white/95 text-foreground px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+        <AlertTriangle className="h-4 w-4 text-red-500" />
+        <span className="text-sm font-semibold">Emergency Ready</span>
+      </div>
+
+      <div className="bg-white/95 text-foreground px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+        <MapPin className="h-4 w-4 text-blue-500" />
+        <span className="text-sm font-semibold">GPS Enabled</span>
+      </div>
+    </div>
+ <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+
+
+    <div className="flex justify-start">
+      
+      {/* Glass Hero Content */}
+      <div className="max-w-2xl w-full backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 shadow-2xl">
+        
+        <h1
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+          data-testid="emergency-hero-title"
+        >
+          Advanced Emergency Services
+          <span className="block text-white/90 mt-2">
+            Enhance Response Times & Patient Care
+          </span>
+        </h1>
+
+        <p
+          className="text-xl text-white/90 mb-8"
+          data-testid="emergency-hero-description"
+        >
+          Improve response times and coordinate patient care during emergencies with our comprehensive digital platform designed for emergency medical service providers.
+        </p>
+
+        {/* Metrics */}
+        <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white" data-testid="metric-response">
+              &lt;8 Min
+            </div>
+            <div className="text-sm text-white/80" data-testid="metric-response-label">
+              Response Time
             </div>
           </div>
-        </section>
+
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white" data-testid="metric-coverage">
+              24/7
+            </div>
+            <div className="text-sm text-white/80" data-testid="metric-coverage-label">
+              Coverage
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white" data-testid="metric-success">
+              98%
+            </div>
+            <div className="text-sm text-white/80" data-testid="metric-success-label">
+              Success Rate
+            </div>
+          </div>
+        </div>
+
+        <Link href="/contact#contact-form">
+          <Button
+            className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
+            data-testid="emergency-get-started"
+          >
+            Enhance Your EMS
+          </Button>
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         {/* Services Grid */}
         <section className="py-20 bg-background">

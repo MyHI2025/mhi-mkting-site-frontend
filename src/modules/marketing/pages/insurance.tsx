@@ -308,119 +308,123 @@ const [location, setLocation] = useLocation();
 
       <main>
         {/* Hero Section */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="text-left">
-                <h1
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
-                  data-testid="insurance-hero-title"
-                >
-                  Transform Insurance Operations
-                  <span className="block text-white/90 mt-2">
-                    Efficient Claims & Preventive Care
-                  </span>
-                </h1>
-                <p
-                  className="text-xl text-white/90 mb-8"
-                  data-testid="insurance-hero-description"
-                >
-                  Efficient claims management and preventative care coordination
-                  with our comprehensive digital platform designed for health
-                  insurance providers.
-                </p>
+      <section className="relative text-white py-20 overflow-hidden">
+  {/* Background Image */}
+  <img
+    src={insuranceHeroImage?.mediaUrl || insuranceHeroFallback}
+    alt={
+      insuranceHeroImage?.mediaAlt ||
+      "Diverse African healthcare team"
+    }
+    className="absolute inset-0 w-full h-full object-cover"
+    data-testid="insurance-hero-image"
+  />
 
-                {/* Metrics */}
-                <div className="flex flex-wrap gap-8 mb-8">
-                  <div>
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-claims"
-                    >
-                      70%
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-claims-label"
-                    >
-                      Faster Claims
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-accuracy"
-                    >
-                      99.5%
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-accuracy-label"
-                    >
-                      Accuracy
-                    </div>
-                  </div>
-                  <div>
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-support"
-                    >
-                      24/7
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-support-label"
-                    >
-                      Support
-                    </div>
-                  </div>
-                </div>
+  {/* Dark overlay for readability */}
+  <div className="absolute inset-0 bg-black/50"></div>
 
-                <Link href="/contact#contact-form">
-                  <Button
-                    className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
-                    data-testid="insurance-get-started"
-                  >
-                    Modernize Your Operations
-                  </Button>
-                </Link>
-              </div>
+      {/* Floating Badges - Top Right */}
+      <div className="absolute top-0 right-0 flex gap-4">
+        <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+          <Shield className="h-4 w-4 text-primary" />
+          <span className="text-sm font-semibold text-foreground">
+            HIPAA Compliant
+          </span>
+        </div>
 
-              {/* Hero Image */}
-              <div className="relative">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img
-                    src={insuranceHeroImage?.mediaUrl || insuranceHeroFallback}
-                    alt={
-                      insuranceHeroImage?.mediaAlt ||
-                      "Diverse African healthcare team"
-                    }
-                    className="w-full h-96 object-cover"
-                    data-testid="insurance-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+        <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+          <TrendingUp className="h-4 w-4 text-primary" />
+          <span className="text-sm font-semibold text-foreground">
+            AI Powered
+          </span>
+        </div>
+      </div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="relative">
 
-                  {/* Floating Badges */}
-                  <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-semibold text-foreground">
-                      HIPAA Compliant
-                    </span>
-                  </div>
 
-                  <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-semibold text-foreground">
-                      AI Powered
-                    </span>
-                  </div>
-                </div>
-              </div>
+      {/* Hero Content */}
+      <div className="max-w-2xl bg-white/10 backdrop-blur-lg p-8 rounded-2xl">
+        <h1
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+          data-testid="insurance-hero-title"
+        >
+          Transform Insurance Operations
+          <span className="block text-white/90 mt-2">
+            Efficient Claims & Preventive Care
+          </span>
+        </h1>
+
+        <p
+          className="text-xl text-white/90 mb-8"
+          data-testid="insurance-hero-description"
+        >
+          Efficient claims management and preventative care coordination
+          with our comprehensive digital platform designed for health
+          insurance providers.
+        </p>
+
+        {/* Metrics */}
+        <div className="flex flex-wrap gap-8 mb-8">
+          <div>
+            <div
+              className="text-3xl font-bold text-white"
+              data-testid="metric-claims"
+            >
+              70%
+            </div>
+            <div
+              className="text-sm text-white/80"
+              data-testid="metric-claims-label"
+            >
+              Faster Claims
             </div>
           </div>
-        </section>
+
+          <div>
+            <div
+              className="text-3xl font-bold text-white"
+              data-testid="metric-accuracy"
+            >
+              99.5%
+            </div>
+            <div
+              className="text-sm text-white/80"
+              data-testid="metric-accuracy-label"
+            >
+              Accuracy
+            </div>
+          </div>
+
+          <div>
+            <div
+              className="text-3xl font-bold text-white"
+              data-testid="metric-support"
+            >
+              24/7
+            </div>
+            <div
+              className="text-sm text-white/80"
+              data-testid="metric-support-label"
+            >
+              Support
+            </div>
+          </div>
+        </div>
+
+        <Link href="/contact#contact-form">
+          <Button
+            className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
+            data-testid="insurance-get-started"
+          >
+            Modernize Your Operations
+          </Button>
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         {/* Services Grid */}
         <section className="py-20 bg-background">

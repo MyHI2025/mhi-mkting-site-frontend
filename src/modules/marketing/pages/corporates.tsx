@@ -180,82 +180,96 @@ export default function Corporates() {
       
       <main>
         {/* Hero Section - Enhanced with Professional Imagery */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/20"></div>
-          
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="flex flex-col lg:flex-row gap-12 items-center">
-              {/* Content Column - Left */}
-              <div className="flex-1 w-full space-y-6">
-                <h1 className="text-4xl sm:text-5xl font-bold leading-tight" data-testid="corporates-hero-title">
-                  Transform Your Employee Wellness Program
-                  <span className="block text-white/90 mt-2">
-                    Comprehensive Corporate Health Solutions
-                  </span>
-                </h1>
-                <p className="text-xl text-white/90 max-w-2xl" data-testid="corporates-hero-description">
-                  Reduce healthcare costs, improve employee satisfaction, and boost productivity with our integrated digital health platform designed specifically for corporate wellness programs.
-                </p>
-                
-                {/* Key Metrics */}
-                <div className="grid grid-cols-3 gap-6 py-6">
-                  <div className="text-center lg:text-left">
-                    <div className="text-3xl sm:text-4xl font-bold text-white mb-1" data-testid="metric-cost">30%</div>
-                    <div className="text-sm text-white/80" data-testid="metric-cost-label">Cost Reduction</div>
-                  </div>
-                  <div className="text-center lg:text-left">
-                    <div className="text-3xl sm:text-4xl font-bold text-white mb-1" data-testid="metric-satisfaction">95%</div>
-                    <div className="text-sm text-white/80" data-testid="metric-satisfaction-label">Satisfaction</div>
-                  </div>
-                  <div className="text-center lg:text-left">
-                    <div className="text-3xl sm:text-4xl font-bold text-white mb-1" data-testid="metric-support">24/7</div>
-                    <div className="text-sm text-white/80" data-testid="metric-support-label">Support</div>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a  href="https://calendly.com/david-izuogu-myhealthintegral/partnership-call-with-mhi">
-                  <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-8 py-4 group" data-testid="corporates-schedule-demo">
-                    <Calendar className="mr-2 h-5 w-5" />
-                    Schedule Enterprise Demo
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                  </a>
-                   <Link href="/contact#contact-form">
-                  <Button variant="outline" size="lg" className="border-white text-primary  hover:bg-white/90 hover:text-primary px-8 py-4" data-testid="corporates-contact-sales">
-                    Contact Sales Team
-                  </Button>
-                  </Link>
-                </div>
-              </div>
-              
-              {/* Image Column - Right */}
-              <div className="flex-1 w-full lg:block hidden">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src={corporatesHeroImage?.mediaUrl || corporatesHeroFallback} 
-                    alt={corporatesHeroImage?.mediaAlt || "Diverse African healthcare professionals in corporate wellness setting"} 
-                    className="w-full h-96 object-cover"
-                    data-testid="corporates-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                  
-                  {/* Floating Badge - HIPAA Secure */}
-                  <div className="absolute top-6 left-6 bg-blue-600 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <Shield className="h-5 w-5" />
-                    <span className="text-sm font-semibold">HIPAA Secure</span>
-                  </div>
-                  
-                  {/* Floating Badge - Employee Wellness */}
-                  <div className="absolute bottom-6 right-6 bg-green-600 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <Heart className="h-5 w-5" />
-                    <span className="text-sm font-semibold">Employee Wellness</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+       <section className="relative text-white py-20 overflow-hidden">
+  {/* Background Image */}
+  <div className="absolute inset-0">
+    <img 
+      src={corporatesHeroImage?.mediaUrl || corporatesHeroFallback} 
+      alt={corporatesHeroImage?.mediaAlt || "Diverse African healthcare professionals in corporate wellness setting"} 
+      className="w-full h-full object-cover"
+      data-testid="corporates-hero-image"
+    />
+    <div className="absolute inset-0 bg-black/50"></div>
+  </div>
+    {/* Top Right Badges */}
+    <div className="absolute top-6 right-6 flex gap-4 z-20">
+      <div className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+        <Shield className="h-5 w-5" />
+        <span className="text-sm font-semibold">HIPAA Secure</span>
+      </div>
+
+      <div className="bg-green-600 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+        <Heart className="h-5 w-5" />
+        <span className="text-sm font-semibold">Employee Wellness</span>
+      </div>
+    </div>
+
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+    
+
+    <div className="flex flex-col lg:flex-row gap-12 items-center">
+      
+      {/* Content Column - Left */}
+      <div className="flex-1 w-full space-y-6 backdrop-blur-md bg-white/10 p-8 rounded-2xl border border-white/20">
+        <h1 className="text-4xl sm:text-5xl font-bold leading-tight" data-testid="corporates-hero-title">
+          Transform Your Employee Wellness Program
+          <span className="block text-white/90 mt-2">
+            Comprehensive Corporate Health Solutions
+          </span>
+        </h1>
+
+        <p className="text-xl text-white/90 max-w-2xl" data-testid="corporates-hero-description">
+          Reduce healthcare costs, improve employee satisfaction, and boost productivity with our integrated digital health platform designed specifically for corporate wellness programs.
+        </p>
+
+        {/* Key Metrics */}
+        <div className="grid grid-cols-3 gap-6 py-6">
+          <div className="text-center lg:text-left">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-1" data-testid="metric-cost">30%</div>
+            <div className="text-sm text-white/80" data-testid="metric-cost-label">Cost Reduction</div>
           </div>
-        </section>
+          <div className="text-center lg:text-left">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-1" data-testid="metric-satisfaction">95%</div>
+            <div className="text-sm text-white/80" data-testid="metric-satisfaction-label">Satisfaction</div>
+          </div>
+          <div className="text-center lg:text-left">
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-1" data-testid="metric-support">24/7</div>
+            <div className="text-sm text-white/80" data-testid="metric-support-label">Support</div>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <a href="https://calendly.com/david-izuogu-myhealthintegral/partnership-call-with-mhi">
+            <Button
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 px-8 py-4 group"
+              data-testid="corporates-schedule-demo"
+            >
+              <Calendar className="mr-2 h-5 w-5" />
+              Schedule Enterprise Demo
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </a>
+
+          <Link href="/contact#contact-form">
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-white text-black hover:bg-white/90 hover:text-primary px-8 py-4"
+              data-testid="corporates-contact-sales"
+            >
+              Contact Sales Team
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Keep right column spacing for layout balance */}
+      <div className="flex-1 hidden lg:block"></div>
+    </div>
+  </div>
+</section>
+
 
         {/* Services Grid */}
         <section className="py-20 bg-background">

@@ -306,114 +306,122 @@ export default function Pharmacies() {
 
       <main>
         {/* Hero Section - Enhanced with Professional Imagery */}
-        <section className="hero-gradient text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <section
+          className="relative text-white py-20 overflow-hidden bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${
+              pharmaciesHeroImage?.mediaUrl || pharmacyHeroFallback
+            })`,
+          }}
+        >
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Hero Content */}
               <div className="text-left">
-                <h1
-                  className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
-                  data-testid="pharmacies-hero-title"
-                >
-                  Modernize Your Pharmacy
-                  <span className="block text-white/90 mt-2">
-                    Digital Solutions for Enhanced Operations
-                  </span>
-                </h1>
-                <p
-                  className="text-xl text-white/90 mb-8"
-                  data-testid="pharmacies-hero-description"
-                >
-                  Streamline your pharmacy operations with digital
-                  prescriptions, inventory management, and comprehensive patient
-                  care solutions designed for modern pharmacies.
-                </p>
-
-                {/* Key Metrics */}
-                <div className="grid grid-cols-3 gap-6 mb-8">
-                  <div className="text-center lg:text-left">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-processing"
-                    >
-                      60%
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-processing-label"
-                    >
-                      Faster Processing
-                    </div>
-                  </div>
-                  <div className="text-center lg:text-left">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-prescriptions"
-                    >
-                      100K+
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-prescriptions-label"
-                    >
-                      Prescriptions
-                    </div>
-                  </div>
-                  <div className="text-center lg:text-left">
-                    <div
-                      className="text-3xl font-bold text-white"
-                      data-testid="metric-delivery"
-                    >
-                      Same Day
-                    </div>
-                    <div
-                      className="text-sm text-white/80"
-                      data-testid="metric-delivery-label"
-                    >
-                      Delivery
-                    </div>
-                  </div>
-                </div>
-
-                <Link href="/contact#contact-form">
-                  <Button
-                    className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
-                    data-testid="pharmacies-get-started"
+                {/* Blurred glass background */}
+                <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl">
+                  <h1
+                    className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
+                    data-testid="pharmacies-hero-title"
                   >
-                    Digitize Your Pharmacy
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Hero Image */}
-              <div className="relative hidden lg:block">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                  <img
-                    src={pharmaciesHeroImage?.mediaUrl || pharmacyHeroFallback}
-                    alt={
-                      pharmaciesHeroImage?.mediaAlt ||
-                      "Modern digital pharmacy operations"
-                    }
-                    className="w-full h-96 object-cover"
-                    data-testid="pharmacies-hero-image"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-
-                  {/* Floating Badges */}
-                  <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <Shield className="h-4 w-4" />
-                    <span className="text-sm font-semibold">
-                      Verified Pharmacy
+                    Modernize Your Pharmacy
+                    <span className="block text-white/90 mt-2">
+                      Digital Solutions for Enhanced Operations
                     </span>
+                  </h1>
+
+                  <p
+                    className="text-xl text-white/90 mb-8"
+                    data-testid="pharmacies-hero-description"
+                  >
+                    Streamline your pharmacy operations with digital
+                    prescriptions, inventory management, and comprehensive
+                    patient care solutions designed for modern pharmacies.
+                  </p>
+
+                  {/* Key Metrics */}
+                  <div className="grid grid-cols-3 gap-6 mb-8">
+                    <div className="text-center lg:text-left">
+                      <div
+                        className="text-3xl font-bold text-white"
+                        data-testid="metric-processing"
+                      >
+                        60%
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-processing-label"
+                      >
+                        Faster Processing
+                      </div>
+                    </div>
+
+                    <div className="text-center lg:text-left">
+                      <div
+                        className="text-3xl font-bold text-white"
+                        data-testid="metric-prescriptions"
+                      >
+                        100K+
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-prescriptions-label"
+                      >
+                        Prescriptions
+                      </div>
+                    </div>
+
+                    <div className="text-center lg:text-left">
+                      <div
+                        className="text-3xl font-bold text-white"
+                        data-testid="metric-delivery"
+                      >
+                        Same Day
+                      </div>
+                      <div
+                        className="text-sm text-white/80"
+                        data-testid="metric-delivery-label"
+                      >
+                        Delivery
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                    <Zap className="h-4 w-4" />
-                    <span className="text-sm font-semibold">Fast Delivery</span>
-                  </div>
+                  <Link href="/contact#contact-form">
+                    <Button
+                      className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/95 transition-colors shadow-lg"
+                      data-testid="pharmacies-get-started"
+                    >
+                      Digitize Your Pharmacy
+                    </Button>
+                  </Link>
                 </div>
               </div>
+
+              {/* Right side spacer (keeps layout balance on lg screens) */}
+              <div className="hidden lg:block"></div>
+            </div>
+          </div>
+
+          {/* Top Right Badges */}
+          <div
+            className="relative sm:absolute sm:top-6 sm:right-6 
+                flex flex-col sm:flex-row 
+                gap-3 sm:gap-4 
+                mb-6 sm:mb-0 
+                z-20"
+          >
+            <div className="bg-white/95 backdrop-blur-sm text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+              <Shield className="h-4 w-4" />
+              <span className="text-sm font-semibold">Verified Pharmacy</span>
+            </div>
+
+            <div className="bg-white/95 backdrop-blur-sm text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+              <Zap className="h-4 w-4" />
+              <span className="text-sm font-semibold">Fast Delivery</span>
             </div>
           </div>
         </section>
@@ -477,7 +485,7 @@ export default function Pharmacies() {
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-6">
-              {benefits.map((benefit, index) => {
+                {benefits.map((benefit, index) => {
                   const isEvenRow = Math.floor(index / 2) % 2 === 0;
 
                   const colorClasses = isEvenRow
