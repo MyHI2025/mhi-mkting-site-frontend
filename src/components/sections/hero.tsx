@@ -171,7 +171,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
         <div className="grid lg:grid-cols-2 items-center">
           {/* Hero Content */}
-          <div className="w-full max-w-2xl">
+          <div className="w-full max-w-3xl">
             <div
               className="bg-white/10 backdrop-blur-xl rounded-2xl 
                         p-6 sm:p-8 lg:p-12 
@@ -204,8 +204,8 @@ export default function Hero() {
 
               {/* Heading */}
               <h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
-                       font-bold leading-tight mb-4 sm:mb-6"
+               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+             font-bold leading-tight break-words"
                 data-testid="hero-title"
               >
                 <span className="block mb-2">{currentPersona.title}</span>
